@@ -1,26 +1,16 @@
 package com.example.royal_decor.Activity
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.util.DisplayMetrics
-import android.view.MotionEvent
 import android.view.Window
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.AnimationUtils
-import android.widget.AdapterView
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.royal_decor.Adapters.FunctionalitiesAdapter
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
-import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
 
     /*lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
@@ -35,70 +25,70 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dashboard)
 
 
         init()
         //setupToolbar()
-        settingGridView()
-        settingBackgroundImages()
+        //settingGridView()
+        //settingBackgroundImages()
 
 
     }
 
-    private fun settingBackgroundImages() {
+    /* private fun settingBackgroundImages() {
 
 
-        val imageList = ArrayList<Int>()
-        imageList.clear()
-        imageList.add(R.drawable.img9)
-        imageList.add(R.drawable.img2)
-        imageList.add(R.drawable.img3)
-        imageList.add(R.drawable.img4)
-        imageList.add(R.drawable.img1)
-        imageList.add(R.drawable.img2)
-        imageList.add(R.drawable.img3)
-        imageList.add(R.drawable.img4)
-        imageList.add(R.drawable.img1)
-        imageList.add(R.drawable.img2)
-        imageList.add(R.drawable.img3)
-        imageList.add(R.drawable.img4)
+         val imageList = ArrayList<Int>()
+         imageList.clear()
+         imageList.add(R.drawable.img9)
+         imageList.add(R.drawable.img2)
+         imageList.add(R.drawable.img3)
+         imageList.add(R.drawable.img4)
+         imageList.add(R.drawable.img1)
+         imageList.add(R.drawable.img2)
+         imageList.add(R.drawable.img3)
+         imageList.add(R.drawable.img4)
+         imageList.add(R.drawable.img1)
+         imageList.add(R.drawable.img2)
+         imageList.add(R.drawable.img3)
+         imageList.add(R.drawable.img4)
 
-        val aniFadeIn: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fadein)
-        val aniFadeOut: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fadeout)
-
-
-        var i = 0
-        object : CountDownTimer(10000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-
-            }
-
-            override fun onFinish() {
+         val aniFadeIn: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fadein)
+         val aniFadeOut: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fadeout)
 
 
-                aniFadeOut.setAnimationListener(object : AnimationListener {
-                    override fun onAnimationStart(animation: Animation) {}
-                    override fun onAnimationRepeat(animation: Animation) {}
-                    override fun onAnimationEnd(animation: Animation) {
-                        imageAnim.setImageDrawable(resources.getDrawable(imageList.get(i)))
-                        aniFadeIn.setAnimationListener(object : AnimationListener {
-                            override fun onAnimationStart(animation: Animation) {}
-                            override fun onAnimationRepeat(animation: Animation) {}
-                            override fun onAnimationEnd(animation: Animation) {}
-                        })
-                        imageAnim.startAnimation(aniFadeIn)
-                    }
-                })
-                imageAnim.startAnimation(aniFadeOut)
+         var i = 0
+         object : CountDownTimer(10000, 1000) {
+             override fun onTick(millisUntilFinished: Long) {
+
+             }
+
+             override fun onFinish() {
 
 
+                 aniFadeOut.setAnimationListener(object : AnimationListener {
+                     override fun onAnimationStart(animation: Animation) {}
+                     override fun onAnimationRepeat(animation: Animation) {}
+                     override fun onAnimationEnd(animation: Animation) {
+                         imageAnim.setImageDrawable(resources.getDrawable(imageList.get(i)))
+                         aniFadeIn.setAnimationListener(object : AnimationListener {
+                             override fun onAnimationStart(animation: Animation) {}
+                             override fun onAnimationRepeat(animation: Animation) {}
+                             override fun onAnimationEnd(animation: Animation) {}
+                         })
+                         imageAnim.startAnimation(aniFadeIn)
+                     }
+                 })
+                 imageAnim.startAnimation(aniFadeOut)
 
 
 
-             /*   imageAnim.startAnimation(aniFadeOut)
+
+
+              *//*   imageAnim.startAnimation(aniFadeOut)
                 imageAnim.setImageDrawable(resources.getDrawable(imageList.get(i)))
-                imageAnim.startAnimation(aniFadeIn)*/
+                imageAnim.startAnimation(aniFadeIn)*//*
                 i++
                 if (i == imageList.size - 1) {
                     i = 0
@@ -109,10 +99,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
+a
+    }*/
 
-    }
-
-    private fun settingGridView() {
+/*    private fun settingGridView() {
 
         val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
@@ -136,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
 
             }
-    }
+    }*/
 
     companion object {
         var height: Int = 0
@@ -145,7 +135,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
 
-        imageAnim = findViewById(R.id.slide_trans_imageswitcher)
 
     }
 

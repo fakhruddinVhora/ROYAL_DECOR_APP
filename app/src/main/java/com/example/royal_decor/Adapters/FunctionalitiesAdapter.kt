@@ -1,18 +1,12 @@
 package com.example.royal_decor.Adapters
 
-import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
-import com.example.royal_decor.Activity.MainActivity
-import com.example.royal_decor.Activity.MainActivity.Companion.height
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
