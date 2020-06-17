@@ -4,18 +4,26 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.example.royal_decor.Adapters.DashboardRecyclerViewAdapter
+import com.example.royal_decor.Adapters.GraphViewAdapter
+import com.example.royal_decor.Models.DashboardRVObj
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
+import com.google.android.material.tabs.TabLayout
 
 
 class DashboardActivity : AppCompatActivity() {
 
-    /*lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView*/
-    lateinit var imageAnim: ImageView
+    private lateinit var viewPager: ViewPager
+    private lateinit var tablayout: TabLayout
+    private lateinit var dashboardrv: RecyclerView
+    private lateinit var adapter: DashboardRecyclerViewAdapter
+    private lateinit var HorizontalLayout: LinearLayoutManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,150 +34,55 @@ class DashboardActivity : AppCompatActivity() {
         )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-
-
         init()
-        //setupToolbar()
-        //settingGridView()
-        //settingBackgroundImages()
+        setupGraphAdapter()
+        setupRecyclerView()
 
 
     }
 
-    /* private fun settingBackgroundImages() {
-
-
-         val imageList = ArrayList<Int>()
-         imageList.clear()
-         imageList.add(R.drawable.img9)
-         imageList.add(R.drawable.img2)
-         imageList.add(R.drawable.img3)
-         imageList.add(R.drawable.img4)
-         imageList.add(R.drawable.img1)
-         imageList.add(R.drawable.img2)
-         imageList.add(R.drawable.img3)
-         imageList.add(R.drawable.img4)
-         imageList.add(R.drawable.img1)
-         imageList.add(R.drawable.img2)
-         imageList.add(R.drawable.img3)
-         imageList.add(R.drawable.img4)
-
-         val aniFadeIn: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fadein)
-         val aniFadeOut: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fadeout)
-
-
-         var i = 0
-         object : CountDownTimer(10000, 1000) {
-             override fun onTick(millisUntilFinished: Long) {
-
-             }
-
-             override fun onFinish() {
-
-
-                 aniFadeOut.setAnimationListener(object : AnimationListener {
-                     override fun onAnimationStart(animation: Animation) {}
-                     override fun onAnimationRepeat(animation: Animation) {}
-                     override fun onAnimationEnd(animation: Animation) {
-                         imageAnim.setImageDrawable(resources.getDrawable(imageList.get(i)))
-                         aniFadeIn.setAnimationListener(object : AnimationListener {
-                             override fun onAnimationStart(animation: Animation) {}
-                             override fun onAnimationRepeat(animation: Animation) {}
-                             override fun onAnimationEnd(animation: Animation) {}
-                         })
-                         imageAnim.startAnimation(aniFadeIn)
-                     }
-                 })
-                 imageAnim.startAnimation(aniFadeOut)
-
-
-
-
-
-              *//*   imageAnim.startAnimation(aniFadeOut)
-                imageAnim.setImageDrawable(resources.getDrawable(imageList.get(i)))
-                imageAnim.startAnimation(aniFadeIn)*//*
-                i++
-                if (i == imageList.size - 1) {
-                    i = 0
-                }
-                start()
-            }
-        }.start()
-
-
-
-a
-    }*/
-
-/*    private fun settingGridView() {
-
-        val metrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(metrics)
-
-        width = metrics.widthPixels
-        height = metrics.heightPixels
-
-        val gridviewAdapter = FunctionalitiesAdapter()
-        grid_view.adapter = gridviewAdapter
-        grid_view.isVerticalScrollBarEnabled = false
-
-        val List = getFunctionalityList()
-        grid_view.setOnTouchListener { _, event ->
-            event.action == MotionEvent.ACTION_MOVE
+    private fun setupRecyclerView() {
+        val RecyclerViewLayoutManager: RecyclerView.LayoutManager =
+            LinearLayoutManager(applicationContext)
+        dashboardrv.layoutManager = RecyclerViewLayoutManager
+        adapter = DashboardRecyclerViewAdapter(fetchMapValues()) {
+            Toast.makeText(applicationContext, it.text, Toast.LENGTH_SHORT).show()
         }
-        grid_view.onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, position, id ->
-                val user = List[position].first
-                val intent = Intent(applicationContext,DeskBaseActivity::class.java)
-                intent.putExtra("ItemSelected",user)
-                startActivity(intent)
-
-            }
-    }*/
-
-    companion object {
-        var height: Int = 0
-        var width: Int = 0
+        HorizontalLayout =
+            LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.HORIZONTAL, false)
+        dashboardrv.layoutManager = HorizontalLayout
+        dashboardrv.adapter = adapter
     }
+
+    private fun fetchMapValues(): ArrayList<DashboardRVObj> {
+        val tempMap = ArrayList<DashboardRVObj>()
+        tempMap.add(DashboardRVObj(Constants.ADD_PAINTER, R.drawable.ic_addpainter))
+        tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
+        tempMap.add(DashboardRVObj(Constants.UPDATE_DATA, R.drawable.ic_updatecredits))
+        tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
+        tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.ic_view_list))
+        tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))
+        tempMap.add(DashboardRVObj(Constants.VIEW_CREDIT_SCORE, R.drawable.ic_viewcredits))
+
+
+
+
+        return tempMap
+    }
+
+    private fun setupGraphAdapter() {
+        val adapter = GraphViewAdapter(this, supportFragmentManager, 2)
+        tablayout.setupWithViewPager(viewPager)
+        viewPager.adapter = adapter
+    }
+
 
     private fun init() {
-
-
+        tablayout = findViewById(R.id.tab_layout)
+        viewPager = findViewById(R.id.graph_viewpager)
+        dashboardrv = findViewById(R.id.dashboardrv)
     }
 
-    /*private fun setupToolbar() {
-        setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
-    }
-
-    private fun init() {
-        toolbar = findViewById(R.id.toolbar)
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_newsurvey -> {
-
-            }
-            R.id.nav_logout -> {
-
-            }
-            R.id.nav_viewsurveys -> {
-
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }*/
 
     fun getFunctionalityList(): List<Pair<String, Int>> {
         return listOf(
@@ -178,6 +91,7 @@ a
             Pair(Constants.EVALUATE_CREDITS, Color.parseColor("#FA8072")),
             Pair(Constants.UPDATE_DATA, Color.parseColor("#E9967A")),
             Pair(Constants.VIEW_CREDIT_SCORE, Color.parseColor("#FA8072")),
+            Pair(Constants.VIEW_CUSTOMER_LIST, Color.parseColor("#FA8082")),
             Pair(Constants.VIEW_PAINTERS_LIST, Color.parseColor("#E9967A"))
         )
     }

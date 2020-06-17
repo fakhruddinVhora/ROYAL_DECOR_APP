@@ -9,32 +9,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@drawable/dashboardheader">
+        android:layout_weight="1"
+        android:background="@drawable/dashboardheader"
+        android:elevation="@dimen/_100sdp"
+        android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DashBoard"
-            android:textSize="@dimen/_20sdp"
             android:layout_gravity="center"
-            android:textColor="#fff"/>
-        </LinearLayout>
+            android:text="DashBoard"
+            android:textColor="#fff"
+            android:textSize="@dimen/_20sdp" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="7">
+        android:layout_weight="7"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"/>
+            android:layout_weight="5"
+            android:orientation="horizontal">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/graph_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/Widget.Design.TabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabPaddingEnd="6dp"
+                app:tabPaddingStart="6dp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dashboardrv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_30sdp" />
         </LinearLayout>
 
     </LinearLayout>
