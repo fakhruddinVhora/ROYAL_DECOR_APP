@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ROYAL_DECOR</string>
+    <string name="write_a_new_survey">Write a new Survey</string>
+    <string name="lets_see_the_praises">Lets see the praises</string>
+    <string name="logout">Logout</string>
+
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
