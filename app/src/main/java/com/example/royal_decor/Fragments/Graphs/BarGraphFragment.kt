@@ -1,4 +1,4 @@
-package com.example.royal_decor.Fragments
+package com.example.royal_decor.Fragments.Graphs
 
 import android.os.Bundle
 import android.view.LayoutInflater

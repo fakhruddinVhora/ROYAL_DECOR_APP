@@ -18,4 +18,8 @@
         <!-- Support library compatibility -->
         <item name="windowActionBarOverlay">true</item>
     </style>
+
+
+
+
 </resources>

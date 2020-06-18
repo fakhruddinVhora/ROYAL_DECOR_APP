@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.royal_decor.Fragments.BarGraphFragment
-import com.example.royal_decor.Fragments.PieChartFragement
+import com.example.royal_decor.Fragments.Graphs.BarGraphFragment
+import com.example.royal_decor.Fragments.Graphs.PieChartFragement
 
 class GraphViewAdapter(
     private val myContext: Context,

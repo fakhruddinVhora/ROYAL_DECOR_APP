@@ -1,10 +1,13 @@
 package com.example.royal_decor.Activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +20,16 @@ import com.example.royal_decor.Utils.Constants
 import com.google.android.material.tabs.TabLayout
 
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewPager: ViewPager
     private lateinit var tablayout: TabLayout
     private lateinit var dashboardrv: RecyclerView
     private lateinit var adapter: DashboardRecyclerViewAdapter
     private lateinit var HorizontalLayout: LinearLayoutManager
+    private lateinit var backImg: ImageView
+    private lateinit var logoutImg: ImageView
+    private lateinit var headertext: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +41,17 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         init()
+        initialization()
         setupGraphAdapter()
         setupRecyclerView()
 
 
+    }
+
+    private fun initialization() {
+        backImg.visibility = View.GONE
+        logoutImg.visibility = View.VISIBLE
+        headertext.text = "DASHBOARD"
     }
 
     private fun setupRecyclerView() {
@@ -46,7 +59,15 @@ class DashboardActivity : AppCompatActivity() {
             LinearLayoutManager(applicationContext)
         dashboardrv.layoutManager = RecyclerViewLayoutManager
         adapter = DashboardRecyclerViewAdapter(fetchMapValues()) {
-            Toast.makeText(applicationContext, it.text, Toast.LENGTH_SHORT).show()
+            val i = Intent(this, DeskBaseActivity::class.java)
+            val stringtag = "ItemSelected"
+            if (it.text.equals(Constants.ADD_PAINTER)) {
+                i.putExtra(stringtag, Constants.ADD_PAINTER)
+            }
+            if (it.text.equals(Constants.ADD_PRODUCT)) {
+                i.putExtra(stringtag, Constants.ADD_PRODUCT)
+            }
+            startActivity(i)
         }
         HorizontalLayout =
             LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -60,12 +81,9 @@ class DashboardActivity : AppCompatActivity() {
         tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
         tempMap.add(DashboardRVObj(Constants.UPDATE_DATA, R.drawable.ic_updatecredits))
         tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
-        tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.ic_view_list))
+        tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.view_customer))
         tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))
         tempMap.add(DashboardRVObj(Constants.VIEW_CREDIT_SCORE, R.drawable.ic_viewcredits))
-
-
-
 
         return tempMap
     }
@@ -81,18 +99,13 @@ class DashboardActivity : AppCompatActivity() {
         tablayout = findViewById(R.id.tab_layout)
         viewPager = findViewById(R.id.graph_viewpager)
         dashboardrv = findViewById(R.id.dashboardrv)
+
+        backImg = findViewById(R.id.img_back)
+        logoutImg = findViewById(R.id.img_logout)
+        headertext = findViewById(R.id.header_text)
     }
 
+    override fun onClick(v: View?) {
 
-    fun getFunctionalityList(): List<Pair<String, Int>> {
-        return listOf(
-            Pair(Constants.ADD_PAINTER, Color.parseColor("#CD5C5C")),
-            Pair(Constants.ADD_PRODUCT, Color.parseColor("#F08080")),
-            Pair(Constants.EVALUATE_CREDITS, Color.parseColor("#FA8072")),
-            Pair(Constants.UPDATE_DATA, Color.parseColor("#E9967A")),
-            Pair(Constants.VIEW_CREDIT_SCORE, Color.parseColor("#FA8072")),
-            Pair(Constants.VIEW_CUSTOMER_LIST, Color.parseColor("#FA8082")),
-            Pair(Constants.VIEW_PAINTERS_LIST, Color.parseColor("#E9967A"))
-        )
     }
 }

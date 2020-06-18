@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -31,7 +30,7 @@
             android:layout_marginBottom="@dimen/_50sdp"
             android:fontFamily="@font/josefinsansbold"
             android:gravity="center"
-            android:text="Fill up painter's details"
+            android:text="Enter Product Details"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_20sdp" />
 
@@ -49,7 +48,7 @@
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
-                android:hint="Name"
+                android:hint="Product Name"
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
@@ -63,27 +62,6 @@
                     android:textColorHint="@color/colorPrimary" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
-                android:fontFamily="@font/josefinsansregular"
-                android:hint="Address"
-                android:textColor="@color/colorPrimary"
-                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                app:counterEnabled="true"
-                app:counterMaxLength="100">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:maxLines="2"
-                    android:textColorHint="@color/colorPrimary" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -92,7 +70,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
-                android:hint="Mobile Number"
+                android:hint="Credits"
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
@@ -107,30 +85,10 @@
                     android:textColorHint="@color/colorPrimary" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
-                android:fontFamily="@font/josefinsansregular"
-                android:hint="Aadhar ID"
-                android:textColor="@color/colorPrimary"
-                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                app:counterEnabled="true"
-                app:counterMaxLength="30">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:textColorHint="@color/colorPrimary" />
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_product"
             style="@style/TextAppearance.AppCompat.Widget.Button"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_50sdp"

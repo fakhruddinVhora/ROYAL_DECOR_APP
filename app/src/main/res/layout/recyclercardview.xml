@@ -35,6 +35,7 @@
             android:layout_marginEnd="@dimen/_2sdp"
             android:maxLines="2"
             android:paddingStart="@dimen/_2sdp"
+            android:fontFamily="@font/josefinsansregular"
             android:text="kjfdnkj"
             android:textColor="@color/primary_light"
             android:textSize="@dimen/_9sdp" />
