@@ -1,7 +1,6 @@
 package com.example.royal_decor.Activity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -66,6 +65,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             }
             if (it.text.equals(Constants.ADD_PRODUCT)) {
                 i.putExtra(stringtag, Constants.ADD_PRODUCT)
+            }
+            if (it.text.equals(Constants.VIEW_CUSTOMER_LIST)) {
+                i.putExtra(stringtag, Constants.VIEW_CUSTOMER_LIST)
             }
             startActivity(i)
         }

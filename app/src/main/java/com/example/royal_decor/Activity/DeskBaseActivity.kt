@@ -1,6 +1,5 @@
 package com.example.royal_decor.Activity
 
-import android.R.attr
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.royal_decor.Fragments.AddPainterFragment
 import com.example.royal_decor.Fragments.AddProductFragment
+import com.example.royal_decor.Fragments.CustomerListFragment
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
@@ -33,12 +33,15 @@ class DeskBaseActivity : AppCompatActivity() {
     }
 
     private fun getFragment(sectionName: String): Fragment? {
-        when(sectionName){
-            Constants.ADD_PAINTER->{
-                return  AddPainterFragment()
+        when (sectionName) {
+            Constants.ADD_PAINTER -> {
+                return AddPainterFragment()
             }
-            Constants.ADD_PRODUCT->{
+            Constants.ADD_PRODUCT -> {
                 return AddProductFragment()
+            }
+            Constants.VIEW_CUSTOMER_LIST -> {
+                return CustomerListFragment()
             }
         }
         return null

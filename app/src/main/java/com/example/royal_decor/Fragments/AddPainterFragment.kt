@@ -1,22 +1,15 @@
 package com.example.royal_decor.Fragments
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.example.royal_decor.Activity.DeskBaseActivity
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.header.*
 
 
 class AddPainterFragment : Fragment(), View.OnClickListener {
@@ -58,7 +51,12 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
             R.id.img_back -> {activity!!.finish()}
             R.id.btn_add -> {
                 val constant = Constants()
-                constant.generateSnackBar(activity!!.applicationContext,v,"Painter added successfully")
+                val t = constant.idGenerator(Constants.isPainter)
+                constant.generateSnackBar(
+                    activity!!.applicationContext,
+                    v,
+                    "Painter added successfully::$t"
+                )
             }
         }
     }
