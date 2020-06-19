@@ -20,7 +20,8 @@ class CustomerListAdapter(
         viewType: Int
     ): CustomerListAdapter.ViewHolder {
         val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.custlistcardview, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.custpainterlistcardview, parent, false)
         return ViewHolder(v)
     }
 

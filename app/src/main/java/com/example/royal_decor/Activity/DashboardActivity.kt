@@ -69,6 +69,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             if (it.text.equals(Constants.VIEW_CUSTOMER_LIST)) {
                 i.putExtra(stringtag, Constants.VIEW_CUSTOMER_LIST)
             }
+            if (it.text.equals(Constants.VIEW_PAINTERS_LIST)) {
+                i.putExtra(stringtag, Constants.VIEW_PAINTERS_LIST)
+            }
             startActivity(i)
         }
         HorizontalLayout =
@@ -81,7 +84,6 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         val tempMap = ArrayList<DashboardRVObj>()
         tempMap.add(DashboardRVObj(Constants.ADD_PAINTER, R.drawable.ic_addpainter))
         tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
-        tempMap.add(DashboardRVObj(Constants.UPDATE_DATA, R.drawable.ic_updatecredits))
         tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
         tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.view_customer))
         tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))

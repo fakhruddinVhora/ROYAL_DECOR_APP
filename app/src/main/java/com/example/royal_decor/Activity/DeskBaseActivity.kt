@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.royal_decor.Fragments.AddPainterFragment
 import com.example.royal_decor.Fragments.AddProductFragment
 import com.example.royal_decor.Fragments.CustomerListFragment
+import com.example.royal_decor.Fragments.PainterListFragment
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
@@ -42,6 +43,9 @@ class DeskBaseActivity : AppCompatActivity() {
             }
             Constants.VIEW_CUSTOMER_LIST -> {
                 return CustomerListFragment()
+            }
+            Constants.VIEW_PAINTERS_LIST -> {
+                return PainterListFragment()
             }
         }
         return null

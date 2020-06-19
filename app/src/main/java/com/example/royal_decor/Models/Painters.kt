@@ -1,3 +1,9 @@
 package com.example.royal_decor.Models
 
-data class Painters(var name:String, var id : String, var emailid : String, var aadharid : String, val address : String)
+data class Painters(
+    var id: String,
+    var name: String,
+    var mobile: String,
+    var address: String,
+    val aadhar: String
+)
