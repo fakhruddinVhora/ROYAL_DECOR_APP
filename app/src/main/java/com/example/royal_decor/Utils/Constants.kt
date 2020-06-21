@@ -16,7 +16,7 @@ class Constants {
     companion object {
         val ADD_PRODUCT = "Add Product"
         val EVALUATE_CREDITS = "Evaluate Credits"
-        val UPDATE_DATA = "Update Data"
+        val VIEW_PRODUCT = "Products List"
         val ADD_PAINTER = "Add Painter"
         val VIEW_PAINTERS_LIST = "Painters List"
         val VIEW_CUSTOMER_LIST = "Customer List"
@@ -24,6 +24,7 @@ class Constants {
         val isCust = "CUS"
         val isPainter = "PAI"
         val isProduct = "PRO"
+        val isTally = "TAL"
     }
 
     fun rand(start: Int, end: Int): Int {

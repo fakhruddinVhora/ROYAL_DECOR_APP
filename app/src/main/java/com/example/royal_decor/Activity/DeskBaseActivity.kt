@@ -5,10 +5,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.royal_decor.Fragments.AddPainterFragment
-import com.example.royal_decor.Fragments.AddProductFragment
-import com.example.royal_decor.Fragments.CustomerListFragment
-import com.example.royal_decor.Fragments.PainterListFragment
+import com.example.royal_decor.Fragments.*
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
@@ -47,6 +44,16 @@ class DeskBaseActivity : AppCompatActivity() {
             Constants.VIEW_PAINTERS_LIST -> {
                 return PainterListFragment()
             }
+            Constants.EVALUATE_CREDITS -> {
+                return EvaluateCreditsFragment()
+            }
+            Constants.VIEW_CREDIT_SCORE -> {
+                return ViewCreditFragment()
+            }
+            Constants.VIEW_PRODUCT -> {
+                return ViewProductFragment()
+            }
+
         }
         return null
     }

@@ -17,7 +17,8 @@ import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
 
-class PainterListFragment : Fragment(), View.OnClickListener {
+class PainterListFragment : Fragment(), View.OnClickListener,
+    PainterListAdapter.OnPainterClickListener {
 
 
     private lateinit var v: View
@@ -78,9 +79,7 @@ class PainterListFragment : Fragment(), View.OnClickListener {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         painterlistrv.layoutManager = RecyclerViewLayoutManager
-        custadapter = PainterListAdapter(painterListData) {
-            Toast.makeText(activity, it.name, Toast.LENGTH_SHORT).show()
-        }
+        custadapter = PainterListAdapter(painterListData, this)
         painterlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         painterlistrv.adapter = custadapter
@@ -93,6 +92,14 @@ class PainterListFragment : Fragment(), View.OnClickListener {
                 activity!!.finish()
             }
         }
+    }
+
+    override fun OnDeleteClick(item: Painters) {
+        Toast.makeText(activity, "DELETE::$item.name", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun OnEditClick(item: Painters) {
+        Toast.makeText(activity, "EDIT::$item.name", Toast.LENGTH_SHORT).show()
     }
 
 

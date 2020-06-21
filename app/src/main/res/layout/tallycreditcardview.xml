@@ -13,7 +13,7 @@
     <!--Text View over Card View-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_height="@dimen/_30sdp"
         android:layout_gravity="center"
         android:background="@drawable/customroundedlayout"
         android:orientation="horizontal">
@@ -33,73 +33,69 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_2sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:background="@color/icons"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/cus_id"
+                    android:id="@+id/prodname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_2sdp"
                     android:fontFamily="@font/josefinsansregular"
+                    android:gravity="center_vertical"
+                    android:maxWidth="@dimen/_220sdp"
                     android:maxLines="2"
                     android:paddingStart="@dimen/_2sdp"
-                    android:text="kjfdnkj"
+                    android:text="RameshRameshRameshRamesh"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_9sdp" />
+                    android:textSize="@dimen/_12sdp" />
 
                 <TextView
-                    android:id="@+id/cus_mobile"
+                    android:id="@+id/quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:fontFamily="@font/josefinsansbold"
-                    android:maxLines="2"
-                    android:paddingStart="@dimen/_2sdp"
-                    android:text="989898989"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_11sdp" />
-
-                <TextView
-                    android:id="@+id/cus_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/ralewaysemibold"
-                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toStartOf="@id/total"
+                    android:fontFamily="@font/josefinsansregular"
                     android:gravity="center"
-                    android:maxLines="2"
                     android:paddingStart="@dimen/_2sdp"
-                    android:text="Ramesh"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_14sdp" />
-
-
-                <TextView
-                    android:id="@+id/cus_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:fontFamily="@font/ralewaymedium"
-                    android:maxWidth="@dimen/_100sdp"
-                    android:maxLines="2"
-                    android:paddingStart="@dimen/_2sdp"
-                    android:text="kjfdnkj"
+                    android:text="2"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_toStartOf="@id/imgdelete"
+                    android:fontFamily="@font/josefinsansregular"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_2sdp"
+                    android:text="2"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_11sdp" />
+
+                <ImageView
+                    android:id="@+id/imgdelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/ic_delete"
+                    android:tint="@color/colorPrimary" />
+
             </RelativeLayout>
         </LinearLayout>
 
@@ -111,7 +107,8 @@
             android:layout_marginBottom="@dimen/_4sdp"
             android:layout_weight="1"
             android:background="#fff"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/imginfo"
@@ -124,16 +121,6 @@
                 android:src="@drawable/ic_info"
                 android:tint="@color/colorPrimary" />
 
-            <ImageView
-                android:id="@+id/imgdelete"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_delete"
-                android:tint="@color/colorPrimary" />
 
         </LinearLayout>
     </LinearLayout>

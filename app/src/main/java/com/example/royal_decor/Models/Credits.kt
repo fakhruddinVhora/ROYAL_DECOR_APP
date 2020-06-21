@@ -1,8 +1,7 @@
 package com.example.royal_decor.Models
 
 data class Credits(
-    val productid: String,
-    val painterid: String,
-    val productname: String,
+    val paintername: String,
+    val paintermobile: String,
     val points: Int
 )

@@ -6,20 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.example.royal_decor.Adapters.CustomerListAdapter
-import com.example.royal_decor.Models.Customers
+import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
-class CustomerListFragment : Fragment(), View.OnClickListener {
+class CustomerListFragment : Fragment(), View.OnClickListener,
+    CustomerListAdapter.customerOnclickListener {
 
     private lateinit var v: View
-    private lateinit var viewPager: ViewPager
     private lateinit var custlistrv: RecyclerView
     private lateinit var custadapter: CustomerListAdapter
     private lateinit var VerticalLayout: LinearLayoutManager
@@ -46,21 +44,21 @@ class CustomerListFragment : Fragment(), View.OnClickListener {
 
     }
 
-    private fun fetchingDataForAdapter(): ArrayList<Customers> {
-        val listtobesent = ArrayList<Customers>()
+    private fun fetchingDataForAdapter(): ArrayList<Painters> {
+        val listtobesent = ArrayList<Painters>()
 
-        listtobesent.add(Customers("CUS123", "FAKHRUDDIN", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS125", "JKGBNFJN", "94544851351", "Mehsana", ""))
-        listtobesent.add(Customers("CUS123", "KJDSNGJFN", "94564851351", "Borsad", ""))
-        listtobesent.add(Customers("CUS143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS113", "FJKDSNJDSF", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS123", "FAKHRUDDIN", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS125", "JKGBNFJN", "94544851351", "Mehsana", ""))
-        listtobesent.add(Customers("CUS123", "KJDSNGJFN", "94564851351", "Borsad", ""))
-        listtobesent.add(Customers("CUS143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
-        listtobesent.add(Customers("CUS113", "FJKDSNJDSF", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS123", "FAKHRUDDIN", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS125", "JKGBNFJN", "94544851351", "Mehsana", ""))
+        listtobesent.add(Painters("CUS123", "KJDSNGJFN", "94564851351", "Borsad", ""))
+        listtobesent.add(Painters("CUS143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS113", "FJKDSNJDSF", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS123", "FAKHRUDDIN", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS125", "JKGBNFJN", "94544851351", "Mehsana", ""))
+        listtobesent.add(Painters("CUS123", "KJDSNGJFN", "94564851351", "Borsad", ""))
+        listtobesent.add(Painters("CUS143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
+        listtobesent.add(Painters("CUS113", "FJKDSNJDSF", "94564851351", "Anand", ""))
 
         return listtobesent
     }
@@ -76,13 +74,11 @@ class CustomerListFragment : Fragment(), View.OnClickListener {
         custlistrv = v.findViewById(R.id.customerlistrv)
     }
 
-    private fun settingAdapter(custListData: ArrayList<Customers>) {
+    private fun settingAdapter(custListData: ArrayList<Painters>) {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         custlistrv.layoutManager = RecyclerViewLayoutManager
-        custadapter = CustomerListAdapter(custListData) {
-            Toast.makeText(activity, it.name, Toast.LENGTH_SHORT).show()
-        }
+        custadapter = CustomerListAdapter(custListData, this)
         custlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         custlistrv.adapter = custadapter
@@ -95,6 +91,14 @@ class CustomerListFragment : Fragment(), View.OnClickListener {
                 activity!!.finish()
             }
         }
+    }
+
+    override fun OnDeleteClick(item: Painters) {
+
+    }
+
+    override fun OnInfoClick(item: Painters) {
+
     }
 
 

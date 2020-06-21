@@ -45,6 +45,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         setupRecyclerView()
 
 
+        logoutImg.setOnClickListener(this)
+
     }
 
     private fun initialization() {
@@ -72,6 +74,15 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             if (it.text.equals(Constants.VIEW_PAINTERS_LIST)) {
                 i.putExtra(stringtag, Constants.VIEW_PAINTERS_LIST)
             }
+            if (it.text.equals(Constants.EVALUATE_CREDITS)) {
+                i.putExtra(stringtag, Constants.EVALUATE_CREDITS)
+            }
+            if (it.text.equals(Constants.VIEW_CREDIT_SCORE)) {
+                i.putExtra(stringtag, Constants.VIEW_CREDIT_SCORE)
+            }
+            if (it.text.equals(Constants.VIEW_PRODUCT)) {
+                i.putExtra(stringtag, Constants.VIEW_PRODUCT)
+            }
             startActivity(i)
         }
         HorizontalLayout =
@@ -83,8 +94,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     private fun fetchMapValues(): ArrayList<DashboardRVObj> {
         val tempMap = ArrayList<DashboardRVObj>()
         tempMap.add(DashboardRVObj(Constants.ADD_PAINTER, R.drawable.ic_addpainter))
-        tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
         tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
+        tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
+        tempMap.add(DashboardRVObj(Constants.VIEW_PRODUCT, R.drawable.ic_view_product))
         tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.view_customer))
         tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))
         tempMap.add(DashboardRVObj(Constants.VIEW_CREDIT_SCORE, R.drawable.ic_viewcredits))
@@ -109,7 +121,11 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         headertext = findViewById(R.id.header_text)
     }
 
-    override fun onClick(v: View?) {
-
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.img_logout -> {
+                finish()
+            }
+        }
     }
 }

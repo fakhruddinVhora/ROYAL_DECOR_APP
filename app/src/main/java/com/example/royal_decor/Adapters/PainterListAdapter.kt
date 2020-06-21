@@ -12,7 +12,7 @@ import com.example.royal_decor.R
 
 class PainterListAdapter(
     val painterlist: ArrayList<Painters>,
-    private val listener: (Painters) -> Unit
+    var painterclickListener: OnPainterClickListener
 ) : RecyclerView.Adapter<PainterListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -26,8 +26,10 @@ class PainterListAdapter(
     }
 
     override fun onBindViewHolder(holder: PainterListAdapter.ViewHolder, position: Int) {
-        holder.bindItems(painterlist[position])
-        holder.itemView.setOnClickListener { listener(painterlist[position]) }
+        holder.bindItems(painterlist[position], painterclickListener)
+
+        /*holder.itemView.setOnClickListener { listener(painterlist[position]) }*/
+
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +45,8 @@ class PainterListAdapter(
         val edit = itemView.findViewById(R.id.imginfo) as ImageView
         val delete = itemView.findViewById(R.id.imgdelete) as ImageView
 
-        fun bindItems(painterObj: Painters) {
+
+        fun bindItems(painterObj: Painters, action: OnPainterClickListener) {
 
             edit.setImageResource(0)
             edit.setBackgroundResource(R.drawable.ic_edit)
@@ -51,6 +54,19 @@ class PainterListAdapter(
             custname.text = painterObj.name
             custaddress.text = painterObj.address
             custmobile.text = painterObj.mobile
+
+            edit.setOnClickListener {
+                action.OnEditClick(painterObj)
+            }
+            delete.setOnClickListener {
+                action.OnDeleteClick(painterObj)
+            }
+
         }
+    }
+
+    interface OnPainterClickListener {
+        fun OnDeleteClick(item: Painters)
+        fun OnEditClick(item: Painters)
     }
 }

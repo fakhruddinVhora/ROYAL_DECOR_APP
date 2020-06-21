@@ -39,19 +39,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
                 android:hint="Product Name"
                 android:textColor="@color/colorPrimary"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="30">
 
@@ -66,14 +70,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
                 android:hint="Credits"
                 android:textColor="@color/colorPrimary"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="10">
 
@@ -88,7 +94,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_product"
+            android:id="@+id/btn_addproduct"
             style="@style/TextAppearance.AppCompat.Widget.Button"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_50sdp"

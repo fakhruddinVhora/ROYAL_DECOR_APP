@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/atv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_3sdp"
+        android:fontFamily="@font/josefinsansregular"
+        android:gravity="left"
+        android:paddingStart="@dimen/_10sdp"
+        android:text="Sushant"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_13sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/atv_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/josefinsansregular"
+        android:gravity="right"
+        android:paddingEnd="@dimen/_15sdp"
+        android:text="Mobile: XXX"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@color/divider" />
+
+</LinearLayout>

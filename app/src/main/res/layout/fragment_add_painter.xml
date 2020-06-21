@@ -53,7 +53,12 @@
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                android:background="@null"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                 app:counterEnabled="true"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:counterMaxLength="30">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -74,6 +79,10 @@
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="100">
 
@@ -96,7 +105,11 @@
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
                 app:counterEnabled="true"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
                 app:counterMaxLength="10">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -118,13 +131,18 @@
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
                 app:counterEnabled="true"
-                app:counterMaxLength="30">
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:counterMaxLength="16">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:inputType="number"
                     android:textColorHint="@color/colorPrimary" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
