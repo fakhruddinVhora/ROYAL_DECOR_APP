@@ -44,30 +44,27 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
         val total: Float
         total = (100).toFloat()
 
-        NoOfEmp.add(PieEntry((23 / total).toFloat(), "APEX"))
-        NoOfEmp.add(PieEntry((19 / total).toFloat(), "ULTIMA"))
-        NoOfEmp.add(PieEntry((35 / total).toFloat(), "ROYAL PRIMER"))
-        NoOfEmp.add(PieEntry((10 / total).toFloat(), "DECLATION"))
-        NoOfEmp.add(PieEntry((9 / total).toFloat(), "ASIAN SHINE"))
-        NoOfEmp.add(PieEntry((10 / total).toFloat(), "DECO PRIMER"))
+        NoOfEmp.add(PieEntry((23).toFloat(), "APEX"))
+        NoOfEmp.add(PieEntry((19).toFloat(), "ULTIMA"))
+        NoOfEmp.add(PieEntry((35).toFloat(), "ROYAL PRIMER"))
+        NoOfEmp.add(PieEntry((10).toFloat(), "DECLATION"))
+        NoOfEmp.add(PieEntry((9).toFloat(), "ASIAN SHINE"))
+        NoOfEmp.add(PieEntry((10).toFloat(), "DECO PRIMER"))
         val dataSet = PieDataSet(NoOfEmp, "Product Wise Sale")
         dataSet.setDrawIcons(false)
-        dataSet.sliceSpace = 3f
+        dataSet.sliceSpace = 10f
         dataSet.iconsOffset = MPPointF(0F, 20F)
         dataSet.selectionShift = 5f
         dataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
 
         val data = PieData(dataSet)
-        data.setValueTextSize(10f)
+        data.setValueTextSize(17f)
         data.setValueTextColor(Color.BLACK)
-/*
-        data.setValueTypeface(ResourcesCompat.getFont(context!!, R.font.myfont))
-*/
-
-
+        data.setValueTypeface(ResourcesCompat.getFont(context!!, R.font.ralewaysemibold))
+        pieChart.holeRadius = 10f
 
         pieChart.data = data
-        pieChart.description.isEnabled = false;
+        pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false
         pieChart.highlightValues(null)
         pieChart.invalidate()

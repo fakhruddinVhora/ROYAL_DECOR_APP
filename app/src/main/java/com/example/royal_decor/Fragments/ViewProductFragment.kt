@@ -61,14 +61,14 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     private fun init() {
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
-        prodlistrv = v.findViewById(R.id.creditlistrv)
+        prodlistrv = v.findViewById(R.id.prodlistrv)
     }
 
-    private fun settingAdapter(custListData: List<Product>) {
+    private fun settingAdapter(prodListData: List<Product>) {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         prodlistrv.layoutManager = RecyclerViewLayoutManager
-        prodadapter = ViewProductAdapter(custListData)
+        prodadapter = ViewProductAdapter(prodListData, this)
         prodlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         prodlistrv.adapter = prodadapter

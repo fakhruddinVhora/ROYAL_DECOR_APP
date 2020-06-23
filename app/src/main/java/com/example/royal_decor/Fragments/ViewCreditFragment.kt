@@ -67,7 +67,7 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
     private fun init() {
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
-        credlistrv = v.findViewById(R.id.prodlistrv)
+        credlistrv = v.findViewById(R.id.creditlistrv)
     }
 
     private fun settingAdapter(custListData: List<Credits>) {

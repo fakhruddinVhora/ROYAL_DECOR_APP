@@ -101,23 +101,10 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     }
 
     private fun fetchData(): List<Painters> {
-        val tempList = ArrayList<Painters>()
-        tempList.add(Painters("", "Fakhruddin", "9494455415", "", ""))
-        tempList.add(Painters("", "Rahul", "9494455415", "", ""))
-        tempList.add(Painters("", "Farukh", "3494455415", "", ""))
-        tempList.add(Painters("", "Rajeshwari", "9494655415", "", ""))
-        tempList.add(Painters("", "Fakhruddin", "9494455415", "", ""))
-        tempList.add(Painters("", "Rahul", "9494455415", "", ""))
-        tempList.add(Painters("", "Farukh", "3494455415", "", ""))
-        tempList.add(Painters("", "Rajeshwari", "9494655415", "", ""))
-        tempList.add(Painters("", "Fakhruddin", "9494455415", "", ""))
-        tempList.add(Painters("", "Rahul", "9494455415", "", ""))
-        tempList.add(Painters("", "Farukh", "3494455415", "", ""))
-        tempList.add(Painters("", "Rajeshwari", "9494655415", "", ""))
-        tempList.add(Painters("", "Fakhruddin", "9494455415", "", ""))
-        tempList.add(Painters("", "Rahul", "9494455415", "", ""))
-        tempList.add(Painters("", "Farukh", "3494455415", "", ""))
-        tempList.add(Painters("", "Rajeshwari", "9494655415", "", ""))
+        var tempList = ArrayList<Painters>()
+        if (Constants.PAINTER_DB.size > 0) {
+            tempList = Constants.PAINTER_DB
+        }
         return tempList
     }
 

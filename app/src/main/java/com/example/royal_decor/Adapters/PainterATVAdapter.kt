@@ -16,11 +16,11 @@ import com.example.royal_decor.R
 class PainterATVAdapter(
     context: Context,
     @LayoutRes private val layoutResource: Int,
-    private val CustList: List<Painters>
+    private var PainterList: List<Painters>
 ) :
-    ArrayAdapter<Painters>(context, layoutResource, CustList),
+    ArrayAdapter<Painters>(context, layoutResource, PainterList),
     Filterable {
-    private var tempList: List<Painters> = CustList
+    private var tempList: List<Painters> = PainterList
 
     override fun getCount(): Int {
         return tempList.size
@@ -51,6 +51,7 @@ class PainterATVAdapter(
     }
 
 
+
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun publishResults(
@@ -66,9 +67,9 @@ class PainterATVAdapter(
 
                 val filterResults = Filter.FilterResults()
                 filterResults.values = if (queryString == null || queryString.isEmpty())
-                    CustList
+                    PainterList
                 else
-                    CustList.filter {
+                    PainterList.filter {
                         it.name.toLowerCase().contains(queryString) ||
                                 it.mobile.toLowerCase().contains(queryString)
                     }

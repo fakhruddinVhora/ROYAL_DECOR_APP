@@ -11,7 +11,7 @@ import com.example.royal_decor.R
 
 
 class PainterListAdapter(
-    val painterlist: ArrayList<Painters>,
+    var painterlist: ArrayList<Painters>,
     var painterclickListener: OnPainterClickListener
 ) : RecyclerView.Adapter<PainterListAdapter.ViewHolder>() {
 
@@ -30,6 +30,11 @@ class PainterListAdapter(
 
         /*holder.itemView.setOnClickListener { listener(painterlist[position]) }*/
 
+    }
+
+    fun updatePainterRV(s: ArrayList<Painters>) {
+        painterlist = s
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

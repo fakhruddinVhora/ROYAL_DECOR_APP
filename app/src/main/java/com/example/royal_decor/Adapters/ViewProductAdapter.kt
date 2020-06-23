@@ -10,7 +10,8 @@ import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
 
 class ViewProductAdapter(
-    val prodList: List<Product>
+    val prodList: List<Product>,
+    val clicklistener: OnProductClickedListener
 ) : RecyclerView.Adapter<ViewProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
@@ -29,8 +30,8 @@ class ViewProductAdapter(
             custID.text = prodObj.productID
             custname.text = prodObj.productname
             val points = prodObj.points
-            custaddress.text = "Credit: $points"
-            custmobile.visibility = View.GONE
+            custmobile.text = "Credit: $points"
+            custaddress.visibility = View.GONE
 
             edit.setOnClickListener {
                 action.OnEditClick(prodObj)
@@ -60,6 +61,6 @@ class ViewProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-
+        holder.bindItems(prodList[position], clicklistener)
     }
 }

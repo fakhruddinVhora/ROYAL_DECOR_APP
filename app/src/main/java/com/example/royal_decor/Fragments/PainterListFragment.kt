@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.royal_decor.Adapters.PainterListAdapter
+import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
@@ -24,9 +25,10 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     private lateinit var v: View
     private lateinit var viewPager: ViewPager
     private lateinit var painterlistrv: RecyclerView
-    private lateinit var custadapter: PainterListAdapter
+    private lateinit var painteradapter: PainterListAdapter
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
+    private lateinit var dbHelper: DatabaseHelper
 
 
     override fun onCreateView(
@@ -37,10 +39,9 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_painter_list, container, false)
         init()
         initialization()
-        val PainterListData = fetchingDataForAdapter()
-        if (PainterListData.size != 0) {
-            settingAdapter(PainterListData)
-        }
+        val list = ArrayList<Painters>()
+        settingAdapter(list)
+        dbHelper.fetchpainterdetails(painteradapter, false)
         backImg.setOnClickListener(this)
         return v
     }
@@ -67,6 +68,8 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     private fun initialization() {
         backImg.visibility = View.VISIBLE
         headertext.text = Constants.VIEW_PAINTERS_LIST
+        dbHelper = DatabaseHelper()
+        dbHelper.open()
     }
 
     private fun init() {
@@ -75,14 +78,14 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         painterlistrv = v.findViewById(R.id.painterlistrv)
     }
 
-    private fun settingAdapter(painterListData: ArrayList<Painters>) {
+    fun settingAdapter(painterListData: ArrayList<Painters>) {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         painterlistrv.layoutManager = RecyclerViewLayoutManager
-        custadapter = PainterListAdapter(painterListData, this)
+        painteradapter = PainterListAdapter(painterListData, this)
         painterlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        painterlistrv.adapter = custadapter
+        painterlistrv.adapter = painteradapter
     }
 
 
@@ -95,7 +98,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnDeleteClick(item: Painters) {
-        Toast.makeText(activity, "DELETE::$item.name", Toast.LENGTH_SHORT).show()
+        val result = dbHelper.deletepainter(item, painteradapter)
     }
 
     override fun OnEditClick(item: Painters) {

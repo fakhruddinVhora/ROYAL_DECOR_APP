@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "981315946306",
+    "firebase_url": "https://royaldecor-f8307.firebaseio.com",
+    "project_id": "royaldecor-f8307",
+    "storage_bucket": "royaldecor-f8307.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981315946306:android:162bdc00e80b17b2472adb",
+        "android_client_info": {
+          "package_name": "com.example.royal_decor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981315946306-ae06ahj16rmip9qqma9n0r6vfhpanafo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Ccan-BnW_7Np4ZqHFyoYA7ULXdtUuls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981315946306-ae06ahj16rmip9qqma9n0r6vfhpanafo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

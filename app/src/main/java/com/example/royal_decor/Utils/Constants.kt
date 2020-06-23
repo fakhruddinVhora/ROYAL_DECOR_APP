@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.google.android.material.snackbar.Snackbar
 import java.util.concurrent.TimeUnit
@@ -14,6 +15,7 @@ import kotlin.random.Random
 class Constants {
 
     companion object {
+        //dashboard
         val ADD_PRODUCT = "Add Product"
         val EVALUATE_CREDITS = "Evaluate Credits"
         val VIEW_PRODUCT = "Products List"
@@ -21,10 +23,31 @@ class Constants {
         val VIEW_PAINTERS_LIST = "Painters List"
         val VIEW_CUSTOMER_LIST = "Customer List"
         val VIEW_CREDIT_SCORE = "Credit Scores"
+
+
+        //id generator
         val isCust = "CUS"
         val isPainter = "PAI"
         val isProduct = "PRO"
         val isTally = "TAL"
+
+        //db nodes
+        val NODE_CUSTOMER = "Customer"
+        val NODE_CREDIT = "Credit"
+        val NODE_PAINTER = "Painter"
+        val NODE_PRODUCT = "Product"
+
+
+        //Messages
+        val ERROR_FILL_DETAILS = "Enter appropriate values"
+        val ERROR_EXCEED_LIMIT = "Dont exceed the limit"
+
+
+        //Database Values
+
+        var PAINTER_DB: ArrayList<Painters> = ArrayList()
+
+
     }
 
     fun rand(start: Int, end: Int): Int {

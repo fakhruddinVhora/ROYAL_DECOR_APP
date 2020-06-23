@@ -1,14 +1,13 @@
 package com.example.royal_decor.Fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-
+import androidx.fragment.app.Fragment
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
@@ -42,7 +41,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
     private fun init() {
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
-        addBtn = v.findViewById(R.id.btn_product)
+        addBtn = v.findViewById(R.id.btn_addproduct)
     }
 
     override fun onClick(v: View) {
@@ -52,7 +51,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
             R.id.img_back -> {
                 activity!!.finish()
             }
-            R.id.btn_product -> {
+            R.id.btn_addproduct -> {
                 val constant = Constants()
                 constant.generateSnackBar(
                     activity!!.applicationContext,
