@@ -95,6 +95,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         tempList.add(Product("PRO3435", "Decor 2", "3"))
         tempList.add(Product("PRO5454", "Ultima", "5"))
         tempList.add(Product("PRO4534", "Apex", "12"))
+        tempList.add(Product("PRO4534", "Apex", "12"))
+
         return tempList
 
 
