@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.royal_decor.Models.Credits
+import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 
 class ViewCreditAdpater(
-    val creditList: List<Credits>
+    val creditList: List<Painters>
 ) : RecyclerView.Adapter<ViewCreditAdpater.creditViewHolder>() {
 
 
@@ -20,10 +20,10 @@ class ViewCreditAdpater(
         val credits = itemview.findViewById<TextView>(R.id.creditscore)
 
 
-        fun onBindView(item: Credits) {
-            paintermobno.text = item.paintermobile
-            paintername.text = item.paintername
-            credits.text = item.points.toString()
+        fun onBindView(item: Painters) {
+            paintermobno.text = item.mobile
+            paintername.text = item.name
+            credits.text = item.credits.toString()
         }
     }
 

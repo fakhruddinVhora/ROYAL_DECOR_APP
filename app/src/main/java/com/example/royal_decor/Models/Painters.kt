@@ -6,5 +6,6 @@ data class Painters(
     var mobile: String = "",
     var address: String = "",
     var dateofbirth: String = "",
-    val aadhar: String = ""
+    val aadhar: String = "",
+    var credits: Int = 0
 )

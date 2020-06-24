@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.ViewCreditAdpater
 import com.example.royal_decor.Models.Credits
+import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
@@ -32,10 +33,10 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
 
         init()
         initialization()
-        val CustListData = fetchingDataForAdapter()
+        val CustListData = Constants.PAINTER_DB
         if (CustListData.size != 0) {
-            var sortedList: List<Credits> = CustListData.sortedWith(compareBy {
-                it.points
+            var sortedList: List<Painters> = CustListData.sortedWith(compareBy {
+                it.credits
             })
             sortedList = sortedList.reversed()
             settingAdapter(sortedList)
@@ -70,11 +71,11 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
         credlistrv = v.findViewById(R.id.creditlistrv)
     }
 
-    private fun settingAdapter(custListData: List<Credits>) {
+    private fun settingAdapter(painterlistData: List<Painters>) {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         credlistrv.layoutManager = RecyclerViewLayoutManager
-        creditadapter = ViewCreditAdpater(custListData)
+        creditadapter = ViewCreditAdpater(painterlistData)
         credlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         credlistrv.adapter = creditadapter

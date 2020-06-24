@@ -43,7 +43,7 @@ class ProductATVAdapter(
         val mobileno = view.findViewById<TextView>(R.id.atv_mobile)
         val underlineview = view.findViewById<View>(R.id.underlineview)
 
-        if (position == 0 || position == tempList.size + 1) {
+        if (tempList.size == 1) {
             underlineview.visibility = View.GONE
         }
         text.text = tempList[position].productname

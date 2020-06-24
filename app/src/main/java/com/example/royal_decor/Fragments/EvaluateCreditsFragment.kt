@@ -11,17 +11,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.PainterATVAdapter
 import com.example.royal_decor.Adapters.ProductATVAdapter
 import com.example.royal_decor.Adapters.TallyCreditAdapter
+import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyCredit
+import com.example.royal_decor.Models.TallyLog
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     TallyCreditAdapter.OnPainterClickListener {
 
+    private lateinit var dbHelper: DatabaseHelper
     private lateinit var v: View
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
@@ -34,11 +40,10 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     private var total = "0"
     private var qtn = "0"
     private var CreditList: ArrayList<TallyCredit> = ArrayList()
-    private var sProductCode = ""
-    private var sProductPoints = ""
-    private var sPainterCode = ""
     private lateinit var tallylistrv: RecyclerView
     private lateinit var tallyadapter: TallyCreditAdapter
+    private var PainterObj: Painters = Painters()
+    private var ProductObj: Product = Product()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,8 +75,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         atvPainter.setOnItemClickListener { parent, _, position, _ ->
             val selectedPainter = parent.adapter.getItem(position) as Painters
             atvPainter.setText(selectedPainter.name)
-            sPainterCode = selectedPainter.id
-
+            PainterObj = Painters()
+            PainterObj = selectedPainter
         }
     }
 
@@ -83,8 +88,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         atvProductName.setOnItemClickListener { parent, _, position, _ ->
             val selectedProduct = parent.adapter.getItem(position) as Product
             atvProductName.setText(selectedProduct.productname)
-            sProductCode = selectedProduct.productID
-            sProductPoints = selectedProduct.points
+            ProductObj = Product()
+            ProductObj = selectedProduct
         }
     }
 
@@ -113,6 +118,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         et_total.isEnabled = false
         et_total.isClickable = false
         et_total.setTextColor(resources.getColor(R.color.colorPrimary))
+        dbHelper = DatabaseHelper()
+        dbHelper.open()
     }
 
     private fun init() {
@@ -135,7 +142,34 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                 activity!!.finish()
             }
             R.id.btn_submitpoints -> {
-                Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                if (CreditList.size != 0) {
+                    val current = Calendar.getInstance()
+
+                    val simpleFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US)
+                    val date = Date(current.timeInMillis)
+                    val dateString = simpleFormat.format(date)
+                    val c: Constants = Constants()
+                    val logObj = TallyLog(
+                        c.idGenerator(Constants.isTally),
+                        dateString,
+                        PainterObj.name,
+                        PainterObj.mobile,
+                        totalProdOrdered(CreditList),
+                        et_total.text.toString().toInt()
+                    )
+                    dbHelper.addCreditLogs(logObj, PainterObj)
+                    et_total.setText("0")
+                    atvPainter.setText("")
+                    atvPainter.isEnabled = true
+                    atvProductName.setText("")
+                    CreditList.clear()
+                    tallyadapter.updateRecylerview(CreditList)
+                } else {
+                    Toast.makeText(context, "Please enter something...!!!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+
             }
 
             R.id.btn_addcreditpoints -> {
@@ -144,9 +178,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     val total: Int = calculateTotal()
                     CreditList.add(
                         TallyCredit(
-                            constant.idGenerator(Constants.isTally),
                             atvProductName.text.toString(),
-                            sProductPoints,
+                            ProductObj.points,
                             et_quantity.text.toString(),
                             total.toString()
                         )
@@ -156,12 +189,19 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     atvPainter.isEnabled = false
                     et_quantity.text!!.clear()
                     TallyOutTotal(CreditList)
-
-
                 }
             }
         }
 
+    }
+
+    private fun totalProdOrdered(creditList: java.util.ArrayList<TallyCredit>): String {
+        var returnString = ""
+        for (i in creditList) {
+            var
+                    returnString = returnString + "${i.productname} x  ${i.quantity} = ${i.total}"
+        }
+        return returnString
     }
 
     private fun TallyOutTotal(creditList: java.util.ArrayList<TallyCredit>) {
@@ -180,7 +220,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     }
 
     private fun calculateTotal(): Int {
-        return (sProductPoints).toInt() * (et_quantity.text.toString()).toInt()
+        return (ProductObj.points).toInt() * (et_quantity.text.toString()).toInt()
     }
 
     private fun setRecyclerView(creditList: ArrayList<TallyCredit>) {

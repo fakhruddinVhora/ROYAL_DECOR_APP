@@ -4,6 +4,7 @@ import com.example.royal_decor.Adapters.PainterListAdapter
 import com.example.royal_decor.Adapters.ViewProductAdapter
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
+import com.example.royal_decor.Models.TallyLog
 import com.example.royal_decor.Utils.Constants
 import com.google.firebase.database.*
 
@@ -61,6 +62,41 @@ class DatabaseHelper {
     }
 
 
+    //creditsLog
+
+    fun addCreditLogs(
+        logObj: TallyLog,
+        painterObj: Painters
+    ) {
+        db.child(Constants.NODE_CREDIT_LOGS).child(logObj.id).setValue(logObj)
+            .addOnSuccessListener {
+                UpdatePainterData(logObj, painterObj)
+            }
+
+    }
+
+    fun UpdatePainterData(logObj: TallyLog, painterObj: Painters) {
+        var int = 0
+        val ref: DatabaseReference = db.child(Constants.NODE_PAINTER + "/${painterObj.id}")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val obj = snapshot.getValue(Painters::class.java)
+                if (obj != null) {
+                    int = obj.credits
+                    var total = int + logObj.totalPoints
+                    db.child(Constants.NODE_PAINTER).child(painterObj.id).child("credits")
+                        .setValue(total)
+                    return
+                }
+            }
+        })
+    }
+
+
     //product
     fun addproduct(prodObj: Product): Boolean {
         var returnbool = true
@@ -108,7 +144,6 @@ class DatabaseHelper {
     fun deleteproduct(item: Product, prodAdapter: ViewProductAdapter) {
         db.child(Constants.NODE_PRODUCT).child(item.productID).removeValue()
         fetchproductdetails(prodAdapter, true)
-
     }
 
 
@@ -207,3 +242,5 @@ class DatabaseHelper {
 
 
 }
+
+

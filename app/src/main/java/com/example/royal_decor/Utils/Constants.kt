@@ -34,7 +34,7 @@ class Constants {
 
         //db nodes
         val NODE_CUSTOMER = "Customer"
-        val NODE_CREDIT = "Credit"
+        val NODE_CREDIT_LOGS = "Credit_Logs"
         val NODE_PAINTER = "Painter"
         val NODE_PRODUCT = "Product"
 
