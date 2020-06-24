@@ -89,14 +89,11 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     }
 
     private fun fetchProductData(): List<Product> {
-        val tempList = ArrayList<Product>()
+        var tempList = ArrayList<Product>()
 
-        tempList.add(Product("PRO4334", "Decor", "4"))
-        tempList.add(Product("PRO3435", "Decor 2", "3"))
-        tempList.add(Product("PRO5454", "Ultima", "5"))
-        tempList.add(Product("PRO4534", "Apex", "12"))
-        tempList.add(Product("PRO4534", "Apex", "12"))
-
+        if (Constants.PRODUCT_DB.size > 0) {
+            tempList = Constants.PRODUCT_DB
+        }
         return tempList
 
 

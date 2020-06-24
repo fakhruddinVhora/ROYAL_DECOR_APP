@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.example.royal_decor.Models.Painters
+import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
 import com.google.android.material.snackbar.Snackbar
 import java.util.concurrent.TimeUnit
@@ -46,6 +47,7 @@ class Constants {
         //Database Values
 
         var PAINTER_DB: ArrayList<Painters> = ArrayList()
+        var PRODUCT_DB: ArrayList<Product> = ArrayList()
 
 
     }

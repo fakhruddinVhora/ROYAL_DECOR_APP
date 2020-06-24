@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
+import java.util.*
 
 class ViewProductAdapter(
-    val prodList: List<Product>,
+    var prodList: List<Product>,
     val clicklistener: OnProductClickedListener
 ) : RecyclerView.Adapter<ViewProductAdapter.ProductViewHolder>() {
 
@@ -31,7 +32,8 @@ class ViewProductAdapter(
             custname.text = prodObj.productname
             val points = prodObj.points
             custmobile.text = "Credit: $points"
-            custaddress.visibility = View.GONE
+            val prodcode = prodObj.productcode
+            custaddress.text = "Code : $prodcode"
 
             edit.setOnClickListener {
                 action.OnEditClick(prodObj)
@@ -62,5 +64,10 @@ class ViewProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bindItems(prodList[position], clicklistener)
+    }
+
+    fun updateProductRV(list: ArrayList<Product>) {
+        prodList = list
+        notifyDataSetChanged()
     }
 }

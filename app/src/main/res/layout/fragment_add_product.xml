@@ -46,7 +46,31 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:fontFamily="@font/josefinsansregular"
+                android:hint="Product Code"
+                android:textColor="@color/colorPrimary"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/prod_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:maxLength="20"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="@dimen/_13sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/josefinsansregular"
                 android:hint="Product Name"
                 android:textColor="@color/colorPrimary"
@@ -55,21 +79,22 @@
                 app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                 app:boxCornerRadiusTopStart="@dimen/_10sdp"
                 app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="30">
+                app:boxStrokeWidthFocused="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/prod_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:textColorHint="@color/colorPrimary" />
+                    android:maxLength="50"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="@dimen/_13sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/josefinsansregular"
                 android:hint="Credits"
@@ -84,11 +109,14 @@
                 app:counterMaxLength="10">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/prod_credits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:inputType="number"
-                    android:textColorHint="@color/colorPrimary" />
+                    android:maxLength="3"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="@dimen/_13sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

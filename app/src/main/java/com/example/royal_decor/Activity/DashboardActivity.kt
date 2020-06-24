@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.royal_decor.Adapters.DashboardRecyclerViewAdapter
 import com.example.royal_decor.Adapters.GraphViewAdapter
+import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Models.DashboardRVObj
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
@@ -29,6 +30,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var backImg: ImageView
     private lateinit var logoutImg: ImageView
     private lateinit var headertext: TextView
+    private var dbHelper: DatabaseHelper = DatabaseHelper()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,10 +45,16 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         initialization()
         setupGraphAdapter()
         setupRecyclerView()
+        storeDBValuesInConstants()
 
 
         logoutImg.setOnClickListener(this)
 
+    }
+
+    private fun storeDBValuesInConstants() {
+        dbHelper.open()
+        dbHelper.storeDBValuesInConstants()
     }
 
     private fun initialization() {
@@ -129,3 +137,4 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 }
+

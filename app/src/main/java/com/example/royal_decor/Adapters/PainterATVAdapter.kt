@@ -42,7 +42,14 @@ class PainterATVAdapter(
         val view: View = inflater.inflate(layoutResource, parent, false)
         val text = view.findViewById<TextView>(R.id.atv_text)
         val mobileno = view.findViewById<TextView>(R.id.atv_mobile)
+        val underlineview = view.findViewById<View>(R.id.underlineview)
 
+        if (position == tempList.size - 1) {
+            underlineview.visibility = View.GONE
+        }
+        if (tempList.size == 1) {
+            underlineview.visibility = View.GONE
+        }
         text.text = tempList[position].name
         mobileno.text = mobileno.text.toString().replace("XXX", tempList[position].mobile)
 

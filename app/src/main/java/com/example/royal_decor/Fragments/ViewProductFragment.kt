@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.ViewProductAdapter
+import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
@@ -23,6 +24,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     private lateinit var prodadapter: ViewProductAdapter
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
+    private lateinit var dbHelper: DatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,30 +34,19 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_view_product, container, false)
         init()
         initialization()
-        val ProdList = fetchingDataForAdapter()
-        if (ProdList.size != 0) {
-            settingAdapter(ProdList)
-        }
-
+        val ProdList: ArrayList<Product> = ArrayList()
+        settingAdapter(ProdList)
+        dbHelper.fetchproductdetails(prodadapter, false)
         backImg.setOnClickListener(this)
         return v
     }
 
-    private fun fetchingDataForAdapter(): ArrayList<Product> {
-
-        val tempList = ArrayList<Product>()
-
-        tempList.add(Product("PRO4334", "Decor", "4"))
-        tempList.add(Product("PRO3435", "Decor 2", "3"))
-        tempList.add(Product("PRO5454", "Ultima", "5"))
-        tempList.add(Product("PRO4534", "Apex", "12"))
-
-        return tempList
-    }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
         headertext.text = Constants.VIEW_PRODUCT
+        dbHelper = DatabaseHelper()
+        dbHelper.open()
     }
 
     private fun init() {
@@ -88,7 +79,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnDeleteClick(prodObj: Product) {
-
+        dbHelper.deleteproduct(prodObj, prodadapter)
     }
 
 

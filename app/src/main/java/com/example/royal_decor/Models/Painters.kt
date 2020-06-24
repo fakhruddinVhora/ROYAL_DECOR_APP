@@ -5,5 +5,6 @@ data class Painters(
     var name: String = "",
     var mobile: String = "",
     var address: String = "",
+    var dateofbirth: String = "",
     val aadhar: String = ""
 )

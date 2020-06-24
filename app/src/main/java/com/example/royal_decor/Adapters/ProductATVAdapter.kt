@@ -41,9 +41,13 @@ class ProductATVAdapter(
         val view: View = inflater.inflate(layoutResource, parent, false)
         val text = view.findViewById<TextView>(R.id.atv_text)
         val mobileno = view.findViewById<TextView>(R.id.atv_mobile)
+        val underlineview = view.findViewById<View>(R.id.underlineview)
 
+        if (position == 0 || position == tempList.size + 1) {
+            underlineview.visibility = View.GONE
+        }
         text.text = tempList[position].productname
-        mobileno.visibility = View.GONE
+        mobileno.text = tempList[position].productID
 
 
         return view
@@ -68,7 +72,8 @@ class ProductATVAdapter(
                     ProdList
                 else
                     ProdList.filter {
-                        it.productname.toLowerCase().contains(queryString)
+                        it.productname.toLowerCase().contains(queryString) ||
+                                it.productcode.toLowerCase().contains(queryString)
                     }
                 return filterResults
             }

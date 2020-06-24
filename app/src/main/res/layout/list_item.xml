@@ -31,6 +31,7 @@
 
     <View
         android:layout_width="match_parent"
+        android:id="@+id/underlineview"
         android:layout_height="1dp"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_6sdp"

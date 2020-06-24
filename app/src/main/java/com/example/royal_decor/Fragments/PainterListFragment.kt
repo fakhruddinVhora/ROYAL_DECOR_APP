@@ -46,31 +46,12 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         return v
     }
 
-    private fun fetchingDataForAdapter(): ArrayList<Painters> {
-        val listtobesent = ArrayList<Painters>()
-
-        listtobesent.add(Painters("PAI123", "FAKHRUDDIN", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI125", "JKGBNFJN", "94544851351", "Mehsana", ""))
-        listtobesent.add(Painters("PAI123", "KJDSNGJFN", "94564851351", "Borsad", ""))
-        listtobesent.add(Painters("PAI143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI113", "FJKDSNJDSF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI123", "FAKHRUDDIN", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI125", "JKGBNFJN", "94544851351", "Mehsana", ""))
-        listtobesent.add(Painters("PAI123", "KJDSNGJFN", "94564851351", "Borsad", ""))
-        listtobesent.add(Painters("PAI143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("PAI113", "FJKDSNJDSF", "94564851351", "Anand", ""))
-
-        return listtobesent
-    }
-
-    private fun initialization() {
-        backImg.visibility = View.VISIBLE
-        headertext.text = Constants.VIEW_PAINTERS_LIST
-        dbHelper = DatabaseHelper()
-        dbHelper.open()
-    }
+      private fun initialization() {
+          backImg.visibility = View.VISIBLE
+          headertext.text = Constants.VIEW_PAINTERS_LIST
+          dbHelper = DatabaseHelper()
+          dbHelper.open()
+      }
 
     private fun init() {
         backImg = v.findViewById(R.id.img_back)
