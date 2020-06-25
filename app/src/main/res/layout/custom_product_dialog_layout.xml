@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_15sdp"
+    android:layout_marginEnd="@dimen/_15sdp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_30sdp"
+    android:paddingBottom="@dimen/_15sdp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:background="@null"
+        android:fontFamily="@font/josefinsansregular"
+        android:hint="Product Name"
+        android:paddingTop="0dp"
+        android:textColor="@color/colorPrimary"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterMaxLength="30"
+        app:hintTextAppearance="@style/CustomLabelDialog">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/prodname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="text"
+            android:maxLength="50"
+            android:paddingTop="@dimen/_15sdp"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_10sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:background="@null"
+        android:fontFamily="@font/josefinsansregular"
+        android:hint="Product Code"
+        android:paddingTop="0dp"
+        android:textColor="@color/colorPrimary"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterMaxLength="30"
+        app:hintTextAppearance="@style/CustomLabelDialog">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/prodcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:maxLength="20"
+            android:paddingTop="@dimen/_15sdp"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_10sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:background="@null"
+        android:fontFamily="@font/josefinsansregular"
+        android:hint="Credits"
+        android:paddingTop="0dp"
+        android:textColor="@color/colorPrimary"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterMaxLength="30"
+        app:hintTextAppearance="@style/CustomLabelDialog">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/credits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="3"
+            android:paddingTop="@dimen/_15sdp"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="@dimen/_10sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

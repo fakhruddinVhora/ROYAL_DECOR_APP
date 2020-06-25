@@ -99,12 +99,12 @@ class AddProductFragment : Fragment(), View.OnClickListener {
 
     private fun validation(): Boolean {
         var returnbool = true
-        if (et_prodcode.text!!.isEmpty()) {
-            et_prodcode.error = Constants.ERROR_FILL_DETAILS
+        if (et_prodname.text!!.isEmpty()) {
+            et_prodname.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
         } else {
-            if (et_prodcode.text.toString().length > 50) {
-                et_prodcode.error = Constants.ERROR_EXCEED_LIMIT
+            if (et_prodname.text.toString().length > 50) {
+                et_prodname.error = Constants.ERROR_EXCEED_LIMIT
                 returnbool = false
             }
         }

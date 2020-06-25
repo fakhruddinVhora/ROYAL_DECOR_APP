@@ -1,12 +1,12 @@
 package com.example.royal_decor.Activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.example.royal_decor.R
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {

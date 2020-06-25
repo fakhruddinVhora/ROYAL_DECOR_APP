@@ -44,13 +44,8 @@ class DatabaseHelper {
     }
 
 
-    fun updatepainterdetails() {
 
-    }
 
-    fun updateproductdetails() {
-
-    }
 
 
     fun addcustomer() {
@@ -146,8 +141,24 @@ class DatabaseHelper {
         fetchproductdetails(prodAdapter, true)
     }
 
+    fun updateproductdetails(
+        editObj: Product,
+        prodAdapter: ViewProductAdapter
+    ) {
+        db.child(Constants.NODE_PRODUCT).child(editObj.productID).setValue(editObj)
+        fetchproductdetails(prodAdapter, true)
+    }
+
 
     //painters
+    fun updatepainterdetails(
+        editObj: Painters,
+        painteradapter: PainterListAdapter
+    ) {
+        db.child(Constants.NODE_PAINTER).child(editObj.id).setValue(editObj)
+        fetchpainterdetails(painteradapter, true)
+    }
+
     fun deletepainter(item: Painters, painteradapter: PainterListAdapter) {
         db.child(Constants.NODE_PAINTER).child(item.id).removeValue()
         fetchpainterdetails(painteradapter, true)

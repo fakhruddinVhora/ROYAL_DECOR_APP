@@ -46,6 +46,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
+                app:hintTextAppearance="@style/CustomLabel"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:background="@null"
@@ -64,14 +65,16 @@
                     android:id="@+id/pname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="dfdsfsf"
                     android:background="@null"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
+                app:hintTextAppearance="@style/CustomLabel"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
@@ -93,12 +96,13 @@
                     android:background="@null"
                     android:maxLines="2"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
+                app:hintTextAppearance="@style/CustomLabel"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
@@ -122,12 +126,13 @@
                     android:inputType="number"
                     android:maxLength="10"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
+                app:hintTextAppearance="@style/CustomLabel"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
@@ -150,7 +155,7 @@
                     android:inputType="number"
                     android:maxLength="16"
                     android:textColorHint="@color/colorPrimary"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -165,6 +170,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_weight="8"
+                    app:hintTextAppearance="@style/CustomLabel"
                     android:fontFamily="@font/josefinsansregular"
                     android:hint="Date of Birth"
                     android:textColor="@color/colorPrimary"
@@ -180,6 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
+                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:inputType="number"
                         android:textColorHint="@color/colorPrimary"

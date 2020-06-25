@@ -47,7 +47,7 @@ class ProductATVAdapter(
             underlineview.visibility = View.GONE
         }
         text.text = tempList[position].productname
-        mobileno.text = tempList[position].productID
+        mobileno.text = tempList[position].productcode
 
 
         return view
