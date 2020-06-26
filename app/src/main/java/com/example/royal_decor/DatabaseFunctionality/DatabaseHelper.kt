@@ -1,12 +1,18 @@
 package com.example.royal_decor.DatabaseFunctionality
 
+import android.os.Build
+import android.view.View
+import android.widget.ProgressBar
+import androidx.annotation.RequiresApi
 import com.example.royal_decor.Adapters.PainterListAdapter
 import com.example.royal_decor.Adapters.ViewProductAdapter
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyLog
 import com.example.royal_decor.Utils.Constants
+import com.github.mikephil.charting.charts.PieChart
 import com.google.firebase.database.*
+
 
 class DatabaseHelper {
 
@@ -44,10 +50,6 @@ class DatabaseHelper {
     }
 
 
-
-
-
-
     fun addcustomer() {
 
     }
@@ -73,7 +75,7 @@ class DatabaseHelper {
     fun UpdatePainterData(logObj: TallyLog, painterObj: Painters) {
         var int = 0
         val ref: DatabaseReference = db.child(Constants.NODE_PAINTER + "/${painterObj.id}")
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
@@ -85,7 +87,6 @@ class DatabaseHelper {
                     var total = int + logObj.totalPoints
                     db.child(Constants.NODE_PAINTER).child(painterObj.id).child("credits")
                         .setValue(total)
-                    return
                 }
             }
         })
@@ -208,7 +209,7 @@ class DatabaseHelper {
     }
 
 
-    fun storeDBValuesInConstants() {
+    fun storeDBValuesInConstants(dashboardprogressbar: ProgressBar) {
 
         //PainterData
         StorePainterDataRef = db.child(Constants.NODE_PAINTER)
@@ -226,9 +227,14 @@ class DatabaseHelper {
                         Constants.PAINTER_DB.add(obj)
                     }
                 }
+                fetchProdDetails(dashboardprogressbar)
             }
 
         })
+
+    }
+
+    private fun fetchProdDetails(dashboardprogressbar: ProgressBar) {
 
         //Product Data
         StoreProductDataRef = db.child(Constants.NODE_PRODUCT)
@@ -246,6 +252,33 @@ class DatabaseHelper {
                         Constants.PRODUCT_DB.add(obj)
                     }
                 }
+                dashboardprogressbar.visibility = View.GONE
+            }
+
+        })
+    }
+
+    fun fetchDataforPieChart(pieChart: PieChart) {
+        val pieChrtDataRef: DatabaseReference = db.child(Constants.NODE_CREDIT_LOGS)
+        pieChrtDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            @RequiresApi(Build.VERSION_CODES.N)
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var list: ArrayList<HashMap<String, Int>> = ArrayList()
+                val tempMap: HashMap<String, Int> = HashMap()
+                for (Data in snapshot.children) {
+                    val obj = Data.getValue(TallyLog::class.java)
+                    if (obj != null) {
+                        list.add(obj.productMap)
+                    }
+                }
+                Constants.PIECHART_PROD_DATA = ArrayList()
+                Constants.PIECHART_PROD_DATA = list
+                pieChart.notifyDataSetChanged()
+                return
             }
 
         })

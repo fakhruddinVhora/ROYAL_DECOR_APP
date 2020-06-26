@@ -12,6 +12,7 @@ import com.example.royal_decor.Adapters.PainterATVAdapter
 import com.example.royal_decor.Adapters.ProductATVAdapter
 import com.example.royal_decor.Adapters.TallyCreditAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Fragments.Graphs.PieChartFragement
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyCredit
@@ -22,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
@@ -157,6 +159,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                         totalProdOrdered(CreditList),
                         et_total.text.toString().toInt()
                     )
+                    val pichart = PieChartFragement()
                     dbHelper.addCreditLogs(logObj, PainterObj)
                     et_total.setText("0")
                     atvPainter.setText("")
@@ -168,8 +171,6 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     Toast.makeText(context, "Please enter something...!!!", Toast.LENGTH_SHORT)
                         .show()
                 }
-
-
             }
 
             R.id.btn_addcreditpoints -> {
@@ -195,13 +196,12 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
 
     }
 
-    private fun totalProdOrdered(creditList: java.util.ArrayList<TallyCredit>): String {
-        var returnString = ""
+    private fun totalProdOrdered(creditList: java.util.ArrayList<TallyCredit>): HashMap<String, Int> {
+        var returnMap: HashMap<String, Int> = HashMap()
         for (i in creditList) {
-            var
-                    returnString = returnString + "${i.productname} x  ${i.quantity} = ${i.total}"
+            returnMap.put(i.productname, i.quantity.toInt())
         }
-        return returnString
+        return returnMap
     }
 
     private fun TallyOutTotal(creditList: java.util.ArrayList<TallyCredit>) {

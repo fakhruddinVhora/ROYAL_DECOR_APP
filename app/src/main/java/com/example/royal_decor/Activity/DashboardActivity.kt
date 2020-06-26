@@ -6,6 +6,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var backImg: ImageView
     private lateinit var logoutImg: ImageView
     private lateinit var headertext: TextView
+    private lateinit var dashboardprogressbar: ProgressBar
     private var dbHelper: DatabaseHelper = DatabaseHelper()
 
 
@@ -54,7 +56,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun storeDBValuesInConstants() {
         dbHelper.open()
-        dbHelper.storeDBValuesInConstants()
+        dashboardprogressbar.visibility = View.VISIBLE
+        dbHelper.storeDBValuesInConstants(dashboardprogressbar)
     }
 
     private fun initialization() {
@@ -127,6 +130,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         backImg = findViewById(R.id.img_back)
         logoutImg = findViewById(R.id.img_logout)
         headertext = findViewById(R.id.header_text)
+
+        dashboardprogressbar = findViewById(R.id.dashboardprogressbar)
     }
 
     override fun onClick(v: View) {

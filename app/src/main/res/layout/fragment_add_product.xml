@@ -46,7 +46,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_45sdp"
                 app:hintTextAppearance="@style/CustomLabel"
                 android:fontFamily="@font/josefinsansregular"
                 android:hint="Product Code"
@@ -70,7 +70,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_45sdp"
                 app:hintTextAppearance="@style/CustomLabel"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/josefinsansregular"
@@ -96,7 +96,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_45sdp"
                 app:hintTextAppearance="@style/CustomLabel"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/josefinsansregular"

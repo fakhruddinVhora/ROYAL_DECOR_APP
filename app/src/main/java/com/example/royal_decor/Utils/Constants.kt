@@ -50,6 +50,11 @@ class Constants {
         var PRODUCT_DB: ArrayList<Product> = ArrayList()
 
 
+        //PieChart Values
+
+        var PIECHART_PROD_DATA: ArrayList<HashMap<String, Int>> = ArrayList()
+
+
     }
 
     fun rand(start: Int, end: Int): Int {
