@@ -12,7 +12,6 @@ import com.example.royal_decor.Adapters.PainterATVAdapter
 import com.example.royal_decor.Adapters.ProductATVAdapter
 import com.example.royal_decor.Adapters.TallyCreditAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
-import com.example.royal_decor.Fragments.Graphs.PieChartFragement
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyCredit
@@ -155,11 +154,11 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                         c.idGenerator(Constants.isTally),
                         dateString,
                         PainterObj.name,
+                        PainterObj.id,
                         PainterObj.mobile,
                         totalProdOrdered(CreditList),
                         et_total.text.toString().toInt()
                     )
-                    val pichart = PieChartFragement()
                     dbHelper.addCreditLogs(logObj, PainterObj)
                     et_total.setText("0")
                     atvPainter.setText("")

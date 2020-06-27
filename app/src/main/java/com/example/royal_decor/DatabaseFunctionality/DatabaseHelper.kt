@@ -6,11 +6,11 @@ import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import com.example.royal_decor.Adapters.PainterListAdapter
 import com.example.royal_decor.Adapters.ViewProductAdapter
+import com.example.royal_decor.Interface.PiechartCallback
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyLog
 import com.example.royal_decor.Utils.Constants
-import com.github.mikephil.charting.charts.PieChart
 import com.google.firebase.database.*
 
 
@@ -172,6 +172,8 @@ class DatabaseHelper {
         var list = ArrayList<Painters>()
         fetchPainterDataRef = db.child(Constants.NODE_PAINTER)
 
+
+
         fetchPainterDataRef.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
@@ -195,6 +197,7 @@ class DatabaseHelper {
     }
 
     fun addpainter(painterObj: Painters): Boolean {
+
         var returnbool = true
         //val id = db.push().key
         db.child(Constants.NODE_PAINTER).child(painterObj.id).setValue(painterObj)
@@ -213,7 +216,7 @@ class DatabaseHelper {
 
         //PainterData
         StorePainterDataRef = db.child(Constants.NODE_PAINTER)
-        StorePainterDataRef.addValueEventListener(object : ValueEventListener {
+        StorePainterDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
@@ -238,7 +241,7 @@ class DatabaseHelper {
 
         //Product Data
         StoreProductDataRef = db.child(Constants.NODE_PRODUCT)
-        StoreProductDataRef.addValueEventListener(object : ValueEventListener {
+        StoreProductDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
@@ -258,9 +261,9 @@ class DatabaseHelper {
         })
     }
 
-    fun fetchDataforPieChart(pieChart: PieChart) {
+    fun fetchDataforPieChart(loginprogressbar: ProgressBar, piechartcallback: PiechartCallback) {
         val pieChrtDataRef: DatabaseReference = db.child(Constants.NODE_CREDIT_LOGS)
-        pieChrtDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        pieChrtDataRef.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
@@ -268,20 +271,26 @@ class DatabaseHelper {
             @RequiresApi(Build.VERSION_CODES.N)
             override fun onDataChange(snapshot: DataSnapshot) {
                 var list: ArrayList<HashMap<String, Int>> = ArrayList()
-                val tempMap: HashMap<String, Int> = HashMap()
                 for (Data in snapshot.children) {
                     val obj = Data.getValue(TallyLog::class.java)
                     if (obj != null) {
                         list.add(obj.productMap)
                     }
                 }
-                Constants.PIECHART_PROD_DATA = ArrayList()
-                Constants.PIECHART_PROD_DATA = list
-                pieChart.notifyDataSetChanged()
+                Constants.PIECHART_PROD_DATA.clear()
+                // Constants.PIECHART_PROD_DATA = list
+                loginprogressbar.visibility = View.GONE
+                piechartcallback.returnPieChartValues(list)
                 return
             }
 
         })
+    }
+
+
+    fun timpass() {
+        val ref: DatabaseReference = db.child(Constants.NODE_PAINTER);
+
     }
 
 

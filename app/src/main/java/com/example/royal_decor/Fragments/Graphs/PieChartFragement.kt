@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.PiechartCallback
 import com.example.royal_decor.R
-import com.example.royal_decor.Utils.Constants
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
@@ -34,13 +35,12 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
     lateinit var v: View
     lateinit var pieChart: PieChart
     lateinit var dbHelper: DatabaseHelper
+    lateinit var piechartprogress: ProgressBar
 
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onStart() {
-        newsetuppiechart(Constants.PIECHART_PROD_DATA)
         super.onStart()
-
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -51,17 +51,25 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
     ): View? {
         v = inflater.inflate(R.layout.fragment_pie_chart_fragement, container, false)
 
+
         init()
-        newsetuppiechart(Constants.PIECHART_PROD_DATA)
-        dbHelper.fetchDataforPieChart(pieChart)
+        piechartprogress.visibility = View.VISIBLE
+        dbHelper.fetchDataforPieChart(piechartprogress, object : PiechartCallback {
+            override fun returnPieChartValues(list: ArrayList<HashMap<String, Int>>) {
+                newsetuppiechart(list)
+            }
+        })
         return v
     }
 
     private fun init() {
         pieChart = v.findViewById(R.id.pieChart)
         pieChart.setUsePercentValues(false)
+        piechartprogress = v.findViewById(R.id.piechartprogress)
         dbHelper = DatabaseHelper()
         dbHelper.open()
+
+
     }
 
     fun chartDetails(mChart: PieChart, tf: Typeface) {

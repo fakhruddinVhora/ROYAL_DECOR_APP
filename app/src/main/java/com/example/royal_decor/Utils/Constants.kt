@@ -47,7 +47,12 @@ class Constants {
         //Database Values
 
         var PAINTER_DB: ArrayList<Painters> = ArrayList()
+        var TEMP_PAINTER: ArrayList<Painters> = ArrayList()
+
         var PRODUCT_DB: ArrayList<Product> = ArrayList()
+
+
+        val SECRET_CODE = "Huz5253"
 
 
         //PieChart Values

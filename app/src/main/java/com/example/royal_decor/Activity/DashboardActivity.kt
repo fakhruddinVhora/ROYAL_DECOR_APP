@@ -45,9 +45,10 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_dashboard)
         init()
         initialization()
+        storeDBValuesInConstants()
         setupGraphAdapter()
         setupRecyclerView()
-        storeDBValuesInConstants()
+
 
 
         logoutImg.setOnClickListener(this)
@@ -116,6 +117,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupGraphAdapter() {
+
         val adapter = GraphViewAdapter(this, supportFragmentManager, 2)
         tablayout.setupWithViewPager(viewPager)
         viewPager.adapter = adapter

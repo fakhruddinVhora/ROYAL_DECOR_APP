@@ -6,6 +6,7 @@
     android:layout_centerInParent="true"
     android:background="#262A2C"
     android:orientation="vertical">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,28 +18,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/_50sdp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_140sdp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/royaldecor"
                 app:civ_border_color="#fff"
                 app:civ_border_width="2dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/loginbox"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -54,26 +57,28 @@
                 app:cardElevation="@dimen/_10sdp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_250sdp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_15sdp"
-                    android:gravity="center_vertical"
                     android:backgroundTint="#C9A0ADB3"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/_10sdp"
-                    android:paddingTop="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_25sdp"
                     android:paddingRight="@dimen/_10sdp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:hint="Username"
-                        app:hintTextColor="#0C2733"
                         android:textColorHint="#0C2733"
                         app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
                         app:boxCornerRadiusTopStart="@dimen/_15sdp"
-                        app:boxStrokeColor="#0C2733">
+                        app:boxStrokeColor="#0C2733"
+                        app:hintTextColor="#0C2733">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -87,39 +92,56 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        app:hintTextColor="#0C2733"
                         android:hint="Password"
                         android:textColorHint="#0C2733"
                         app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
                         app:boxCornerRadiusTopStart="@dimen/_15sdp"
                         app:boxStrokeColor="#0C2733"
-                        app:passwordToggleEnabled="true">
+                        app:hintTextColor="#0C2733"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/colorPrimary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
+                            android:paddingStart="@dimen/_20sdp"
                             android:textColor="#0C2733"
                             android:textSize="@dimen/_12sdp"
-                            android:paddingStart="@dimen/_20sdp"
                             app:strokeColor="#0C2733" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_login"
                         style="@style/TextAppearance.AppCompat.Widget.Button"
-                        android:layout_width="@dimen/_250sdp"
+                        android:layout_width="@dimen/_200sdp"
                         android:layout_height="@dimen/_45sdp"
-                        android:backgroundTint="#0C2733"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:backgroundTint="#0C2733"
                         android:elevation="10dp"
                         android:gravity="center"
                         android:text="LOGIN"
                         android:textColor="#fff"
-                        app:cornerRadius="@dimen/_4sdp" />
+                        app:cornerRadius="@dimen/_14sdp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/createnewaccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:fontFamily="@font/ralewaysemibold"
+                        android:gravity="center"
+                        android:text="Create a new account??"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_12sdp" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -131,8 +153,8 @@
                 android:layout_marginStart="@dimen/_50sdp"
                 android:layout_marginEnd="@dimen/_50sdp"
                 android:alpha="0.9"
-                app:cardCornerRadius="@dimen/_10sdp"
                 android:backgroundTint="#E1ECF1"
+                app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="@dimen/_10sdp">
 
                 <LinearLayout
@@ -161,11 +183,10 @@
 
     <ProgressBar
         android:id="@+id/loginprogressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
         android:layout_centerInParent="true"
-        android:minWidth="50dp"
-        android:minHeight="50dp"
+        android:indeterminateTint="@color/colorPrimary"
         android:visibility="gone" />
 
 </RelativeLayout>

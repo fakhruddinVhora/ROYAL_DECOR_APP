@@ -23,7 +23,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PainterListFragment : Fragment(), View.OnClickListener,
@@ -47,8 +46,8 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_painter_list, container, false)
         init()
         initialization()
-        val list = ArrayList<Painters>()
-        settingAdapter(list)
+        //val list = ArrayList<Painters>()
+        settingAdapter(Constants.PAINTER_DB)
         dbHelper.fetchpainterdetails(painteradapter, false)
         backImg.setOnClickListener(this)
         return v
