@@ -24,10 +24,32 @@
         android:layout_weight="7"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/pb_painterdetails"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/paintersearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/customsearchlayout"
+            android:layoutDirection="rtl"
+            android:textCursorDrawable="@null"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="fill_parent"
+            android:layout_below="@id/paintersearch"
             android:layout_height="fill_parent"
-            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layoutAnimation="@anim/rv_layoutanimation"
             android:layout_marginBottom="@dimen/_5sdp">
 

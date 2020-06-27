@@ -215,7 +215,7 @@ class DatabaseHelper {
         fetchPainterDataRef = db.child(Constants.NODE_PRODUCT)
         fetchPainterDataRef.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-
+                progressbar.visibility = View.GONE
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {

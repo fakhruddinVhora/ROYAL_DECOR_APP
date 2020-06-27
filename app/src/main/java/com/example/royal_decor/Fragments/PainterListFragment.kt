@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.royal_decor.Adapters.PainterListAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.PainterCallback
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
@@ -36,6 +35,8 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var dbHelper: DatabaseHelper
+    private lateinit var searchView: SearchView
+    private lateinit var pb_painter: ProgressBar
 
 
     override fun onCreateView(
@@ -46,9 +47,13 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_painter_list, container, false)
         init()
         initialization()
-        val list = ArrayList<Painters>()
-        settingAdapter(list)
-        dbHelper.fetchpainterdetails(painteradapter, painterlistrv, false)
+
+
+        dbHelper.getpainterdetails(pb_painter, object : PainterCallback {
+            override fun returnPainterValues(list: ArrayList<Painters>) {
+                settingAdapter(list)
+            }
+        })
         backImg.setOnClickListener(this)
         return v
     }
@@ -58,12 +63,24 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         headertext.text = Constants.VIEW_PAINTERS_LIST
         dbHelper = DatabaseHelper()
         dbHelper.open()
+
+        val cancelIcon = searchView.findViewById<ImageView>(R.id.search_close_btn)
+        cancelIcon.setColorFilter(resources.getColor(R.color.colorPrimary))
+        val searchIcon = searchView.findViewById<ImageView>(R.id.search_mag_icon)
+        searchIcon.setColorFilter(resources.getColor(R.color.colorPrimary))
+        val textView = searchView.findViewById<TextView>(R.id.search_src_text)
+        textView.setTextColor(resources.getColor(R.color.colorPrimary))
+
+
     }
 
     private fun init() {
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
         painterlistrv = v.findViewById(R.id.painterlistrv)
+        pb_painter = v.findViewById(R.id.pb_painterdetails)
+
+        searchView = v.findViewById(R.id.paintersearch)
     }
 
     fun settingAdapter(painterListData: ArrayList<Painters>) {
@@ -74,6 +91,22 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         painterlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         painterlistrv.adapter = painteradapter
+
+
+
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                painteradapter.filter.filter(newText)
+                return false
+            }
+
+        })
     }
 
 

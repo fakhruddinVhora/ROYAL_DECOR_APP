@@ -1,5 +1,6 @@
 package com.example.royal_decor.Fragments
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -192,6 +193,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     atvProductName.setText("")
                     CreditList.clear()
                     tallyadapter.updateRecylerview(CreditList)
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     Toast.makeText(context, "Please enter something...!!!", Toast.LENGTH_SHORT)
                         .show()
@@ -285,4 +288,27 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     }
 
 
+    companion object {
+        class MyAsyncTask : AsyncTask<Int, String, String?>() {
+
+            override fun onPreExecute() {
+
+            }
+
+            override fun doInBackground(vararg params: Int?): String? {
+
+
+                return "true"
+            }
+
+
+            override fun onPostExecute(result: String?) {
+
+
+            }
+
+        }
+    }
+
 }
+
