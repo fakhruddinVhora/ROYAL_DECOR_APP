@@ -39,7 +39,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         initialization()
         val ProdList: ArrayList<Product> = ArrayList()
         settingAdapter(ProdList)
-        dbHelper.fetchproductdetails(prodadapter, false)
+        dbHelper.fetchproductdetails(prodadapter, prodlistrv, false)
         backImg.setOnClickListener(this)
         return v
     }
@@ -66,6 +66,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         prodlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         prodlistrv.adapter = prodadapter
+
     }
 
 
@@ -82,7 +83,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnDeleteClick(prodObj: Product) {
-        dbHelper.deleteproduct(prodObj, prodadapter)
+        dbHelper.deleteproduct(prodObj, prodlistrv, prodadapter)
     }
 
     fun DialogCreator(item: Product) {
@@ -111,7 +112,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
                     name.text.toString(),
                     credits.text.toString()
                 )
-                dbHelper.updateproductdetails(editObj, prodadapter)
+                dbHelper.updateproductdetails(editObj, prodlistrv, prodadapter)
             } else {
                 Toast.makeText(context, "Not Able to Edit", Toast.LENGTH_SHORT).show()
             }

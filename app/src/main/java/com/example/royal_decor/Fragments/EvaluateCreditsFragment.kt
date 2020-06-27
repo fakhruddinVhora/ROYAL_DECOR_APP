@@ -12,6 +12,8 @@ import com.example.royal_decor.Adapters.PainterATVAdapter
 import com.example.royal_decor.Adapters.ProductATVAdapter
 import com.example.royal_decor.Adapters.TallyCreditAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.PainterCallback
+import com.example.royal_decor.Interface.ProductCallback
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyCredit
@@ -43,8 +45,12 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     private var CreditList: ArrayList<TallyCredit> = ArrayList()
     private lateinit var tallylistrv: RecyclerView
     private lateinit var tallyadapter: TallyCreditAdapter
-    private var PainterObj: Painters = Painters()
-    private var ProductObj: Product = Product()
+    private var PainterObj: Painters? = null
+    private var ProductObj: Product? = null
+    private lateinit var pb_evaluatecredits: ProgressBar
+
+    private var PainterList: ArrayList<Painters> = ArrayList()
+    private var ProductList: ArrayList<Product> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,8 +61,9 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
 
         init()
         initialization()
-        settingPainterAdapter()
-        settingProductAdapter()
+        getDBValues()
+        /*  settingPainterAdapter()
+          settingProductAdapter()*/
         setRecyclerView(CreditList)
 
 
@@ -68,8 +75,26 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         return v
     }
 
+    private fun getDBValues() {
+        PainterList.clear()
+        ProductList.clear()
+        dbHelper.getpainterdetails(pb_evaluatecredits, object : PainterCallback {
+            override fun returnPainterValues(list: ArrayList<Painters>) {
+                PainterList = list
+                settingPainterAdapter()
+            }
+        })
+        dbHelper.getproductdetails(pb_evaluatecredits, object : ProductCallback {
+            override fun returnProductValues(list: ArrayList<Product>) {
+                ProductList = list
+                settingProductAdapter()
+            }
+
+        })
+    }
+
     private fun settingPainterAdapter() {
-        val adapter = PainterATVAdapter(v.context, R.layout.list_item, fetchData())
+        val adapter = PainterATVAdapter(v.context, R.layout.list_item, PainterList)
         atvPainter.setAdapter(adapter)
         atvPainter.threshold = 1
 
@@ -82,7 +107,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     }
 
     private fun settingProductAdapter() {
-        val adapter = ProductATVAdapter(v.context, R.layout.list_item, fetchProductData())
+        val adapter = ProductATVAdapter(v.context, R.layout.list_item, ProductList)
         atvProductName.setAdapter(adapter)
         atvProductName.threshold = 1
 
@@ -133,6 +158,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         et_quantity = v.findViewById(R.id.et_quantity)
         tallylistrv = v.findViewById(R.id.tallylistrv)
         addbutton = v.findViewById(R.id.btn_addcreditpoints)
+        pb_evaluatecredits = v.findViewById(R.id.pb_evaluateCredit)
     }
 
     override fun onClick(v: View) {
@@ -153,13 +179,13 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     val logObj = TallyLog(
                         c.idGenerator(Constants.isTally),
                         dateString,
-                        PainterObj.name,
-                        PainterObj.id,
-                        PainterObj.mobile,
+                        PainterObj!!.name,
+                        PainterObj!!.id,
+                        PainterObj!!.mobile,
                         totalProdOrdered(CreditList),
                         et_total.text.toString().toInt()
                     )
-                    dbHelper.addCreditLogs(logObj, PainterObj)
+                    dbHelper.addCreditLogs(logObj, PainterObj!!)
                     et_total.setText("0")
                     atvPainter.setText("")
                     atvPainter.isEnabled = true
@@ -179,15 +205,17 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     CreditList.add(
                         TallyCredit(
                             atvProductName.text.toString(),
-                            ProductObj.points,
+                            ProductObj!!.points,
                             et_quantity.text.toString(),
                             total.toString()
                         )
                     )
                     tallyadapter.updateRecylerview(CreditList)
+                    tallylistrv.scheduleLayoutAnimation()
                     atvProductName.setText("")
                     atvPainter.isEnabled = false
                     et_quantity.text!!.clear()
+                    ProductObj == null
                     TallyOutTotal(CreditList)
                 }
             }
@@ -207,6 +235,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         if (creditList.isEmpty()) {
             et_total.setText("0")
             atvPainter.setText("")
+            ProductObj == null
+            PainterObj == null
             atvPainter.isEnabled = true
             atvPainter.setSelection(0)
         } else {
@@ -219,7 +249,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
     }
 
     private fun calculateTotal(): Int {
-        return (ProductObj.points).toInt() * (et_quantity.text.toString()).toInt()
+        return (ProductObj!!.points).toInt() * (et_quantity.text.toString()).toInt()
     }
 
     private fun setRecyclerView(creditList: ArrayList<TallyCredit>) {
@@ -233,11 +263,11 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
 
     private fun validation(): Boolean {
         var returnBool = true
-        if (atvPainter.text.isEmpty()) {
+        if (PainterObj == null) {
             atvPainter.error = "Please select a painter"
             returnBool = false
         }
-        if (atvProductName.text.isEmpty()) {
+        if (ProductObj == null) {
             atvProductName.error = "Please select a product"
             returnBool = false
         }

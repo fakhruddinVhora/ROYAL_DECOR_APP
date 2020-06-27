@@ -46,9 +46,9 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_painter_list, container, false)
         init()
         initialization()
-        //val list = ArrayList<Painters>()
-        settingAdapter(Constants.PAINTER_DB)
-        dbHelper.fetchpainterdetails(painteradapter, false)
+        val list = ArrayList<Painters>()
+        settingAdapter(list)
+        dbHelper.fetchpainterdetails(painteradapter, painterlistrv, false)
         backImg.setOnClickListener(this)
         return v
     }
@@ -86,7 +86,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnDeleteClick(item: Painters) {
-        val result = dbHelper.deletepainter(item, painteradapter)
+        val result = dbHelper.deletepainter(item, painterlistrv, painteradapter)
     }
 
     override fun OnEditClick(item: Painters) {
@@ -131,7 +131,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
                     aadhar.text.toString(),
                     item.credits
                 )
-                dbHelper.updatepainterdetails(editObj, painteradapter)
+                dbHelper.updatepainterdetails(editObj, painterlistrv, painteradapter)
             } else {
                 Toast.makeText(context, "Not Able to Edit", Toast.LENGTH_SHORT).show()
             }

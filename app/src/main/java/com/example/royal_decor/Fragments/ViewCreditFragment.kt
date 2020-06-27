@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.ViewCreditAdpater
-import com.example.royal_decor.Models.Credits
+import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.PainterCallback
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
@@ -23,6 +25,8 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
     private lateinit var creditadapter: ViewCreditAdpater
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
+    private lateinit var dbHelper: DatabaseHelper
+    private lateinit var pb_credit: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,31 +37,20 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
 
         init()
         initialization()
-        val CustListData = Constants.PAINTER_DB
-        if (CustListData.size != 0) {
-            var sortedList: List<Painters> = CustListData.sortedWith(compareBy {
-                it.credits
-            })
-            sortedList = sortedList.reversed()
-            settingAdapter(sortedList)
-        }
+        dbHelper.getpainterdetails(pb_credit, object : PainterCallback {
+            override fun returnPainterValues(list: ArrayList<Painters>) {
+                if (list.size != 0) {
+                    var sortedList: List<Painters> = list.sortedWith(compareBy {
+                        it.credits
+                    })
+                    sortedList = sortedList.reversed()
+                    settingAdapter(sortedList)
+                }
+            }
 
-
+        })
         backImg.setOnClickListener(this)
         return v
-    }
-
-    private fun fetchingDataForAdapter(): ArrayList<Credits> {
-        val listtobesent = ArrayList<Credits>()
-
-        listtobesent.add(Credits("FAKHRUDDIN", "94564851351", 45))
-        listtobesent.add(Credits("JKGBNFJN", "94544851351", 514))
-        listtobesent.add(Credits("KJDSNGJFN", "94564851351", 6654))
-        listtobesent.add(Credits("JEDFDSJKBDF", "94564851351", 65456))
-        listtobesent.add(Credits("LFDNFJDFNKJSF", "94564851351", 5456))
-
-
-        return listtobesent
     }
 
     private fun initialization() {
@@ -69,6 +62,11 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
         credlistrv = v.findViewById(R.id.creditlistrv)
+        pb_credit = v.findViewById(R.id.pb_creditview)
+
+
+        dbHelper = DatabaseHelper()
+        dbHelper.open()
     }
 
     private fun settingAdapter(painterlistData: List<Painters>) {
@@ -79,6 +77,7 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
         credlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         credlistrv.adapter = creditadapter
+        credlistrv.scheduleLayoutAnimation()
     }
 
 

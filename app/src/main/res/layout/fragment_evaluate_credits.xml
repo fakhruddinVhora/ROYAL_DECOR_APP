@@ -134,6 +134,14 @@
             </LinearLayout>
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/pb_evaluateCredit"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tallylistrv"
             android:layout_width="match_parent"
@@ -142,6 +150,8 @@
             android:layout_below="@id/formbox"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layoutAnimation="@anim/rv_layoutanimation"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp" />
 

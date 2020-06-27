@@ -82,6 +82,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         custlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         custlistrv.adapter = custadapter
+        custlistrv.scheduleLayoutAnimation()
     }
 
 

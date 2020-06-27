@@ -45,7 +45,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_dashboard)
         init()
         initialization()
-        storeDBValuesInConstants()
+        //storeDBValuesInConstants()
         setupGraphAdapter()
         setupRecyclerView()
 

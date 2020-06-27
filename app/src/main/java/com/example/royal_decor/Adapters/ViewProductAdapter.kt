@@ -69,5 +69,6 @@ class ViewProductAdapter(
     fun updateProductRV(list: ArrayList<Product>) {
         prodList = list
         notifyDataSetChanged()
+
     }
 }

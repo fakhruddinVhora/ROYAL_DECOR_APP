@@ -7,9 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
+import java.util.*
 
 class ViewCreditAdpater(
-    val creditList: List<Painters>
+    var creditList: List<Painters>
 ) : RecyclerView.Adapter<ViewCreditAdpater.creditViewHolder>() {
 
 
@@ -42,5 +43,10 @@ class ViewCreditAdpater(
 
     override fun onBindViewHolder(holder: ViewCreditAdpater.creditViewHolder, position: Int) {
         holder.onBindView(creditList[position])
+    }
+
+    fun updateCreditAdapter(list: ArrayList<Painters>) {
+        creditList = list
+        notifyDataSetChanged()
     }
 }
