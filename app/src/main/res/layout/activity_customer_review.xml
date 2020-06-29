@@ -282,6 +282,7 @@
                             android:textSize="@dimen/_10sdp" />
 
                         <RadioGroup
+                            android:id="@+id/rg_expectations"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_35sdp"
@@ -293,6 +294,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:checked="true"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Yes"
@@ -342,6 +344,7 @@
                             android:textSize="@dimen/_10sdp" />
 
                         <RadioGroup
+                            android:id="@+id/rg_shadeproduct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_35sdp"
@@ -353,6 +356,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:checked="true"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Excellent"
@@ -362,7 +366,7 @@
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
@@ -373,7 +377,7 @@
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
@@ -402,6 +406,7 @@
                             android:textSize="@dimen/_10sdp" />
 
                         <RadioGroup
+                            android:id="@+id/rg_employeeservices"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_35sdp"
@@ -413,6 +418,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:checked="true"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Very Helpful"
@@ -423,7 +429,7 @@
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
@@ -452,6 +458,7 @@
                             android:textSize="@dimen/_10sdp" />
 
                         <RadioGroup
+                            android:id="@+id/rg_colorconsultations"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_35sdp"
@@ -466,13 +473,14 @@
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Excellent"
+                                android:checked="true"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/_10sdp" />
 
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
@@ -483,7 +491,7 @@
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
@@ -511,7 +519,7 @@
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
 
-                        <RatingBar
+                        <androidx.appcompat.widget.AppCompatRatingBar
                             android:id="@+id/ratingbar"
                             style="@style/Widget.AppCompat.RatingBar.Indicator"
                             android:layout_width="wrap_content"
@@ -521,6 +529,7 @@
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:isIndicator="false"
                             android:numStars="10"
+                            android:rating="1"
                             android:progressTint="@color/colorPrimary"
                             android:stepSize="1" />
                     </LinearLayout>
@@ -579,7 +588,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_add"
+                    android:id="@+id/btn_submit"
                     style="@style/TextAppearance.AppCompat.Widget.Button"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_50sdp"

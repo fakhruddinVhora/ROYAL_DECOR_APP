@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/_16sdp"
+    android:paddingTop="@dimen/_30sdp"
+    android:paddingEnd="@dimen/_16sdp"
+    android:paddingBottom="@dimen/_15sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/expectations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/formbox"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="Met Expectations :  XXXE"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/productshade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/formbox"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="Product and Shade Quality :  XXXPS"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/employeeservices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/formbox"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="Employee Services :  XXXES"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/colorselection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="Color Selection Consultation :  XXXCSC"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/overallrating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="Overall Rating :  XXXS Stars"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="Other Suggestion :"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/suggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ralewaymedium"
+        android:gravity="left"
+        android:text="-"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp" />
+
+</LinearLayout>

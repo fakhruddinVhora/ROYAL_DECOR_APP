@@ -5,14 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.CustomerListAdapter
-import com.example.royal_decor.Models.Painters
+import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.CustomerCallback
+import com.example.royal_decor.Models.Customers
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textview.MaterialTextView
 
 class CustomerListFragment : Fragment(), View.OnClickListener,
     CustomerListAdapter.customerOnclickListener {
@@ -23,6 +28,9 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
     private lateinit var VerticalLayout: LinearLayoutManager
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
+    private lateinit var pb_customer: ProgressBar
+
+    private lateinit var dbhandler: DatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +40,14 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_customer_list, container, false)
         init()
         initialization()
-        val CustListData = fetchingDataForAdapter()
-        if (CustListData.size != 0) {
-            settingAdapter(CustListData)
-        }
+
+        dbhandler.getcustomerdetails(pb_customer, object : CustomerCallback {
+            override fun returnCustomerValues(list: ArrayList<Customers>) {
+                settingAdapter(list)
+            }
+
+        })
+
 
 
         backImg.setOnClickListener(this)
@@ -44,24 +56,6 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
 
     }
 
-    private fun fetchingDataForAdapter(): ArrayList<Painters> {
-        val listtobesent = ArrayList<Painters>()
-
-        listtobesent.add(Painters("CUS123", "FAKHRUDDIN", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS125", "JKGBNFJN", "94544851351", "Mehsana", ""))
-        listtobesent.add(Painters("CUS123", "KJDSNGJFN", "94564851351", "Borsad", ""))
-        listtobesent.add(Painters("CUS143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS113", "FJKDSNJDSF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS123", "FAKHRUDDIN", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS125", "JKGBNFJN", "94544851351", "Mehsana", ""))
-        listtobesent.add(Painters("CUS123", "KJDSNGJFN", "94564851351", "Borsad", ""))
-        listtobesent.add(Painters("CUS143", "JEDFDSJKBDF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS173", "LFDNFJDFNKJSF", "94564851351", "Anand", ""))
-        listtobesent.add(Painters("CUS113", "FJKDSNJDSF", "94564851351", "Anand", ""))
-
-        return listtobesent
-    }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
@@ -72,9 +66,14 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
         custlistrv = v.findViewById(R.id.customerlistrv)
+        pb_customer = v.findViewById(R.id.pb_customerdetails)
+
+        dbhandler = DatabaseHelper()
+        dbhandler.open()
+
     }
 
-    private fun settingAdapter(custListData: ArrayList<Painters>) {
+    private fun settingAdapter(custListData: ArrayList<Customers>) {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         custlistrv.layoutManager = RecyclerViewLayoutManager
@@ -94,12 +93,56 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         }
     }
 
-    override fun OnDeleteClick(item: Painters) {
-
+    override fun OnDeleteClick(item: Customers) {
+        dbhandler.deletecustomer(item, pb_customer, object : CustomerCallback {
+            override fun returnCustomerValues(list: ArrayList<Customers>) {
+                custadapter.updateData(list)
+                custlistrv.scheduleLayoutAnimation()
+            }
+        })
     }
 
-    override fun OnInfoClick(item: Painters) {
+    override fun OnInfoClick(item: Customers) {
+        DialogCreator(item)
+    }
 
+    fun DialogCreator(item: Customers) {
+        val dialog = MaterialAlertDialogBuilder(context)
+        dialog.setTitle("${item.name}'s Feedback")
+        val inflater = this.layoutInflater
+
+        val dialogView = inflater.inflate(R.layout.custom_customer_dialog_layout, null)
+
+        val expectations = dialogView.findViewById<MaterialTextView>(R.id.expectations)
+        val productshade = dialogView.findViewById<MaterialTextView>(R.id.productshade)
+        val employees = dialogView.findViewById<MaterialTextView>(R.id.employeeservices)
+        val overallstars = dialogView.findViewById<MaterialTextView>(R.id.overallrating)
+        val colorconsulatation = dialogView.findViewById<MaterialTextView>(R.id.colorselection)
+        val suggestions = dialogView.findViewById<MaterialTextView>(R.id.suggestions)
+
+
+        expectations.setText(expectations.text.toString().replace("XXXE", item.expectations))
+        productshade.setText(
+            productshade.text.toString().replace("XXXPS", item.productshadequality)
+        )
+        employees.setText(employees.text.toString().replace("XXXES", item.employeeservicerating))
+        overallstars.setText(overallstars.text.toString().replace("XXXS", item.overallratingstars))
+        colorconsulatation.setText(
+            colorconsulatation.text.toString().replace("XXXCSC", item.colorselectionconsultation)
+        )
+        if (item.othersuggestions != "") {
+            suggestions.setText(item.othersuggestions)
+
+        }
+
+
+
+        dialog.setView(dialogView)
+        dialog.setNegativeButton("Cancel") { dialog, which ->
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
 

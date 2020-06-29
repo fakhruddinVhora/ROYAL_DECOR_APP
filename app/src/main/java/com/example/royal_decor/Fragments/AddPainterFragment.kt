@@ -140,15 +140,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
                 returnbool = false
             }
         }*/
-        if (paddress.text!!.isEmpty()) {
-            paddress.error = Constants.ERROR_FILL_DETAILS
-            returnbool = false
-        } else {
-            if (paddress.text.toString().length > 30) {
-                paddress.error = Constants.ERROR_EXCEED_LIMIT
-                returnbool = false
-            }
-        }
+
         if (paddress.text!!.isEmpty()) {
             paddress.error = Constants.ERROR_FILL_DETAILS
             returnbool = false

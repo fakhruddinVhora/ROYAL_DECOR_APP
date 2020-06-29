@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.royal_decor.Models.Painters
+import com.example.royal_decor.Models.Customers
 import com.example.royal_decor.R
 
 
 class CustomerListAdapter(
-    val custlist: ArrayList<Painters>,
+    var custlist: ArrayList<Customers>,
     val clickListener: customerOnclickListener
 ) : RecyclerView.Adapter<CustomerListAdapter.ViewHolder>() {
 
@@ -34,6 +34,12 @@ class CustomerListAdapter(
         return custlist.size
     }
 
+    fun updateData(list: java.util.ArrayList<Customers>) {
+        custlist = list
+        notifyDataSetChanged()
+
+    }
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val custID = itemView.findViewById(R.id.cus_id) as TextView
@@ -45,13 +51,13 @@ class CustomerListAdapter(
         val delete = itemView.findViewById(R.id.imgdelete) as ImageView
 
         fun bindItems(
-            custObj: Painters,
+            custObj: Customers,
             clickListener: customerOnclickListener
         ) {
             custID.text = custObj.id
             custname.text = custObj.name
             custaddress.text = custObj.address
-            custmobile.text = custObj.mobile
+            custmobile.text = custObj.mobileno
 
             info.setOnClickListener {
                 clickListener.OnInfoClick(custObj)
@@ -64,7 +70,7 @@ class CustomerListAdapter(
     }
 
     interface customerOnclickListener {
-        fun OnDeleteClick(item: Painters)
-        fun OnInfoClick(item: Painters)
+        fun OnDeleteClick(item: Customers)
+        fun OnInfoClick(item: Customers)
     }
 }

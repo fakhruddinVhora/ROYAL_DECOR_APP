@@ -4,9 +4,11 @@ import android.os.Build
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
+import com.example.royal_decor.Interface.CustomerCallback
 import com.example.royal_decor.Interface.PainterCallback
 import com.example.royal_decor.Interface.PiechartCallback
 import com.example.royal_decor.Interface.ProductCallback
+import com.example.royal_decor.Models.Customers
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.Models.TallyLog
@@ -33,27 +35,45 @@ class DatabaseHelper {
         db = FirebaseDatabase.getInstance().reference
     }
 
-    fun fetchcustomerdetails() {
+/*-------------------------------------------Feedback DataHandling Start------------------------------------------------------------------------*/
 
+
+    fun addCustomerfeedback(obj: Customers) {
+        db.child(Constants.NODE_CUSTOMER).child(obj.id).setValue(obj)
     }
 
-    fun fetchcreditdetails() {
+    fun getcustomerdetails(
+        progressbar: ProgressBar,
+        callback: CustomerCallback
+    ) {
+        var list = ArrayList<Customers>()
 
+        val fetchCustomerDataRef = db.child(Constants.NODE_CUSTOMER)
+        fetchCustomerDataRef.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (Snap in snapshot.children) {
+                    val obj = Snap.getValue(Customers::class.java)
+                    if (obj != null) {
+                        list.add(obj)
+                    }
+                }
+                progressbar.visibility = View.GONE
+                callback.returnCustomerValues(list)
+            }
+        })
+    }
+
+    fun deletecustomer(item: Customers, progressbar: ProgressBar, callback: CustomerCallback) {
+        db.child(Constants.NODE_CUSTOMER).child(item.id).removeValue()
+        getcustomerdetails(progressbar, callback)
     }
 
 
-    fun savecreditdetails() {
-
-    }
-
-
-    fun addcustomer() {
-
-    }
-
-    fun deletecustomerreview() {
-
-    }
+    /*-------------------------------------------Feedback  DataHandling End------------------------------------------------------------------------*/
 
 
 /*-------------------------------------------Evaluate Credit DataHandling Start------------------------------------------------------------------------*/
