@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
+        android:animateLayoutChanges="true"
         android:orientation="vertical">
 
         <ProgressBar
@@ -32,10 +33,25 @@
             android:indeterminateTint="@color/colorPrimary"
             android:visibility="gone" />
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/creditsearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@drawable/customsearchlayout"
+            android:layoutDirection="rtl"
+            android:textCursorDrawable="@null"
+            android:visibility="gone"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="fill_parent"
+            android:layout_below="@id/creditsearch"
             android:layout_height="fill_parent"
-            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layoutAnimation="@anim/rv_layoutanimation"
             android:layout_marginBottom="@dimen/_5sdp">
 

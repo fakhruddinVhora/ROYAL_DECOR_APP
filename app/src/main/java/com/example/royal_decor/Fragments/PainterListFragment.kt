@@ -33,6 +33,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     private lateinit var painterlistrv: RecyclerView
     private lateinit var painteradapter: PainterListAdapter
     private lateinit var backImg: ImageView
+    private lateinit var searchImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var searchView: SearchView
@@ -54,13 +55,19 @@ class PainterListFragment : Fragment(), View.OnClickListener,
                 settingAdapter(list)
             }
         })
+
         backImg.setOnClickListener(this)
+        searchImg.setOnClickListener(this)
         return v
     }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
+        searchImg.visibility = View.VISIBLE
+        searchImg.setImageDrawable(resources.getDrawable(R.drawable.ic_search))
+
         headertext.text = Constants.VIEW_PAINTERS_LIST
+
         dbHelper = DatabaseHelper()
         dbHelper.open()
 
@@ -70,8 +77,6 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         searchIcon.setColorFilter(resources.getColor(R.color.colorPrimary))
         val textView = searchView.findViewById<TextView>(R.id.search_src_text)
         textView.setTextColor(resources.getColor(R.color.colorPrimary))
-
-
     }
 
     private fun init() {
@@ -79,6 +84,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         headertext = v.findViewById(R.id.header_text)
         painterlistrv = v.findViewById(R.id.painterlistrv)
         pb_painter = v.findViewById(R.id.pb_painterdetails)
+        searchImg = v.findViewById(R.id.img_logout)
 
         searchView = v.findViewById(R.id.paintersearch)
     }
@@ -91,6 +97,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         painterlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         painterlistrv.adapter = painteradapter
+        painterlistrv.scheduleLayoutAnimation()
 
 
 
@@ -112,6 +119,15 @@ class PainterListFragment : Fragment(), View.OnClickListener,
 
     override fun onClick(v: View) {
         when (v.id) {
+
+            R.id.img_logout -> {
+                if (searchView.visibility == View.GONE) {
+                    searchView.visibility = View.VISIBLE
+                } else {
+                    searchView.visibility = View.GONE
+                }
+            }
+
             R.id.img_back -> {
                 activity!!.finish()
             }
@@ -119,7 +135,12 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnDeleteClick(item: Painters) {
-        val result = dbHelper.deletepainter(item, painterlistrv, painteradapter)
+        dbHelper.deletepainter(item, pb_painter, object : PainterCallback {
+            override fun returnPainterValues(list: ArrayList<Painters>) {
+                painteradapter.updatePainterRV(list)
+                painterlistrv.scheduleLayoutAnimation()
+            }
+        })
     }
 
     override fun OnEditClick(item: Painters) {
@@ -164,7 +185,12 @@ class PainterListFragment : Fragment(), View.OnClickListener,
                     aadhar.text.toString(),
                     item.credits
                 )
-                dbHelper.updatepainterdetails(editObj, painterlistrv, painteradapter)
+                dbHelper.updatepainterdetails(editObj, pb_painter, object : PainterCallback {
+                    override fun returnPainterValues(list: ArrayList<Painters>) {
+                        painteradapter.updatePainterRV(list)
+                        painterlistrv.scheduleLayoutAnimation()
+                    }
+                })
             } else {
                 Toast.makeText(context, "Not Able to Edit", Toast.LENGTH_SHORT).show()
             }
@@ -242,7 +268,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
 
 
     private fun dobDialog(etdob: TextInputEditText) {
-        val TempDate: String = ""
+
         //setconstraints to restrict dates
         val constraints = CalendarConstraints.Builder()  // 1
         val calendar = Calendar.getInstance()

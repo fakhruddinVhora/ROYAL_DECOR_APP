@@ -165,6 +165,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
             if (pmobilenumber.text.toString().length > 10) {
                 pmobilenumber.error = Constants.ERROR_EXCEED_LIMIT
                 returnbool = false
+                returnbool = false
             }
         }
         if (paadhar.text!!.isEmpty()) {

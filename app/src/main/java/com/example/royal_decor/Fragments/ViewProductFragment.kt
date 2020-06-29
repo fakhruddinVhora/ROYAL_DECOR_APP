@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.ViewProductAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.ProductCallback
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
@@ -28,6 +30,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var dbHelper: DatabaseHelper
+    private lateinit var pb_product: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +40,15 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_view_product, container, false)
         init()
         initialization()
-        val ProdList: ArrayList<Product> = ArrayList()
-        settingAdapter(ProdList)
-        dbHelper.fetchproductdetails(prodadapter, prodlistrv, false)
+        /* val ProdList: ArrayList<Product> = ArrayList()
+         settingAdapter(ProdList)
+         dbHelper.fetchproductdetails(prodadapter, prodlistrv, false)*/
+
+        dbHelper.getproductdetails(pb_product, object : ProductCallback {
+            override fun returnProductValues(list: ArrayList<Product>) {
+                settingAdapter(list)
+            }
+        })
         backImg.setOnClickListener(this)
         return v
     }
@@ -56,6 +65,8 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         backImg = v.findViewById(R.id.img_back)
         headertext = v.findViewById(R.id.header_text)
         prodlistrv = v.findViewById(R.id.prodlistrv)
+
+        pb_product = v.findViewById(R.id.pb_productdetails)
     }
 
     private fun settingAdapter(prodListData: List<Product>) {
@@ -66,6 +77,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         prodlistrv.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         prodlistrv.adapter = prodadapter
+        prodlistrv.scheduleLayoutAnimation()
 
     }
 
@@ -83,7 +95,12 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnDeleteClick(prodObj: Product) {
-        dbHelper.deleteproduct(prodObj, prodlistrv, prodadapter)
+        dbHelper.deleteproduct(prodObj, pb_product, object : ProductCallback {
+            override fun returnProductValues(list: ArrayList<Product>) {
+                prodadapter.updateProductRV(list)
+                prodlistrv.scheduleLayoutAnimation()
+            }
+        })
     }
 
     fun DialogCreator(item: Product) {
@@ -112,7 +129,12 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
                     name.text.toString(),
                     credits.text.toString()
                 )
-                dbHelper.updateproductdetails(editObj, prodlistrv, prodadapter)
+                dbHelper.updateproductdetails(editObj, pb_product, object : ProductCallback {
+                    override fun returnProductValues(list: ArrayList<Product>) {
+                        prodadapter.updateProductRV(list)
+                        prodlistrv.scheduleLayoutAnimation()
+                    }
+                })
             } else {
                 Toast.makeText(context, "Not Able to Edit", Toast.LENGTH_SHORT).show()
             }

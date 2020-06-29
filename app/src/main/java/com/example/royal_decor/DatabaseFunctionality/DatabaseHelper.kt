@@ -4,9 +4,6 @@ import android.os.Build
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.RecyclerView
-import com.example.royal_decor.Adapters.PainterListAdapter
-import com.example.royal_decor.Adapters.ViewProductAdapter
 import com.example.royal_decor.Interface.PainterCallback
 import com.example.royal_decor.Interface.PiechartCallback
 import com.example.royal_decor.Interface.ProductCallback
@@ -19,20 +16,17 @@ import com.google.firebase.database.*
 
 class DatabaseHelper {
 
-    companion object {
-        private lateinit var fetchPainterDataRef: DatabaseReference
-        private lateinit var fetchProductDataRef: DatabaseReference
+
+    private lateinit var fetchPainterDataRef: DatabaseReference
+    private lateinit var fetchProductDataRef: DatabaseReference
 
 
-        private lateinit var StorePainterDataRef: DatabaseReference
-        private lateinit var StoreCustomerDataRef: DatabaseReference
-        private lateinit var StoreProductDataRef: DatabaseReference
+    private lateinit var StorePainterDataRef: DatabaseReference
+    private lateinit var StoreCustomerDataRef: DatabaseReference
+    private lateinit var StoreProductDataRef: DatabaseReference
 
 
-        private lateinit var db: DatabaseReference
-
-
-    }
+    private lateinit var db: DatabaseReference
 
 
     fun open() {
@@ -62,7 +56,8 @@ class DatabaseHelper {
     }
 
 
-    //creditsLog
+/*-------------------------------------------Evaluate Credit DataHandling Start------------------------------------------------------------------------*/
+
 
     fun addCreditLogs(
         logObj: TallyLog,
@@ -95,9 +90,9 @@ class DatabaseHelper {
             }
         })
     }
+/*-------------------------------------------Evaluate Credit DataHandling End------------------------------------------------------------------------*/
 
-
-    //product
+    /*-------------------------------------------Product's DataHandling Start------------------------------------------------------------------------*/
     fun addproduct(prodObj: Product): Boolean {
         var returnbool = true
         //val id = db.push().key
@@ -110,100 +105,6 @@ class DatabaseHelper {
             }
 
         return returnbool
-    }
-
-
-    fun fetchproductdetails(
-        prodAdapter: ViewProductAdapter,
-        rv: RecyclerView,
-        removelistener: Boolean
-    ) {
-        var list = ArrayList<Product>()
-        fetchProductDataRef = db.child(Constants.NODE_PRODUCT)
-        fetchProductDataRef.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (Snap in snapshot.children) {
-                    val obj = Snap.getValue(Product::class.java)
-                    if (obj != null) {
-                        list.add(obj)
-                    }
-                }
-                Constants.PRODUCT_DB.clear()
-                Constants.PRODUCT_DB = list
-                prodAdapter.updateProductRV(list)
-                rv.scheduleLayoutAnimation()
-                if (removelistener) {
-                    fetchProductDataRef.removeEventListener(this)
-                }
-            }
-        })
-    }
-
-    fun deleteproduct(item: Product, rv: RecyclerView, prodAdapter: ViewProductAdapter) {
-        db.child(Constants.NODE_PRODUCT).child(item.productID).removeValue()
-        fetchproductdetails(prodAdapter, rv, true)
-    }
-
-    fun updateproductdetails(
-        editObj: Product,
-        rv: RecyclerView,
-        prodAdapter: ViewProductAdapter
-    ) {
-        db.child(Constants.NODE_PRODUCT).child(editObj.productID).setValue(editObj)
-        fetchproductdetails(prodAdapter, rv, true)
-    }
-
-
-    //painters
-    fun updatepainterdetails(
-        editObj: Painters,
-        rv: RecyclerView,
-        painteradapter: PainterListAdapter
-    ) {
-        db.child(Constants.NODE_PAINTER).child(editObj.id).setValue(editObj)
-        fetchpainterdetails(painteradapter, rv, true)
-    }
-
-    fun deletepainter(item: Painters, rv: RecyclerView, painteradapter: PainterListAdapter) {
-        db.child(Constants.NODE_PAINTER).child(item.id).removeValue()
-        fetchpainterdetails(painteradapter, rv, true)
-    }
-
-    fun fetchpainterdetails(
-        painteradapter: PainterListAdapter,
-        rv: RecyclerView,
-        showinrecyler: Boolean
-    ) {
-        var list = ArrayList<Painters>()
-        fetchPainterDataRef = db.child(Constants.NODE_PAINTER)
-
-
-
-        fetchPainterDataRef.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (Snap in snapshot.children) {
-                    val obj = Snap.getValue(Painters::class.java)
-                    if (obj != null) {
-                        list.add(obj)
-                    }
-                }
-                Constants.PAINTER_DB.clear()
-                Constants.PAINTER_DB = list
-                painteradapter.updatePainterRV(list)
-                rv.scheduleLayoutAnimation()
-                if (showinrecyler) {
-                    fetchPainterDataRef.removeEventListener(this)
-                }
-            }
-        })
     }
 
     fun getproductdetails(
@@ -230,6 +131,42 @@ class DatabaseHelper {
             }
         })
     }
+
+
+    fun deleteproduct(item: Product, progressbar: ProgressBar, callback: ProductCallback) {
+        db.child(Constants.NODE_PRODUCT).child(item.productID).removeValue()
+        getproductdetails(progressbar, callback)
+    }
+
+    fun updateproductdetails(
+        editObj: Product,
+        progressbar: ProgressBar, callback: ProductCallback
+    ) {
+        db.child(Constants.NODE_PRODUCT).child(editObj.productID).setValue(editObj)
+        getproductdetails(progressbar, callback)
+    }
+/*-------------------------------------------Product's DataHandling End------------------------------------------------------------------------*/
+
+/*-------------------------------------------Painter's DataHandling Start------------------------------------------------------------------------*/
+
+
+    fun updatepainterdetails(
+        editObj: Painters,
+        progressbar: ProgressBar,
+        callback: PainterCallback
+    ) {
+        db.child(Constants.NODE_PAINTER).child(editObj.id).setValue(editObj)
+        getpainterdetails(progressbar, callback)
+    }
+
+    fun deletepainter(
+        item: Painters, progressbar: ProgressBar,
+        callback: PainterCallback
+    ) {
+        db.child(Constants.NODE_PAINTER).child(item.id).removeValue()
+        getpainterdetails(progressbar, callback)
+    }
+
 
     fun getpainterdetails(
         progressbar: ProgressBar,
@@ -271,6 +208,10 @@ class DatabaseHelper {
 
         return returnbool
     }
+/*-------------------------------------------Painter's DataHandling End------------------------------------------------------------------------*/
+
+
+    /*-------------------------------------------Dashboard's DataHandling------------------------------------------------------------------------*/
 
 
     fun storeDBValuesInConstants(dashboardprogressbar: ProgressBar) {
@@ -297,6 +238,7 @@ class DatabaseHelper {
         })
 
     }
+
 
     private fun fetchProdDetails(dashboardprogressbar: ProgressBar) {
 
@@ -349,6 +291,7 @@ class DatabaseHelper {
         })
     }
 
+/*-------------------------------------------Dashboard's DataHandling------------------------------------------------------------------------*/
 
 }
 

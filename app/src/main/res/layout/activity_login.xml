@@ -165,12 +165,13 @@
                     android:paddingBottom="@dimen/_5sdp">
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/reviewus"
                         style="@style/TextAppearance.AppCompat.Widget.Button"
                         android:layout_width="@dimen/_150sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="Reviews"
+                        android:text="Customer Feedback"
                         android:textColor="#0C2733"
                         android:textSize="@dimen/_12sdp"
                         app:cornerRadius="@dimen/_4sdp"

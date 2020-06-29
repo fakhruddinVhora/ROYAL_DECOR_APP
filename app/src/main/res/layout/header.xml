@@ -22,9 +22,10 @@
 
         <TextView
             android:id="@+id/header_text"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_200sdp"
             android:layout_height="wrap_content"
             android:text=""
+            android:gravity="center"
             android:fontFamily="@font/ralewayextrabold"
             android:layout_centerInParent="true"
             android:textColor="#fff"

@@ -32,7 +32,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="6"
                 android:orientation="horizontal">
 
                 <androidx.viewpager.widget.ViewPager
@@ -62,8 +62,8 @@
                     android:id="@+id/dashboardrv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_marginBottom="@dimen/_30sdp" />
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_20sdp" />
             </LinearLayout>
 
         </LinearLayout>

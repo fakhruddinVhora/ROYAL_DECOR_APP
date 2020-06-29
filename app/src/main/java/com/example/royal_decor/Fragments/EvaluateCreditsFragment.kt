@@ -120,24 +120,6 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         }
     }
 
-    private fun fetchProductData(): List<Product> {
-        var tempList = ArrayList<Product>()
-
-        if (Constants.PRODUCT_DB.size > 0) {
-            tempList = Constants.PRODUCT_DB
-        }
-        return tempList
-
-
-    }
-
-    private fun fetchData(): List<Painters> {
-        var tempList = ArrayList<Painters>()
-        if (Constants.PAINTER_DB.size > 0) {
-            tempList = Constants.PAINTER_DB
-        }
-        return tempList
-    }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE

@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var BTNlogin: Button
     private lateinit var loginprogressbar: ProgressBar
     private lateinit var createnewaccount: MaterialTextView
+    private lateinit var reviewus: MaterialTextView
     private var mAuth: FirebaseAuth? = null
 
     /* public override fun onStart() {
@@ -53,12 +54,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         createnewaccount.setPaintFlags(createnewaccount.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
         BTNlogin.setOnClickListener(this)
         createnewaccount.setOnClickListener(this)
+        reviewus.setOnClickListener(this)
     }
 
     private fun init() {
         BTNlogin = findViewById(R.id.btn_login)
         loginprogressbar = findViewById(R.id.loginprogressbar)
         createnewaccount = findViewById(R.id.createnewaccount)
+        reviewus = findViewById(R.id.reviewus)
 
 
         mAuth = FirebaseAuth.getInstance()
@@ -74,12 +77,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 if (loginprogressbar.visibility == View.GONE) {
                     // Login()
                     startActivity(Intent(applicationContext, DashboardActivity::class.java))
-                    finish()
                 }
             }
 
             R.id.createnewaccount -> {
                 DialogCreator()
+            }
+
+            R.id.reviewus -> {
+                startActivity(Intent(applicationContext, CustomerReviewActivity::class.java))
             }
         }
 

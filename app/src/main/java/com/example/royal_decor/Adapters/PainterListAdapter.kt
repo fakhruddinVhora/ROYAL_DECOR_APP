@@ -41,7 +41,7 @@ class PainterListAdapter(
     }
 
     fun updatePainterRV(s: ArrayList<Painters>) {
-        painterlist = s
+        painterFilterList = s
         notifyDataSetChanged()
     }
 

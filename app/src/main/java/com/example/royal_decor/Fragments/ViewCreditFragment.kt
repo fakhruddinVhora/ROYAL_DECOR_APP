@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +25,10 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
     private lateinit var credlistrv: RecyclerView
     private lateinit var creditadapter: ViewCreditAdpater
     private lateinit var backImg: ImageView
+    private lateinit var searchImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var dbHelper: DatabaseHelper
+    private lateinit var searchView: SearchView
     private lateinit var pb_credit: ProgressBar
 
     override fun onCreateView(
@@ -50,12 +53,22 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
 
         })
         backImg.setOnClickListener(this)
+        searchImg.setOnClickListener(this)
         return v
     }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
         headertext.text = Constants.VIEW_CREDIT_SCORE
+        searchImg.visibility = View.VISIBLE
+        searchImg.setImageDrawable(resources.getDrawable(R.drawable.ic_search))
+
+        val cancelIcon = searchView.findViewById<ImageView>(R.id.search_close_btn)
+        cancelIcon.setColorFilter(resources.getColor(R.color.colorPrimary))
+        val searchIcon = searchView.findViewById<ImageView>(R.id.search_mag_icon)
+        searchIcon.setColorFilter(resources.getColor(R.color.colorPrimary))
+        val textView = searchView.findViewById<TextView>(R.id.search_src_text)
+        textView.setTextColor(resources.getColor(R.color.colorPrimary))
     }
 
     private fun init() {
@@ -63,6 +76,9 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
         headertext = v.findViewById(R.id.header_text)
         credlistrv = v.findViewById(R.id.creditlistrv)
         pb_credit = v.findViewById(R.id.pb_creditview)
+        searchImg = v.findViewById(R.id.img_logout)
+
+        searchView = v.findViewById(R.id.creditsearch)
 
 
         dbHelper = DatabaseHelper()
@@ -78,11 +94,34 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         credlistrv.adapter = creditadapter
         credlistrv.scheduleLayoutAnimation()
+
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                creditadapter.filter.filter(newText)
+                return false
+            }
+
+        })
     }
 
 
     override fun onClick(v: View) {
         when (v.id) {
+
+            R.id.img_logout -> {
+                if (searchView.visibility == View.GONE) {
+                    searchView.visibility = View.VISIBLE
+                } else {
+                    searchView.visibility = View.GONE
+                }
+            }
+
             R.id.img_back -> {
                 activity!!.finish()
             }
