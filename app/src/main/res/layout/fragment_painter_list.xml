@@ -33,6 +33,18 @@
             android:indeterminateTint="@color/colorPrimary"
             android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/img_save"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="false"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/ic_outline_save_24"
+            android:tint="@color/colorPrimary"
+            android:visibility="visible" />
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/paintersearch"
             android:layout_width="match_parent"
@@ -50,8 +62,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/paintersearch"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_42sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layoutAnimation="@anim/rv_layoutanimation">
 

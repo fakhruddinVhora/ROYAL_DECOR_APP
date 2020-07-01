@@ -1,6 +1,7 @@
 package com.example.royal_decor.Fragments
 
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,13 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import com.opencsv.CSVWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class PainterListFragment : Fragment(), View.OnClickListener,
@@ -34,10 +40,12 @@ class PainterListFragment : Fragment(), View.OnClickListener,
     private lateinit var painteradapter: PainterListAdapter
     private lateinit var backImg: ImageView
     private lateinit var searchImg: ImageView
+    private lateinit var saveImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var searchView: SearchView
     private lateinit var pb_painter: ProgressBar
+    private var tempList: ArrayList<Painters> = ArrayList()
 
 
     override fun onCreateView(
@@ -45,6 +53,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         v = inflater.inflate(R.layout.fragment_painter_list, container, false)
         init()
         initialization()
@@ -52,18 +61,22 @@ class PainterListFragment : Fragment(), View.OnClickListener,
 
         dbHelper.getpainterdetails(pb_painter, object : PainterCallback {
             override fun returnPainterValues(list: ArrayList<Painters>) {
+                tempList = list
                 settingAdapter(list)
             }
         })
 
         backImg.setOnClickListener(this)
         searchImg.setOnClickListener(this)
+        saveImg.setOnClickListener(this)
         return v
     }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
         searchImg.visibility = View.VISIBLE
+        saveImg.visibility = View.VISIBLE
+
         searchImg.setImageDrawable(resources.getDrawable(R.drawable.ic_search))
 
         headertext.text = Constants.VIEW_PAINTERS_LIST
@@ -81,6 +94,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
 
     private fun init() {
         backImg = v.findViewById(R.id.img_back)
+        saveImg = v.findViewById(R.id.img_save)
         headertext = v.findViewById(R.id.header_text)
         painterlistrv = v.findViewById(R.id.painterlistrv)
         pb_painter = v.findViewById(R.id.pb_painterdetails)
@@ -123,16 +137,23 @@ class PainterListFragment : Fragment(), View.OnClickListener,
             R.id.img_logout -> {
                 if (searchView.visibility == View.GONE) {
                     searchView.visibility = View.VISIBLE
+                    saveImg.visibility = View.GONE
                 } else {
                     searchView.visibility = View.GONE
+                    saveImg.visibility = View.VISIBLE
                 }
             }
-
+            R.id.img_save -> {
+                //activity!!.finish()
+                DownloadAsCSV(tempList)
+            }
             R.id.img_back -> {
                 activity!!.finish()
+                //DownloadAsCSV(tempList)
             }
         }
     }
+
 
     override fun OnDeleteClick(item: Painters) {
         dbHelper.deletepainter(item, pb_painter, object : PainterCallback {
@@ -293,4 +314,77 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         picker.show(fragmentManager!!, picker.toString())
 
     }
+
+    fun DownloadAsCSV(PainterList: ArrayList<Painters>) {
+        pb_painter.visibility = View.VISIBLE
+        val date = Date(Calendar.getInstance().timeInMillis)
+        val dateString = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(date)
+        val formattedString = dateString.replace("/", ".")
+        val fileName = "painterList$formattedString.csv"
+        val extStorageDirectory = Environment.getExternalStorageDirectory().toString()
+        val folder = File(extStorageDirectory, "FolderName")
+        folder.mkdirs()
+        val file = File(folder, fileName)
+        try {
+            file.createNewFile()
+        } catch (e1: IOException) {
+            e1.printStackTrace()
+        }
+        try {
+            val outputfile = FileWriter(file);
+
+            // create CSVWriter object filewriter object as parameter
+            val writer = CSVWriter(outputfile);
+            val data: MutableList<Array<String>> = ArrayList()
+            data.add(
+                arrayOf(
+                    "Id",
+                    "Name",
+                    "Mobile",
+                    "Address",
+                    "Aadhar",
+                    "Date of Birth",
+                    "Credits"
+                )
+            )
+            for (e in PainterList) {
+                data.add(
+                    arrayOf(
+                        e.id,
+                        e.name,
+                        e.mobile,
+                        e.address,
+                        e.aadhar,
+                        e.dateofbirth,
+                        e.credits.toString()
+                    )
+                )
+            }
+
+            // create a List which contains String array
+            writer.writeAll(data);
+
+            // closing writer connection
+            writer.close();
+            pb_painter.visibility = View.GONE
+            AfterDownloadingDialogCreator("Success", "Files saved successfully as $fileName")
+        } catch (e: NullPointerException) {
+            AfterDownloadingDialogCreator("Failure", "Cannot save the file: $fileName")
+
+        }
+        // create FileWriter object with file as parameter
+
+    }
+
+    fun AfterDownloadingDialogCreator(title: String, msg: String) {
+        val dialog = MaterialAlertDialogBuilder(context)
+        dialog.setTitle(title)
+        val inflater = this.layoutInflater
+        dialog.setMessage(msg)
+        dialog.setPositiveButton("Exit") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
 }

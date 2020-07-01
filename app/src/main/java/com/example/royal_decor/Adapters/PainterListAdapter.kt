@@ -81,6 +81,7 @@ class PainterListAdapter(
     interface OnPainterClickListener {
         fun OnDeleteClick(item: Painters)
         fun OnEditClick(item: Painters)
+
     }
 
     override fun getFilter(): Filter {

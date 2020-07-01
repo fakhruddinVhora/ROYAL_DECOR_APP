@@ -115,6 +115,8 @@ class DatabaseHelper {
     /*-------------------------------------------Product's DataHandling Start------------------------------------------------------------------------*/
     fun addproduct(prodObj: Product): Boolean {
         var returnbool = true
+
+
         //val id = db.push().key
         db.child(Constants.NODE_PRODUCT).child(prodObj.productID).setValue(prodObj)
             .addOnSuccessListener {

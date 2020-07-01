@@ -1,6 +1,8 @@
 package com.example.royal_decor.Activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
@@ -10,6 +12,8 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -24,6 +28,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var createnewaccount: MaterialTextView
     private lateinit var reviewus: MaterialTextView
     private var mAuth: FirebaseAuth? = null
+    private val TAG = "PermissionDemo"
+    private val RECORD_REQUEST_CODE = 101
 
     /* public override fun onStart() {
          super.onStart()
@@ -49,6 +55,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setupPermissions()
 
         init()
         createnewaccount.setPaintFlags(createnewaccount.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
@@ -56,6 +63,43 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         createnewaccount.setOnClickListener(this)
         reviewus.setOnClickListener(this)
     }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            RECORD_REQUEST_CODE -> {
+
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    //denies
+                } else {
+                    //granted
+                }
+            }
+        }
+    }
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            RECORD_REQUEST_CODE
+        )
+    }
+
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            makeRequest()
+        }
+    }
+
 
     private fun init() {
         BTNlogin = findViewById(R.id.btn_login)

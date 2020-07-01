@@ -39,6 +39,7 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_logout"/>
+
     </RelativeLayout>
 
 </RelativeLayout>
