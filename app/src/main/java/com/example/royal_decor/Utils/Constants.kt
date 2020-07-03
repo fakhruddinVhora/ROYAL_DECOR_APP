@@ -24,6 +24,7 @@ class Constants {
         val VIEW_PAINTERS_LIST = "Painters List"
         val VIEW_CUSTOMER_LIST = "Customer List"
         val VIEW_CREDIT_SCORE = "Credit Scores"
+        val CREDIT_STATEMENT = "Credit Status"
 
 
         //id generator

@@ -4,10 +4,7 @@ import android.os.Build
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
-import com.example.royal_decor.Interface.CustomerCallback
-import com.example.royal_decor.Interface.PainterCallback
-import com.example.royal_decor.Interface.PiechartCallback
-import com.example.royal_decor.Interface.ProductCallback
+import com.example.royal_decor.Interface.*
 import com.example.royal_decor.Models.Customers
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.Product
@@ -34,6 +31,36 @@ class DatabaseHelper {
     fun open() {
         db = FirebaseDatabase.getInstance().reference
     }
+
+
+/*-------------------------------------------CustStatement DataHandling Start------------------------------------------------------------------------*/
+
+
+    fun getCredStmt(
+        progressbar: ProgressBar,
+        callback: CredStmtCallback
+    ) {
+        var list = ArrayList<TallyLog>()
+
+        val fetchCustomerDataRef = db.child(Constants.NODE_CREDIT_LOGS)
+        fetchCustomerDataRef.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (Snap in snapshot.children) {
+                    val obj = Snap.getValue(TallyLog::class.java)
+                    if (obj != null) {
+                        list.add(obj)
+                    }
+                }
+                progressbar.visibility = View.GONE
+                callback.returnCredStmtrValues(list)
+            }
+        })
+    }
+/*-------------------------------------------Custstatement DataHandling Start------------------------------------------------------------------------*/
 
 /*-------------------------------------------Feedback DataHandling Start------------------------------------------------------------------------*/
 

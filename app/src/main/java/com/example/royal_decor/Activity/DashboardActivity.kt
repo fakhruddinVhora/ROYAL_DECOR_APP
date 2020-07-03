@@ -95,6 +95,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             if (it.text.equals(Constants.VIEW_PRODUCT)) {
                 i.putExtra(stringtag, Constants.VIEW_PRODUCT)
             }
+            if (it.text.equals(Constants.CREDIT_STATEMENT)) {
+                i.putExtra(stringtag, Constants.CREDIT_STATEMENT)
+            }
             startActivity(i)
         }
         HorizontalLayout =
@@ -112,7 +115,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.view_customer))
         tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))
         tempMap.add(DashboardRVObj(Constants.VIEW_CREDIT_SCORE, R.drawable.ic_viewcredits))
-        tempMap.add(DashboardRVObj(Constants.VIEW_CREDIT_SCORE, R.drawable.ic_credittally))
+        tempMap.add(DashboardRVObj(Constants.CREDIT_STATEMENT, R.drawable.ic_credittally))
 
         return tempMap
     }

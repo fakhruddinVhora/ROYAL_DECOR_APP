@@ -1,9 +1,13 @@
 package com.example.royal_decor.Activity
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Paint
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -20,6 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -84,7 +89,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun makeRequest() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE/*,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION*/
+            ),
             RECORD_REQUEST_CODE
         )
     }
@@ -94,8 +103,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
+/*        val permission1 =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        val permission2 =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)*/
+        if (permission != PackageManager.PERMISSION_GRANTED /*|| permission1 != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED*/) {
             makeRequest()
         }
     }
@@ -113,15 +125,28 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+    @SuppressLint("MissingPermission")
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btn_login -> {
+
+                startActivity(Intent(applicationContext, DashboardActivity::class.java))
                 //   loginprogressbar.visibility == View.VISIBLE
 
-                if (loginprogressbar.visibility == View.GONE) {
-                    // Login()
-                    startActivity(Intent(applicationContext, DashboardActivity::class.java))
-                }
+                /*   if (loginprogressbar.visibility == View.GONE) {
+                       // Login()
+                   }*/
+                /* val lm =
+                     getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                 val location: Location = getLastKnownLocation()
+                 val longitude: Double = location.getLongitude()
+                 val latitude: Double = location.getLatitude()
+
+                 Toast.makeText(
+                     applicationContext,
+                     "Latitude $latitude and Longitude : $longitude",
+                     Toast.LENGTH_LONG
+                 ).show()*/
             }
 
             R.id.createnewaccount -> {
@@ -133,6 +158,22 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLastKnownLocation(): Location {
+        val mLocationManager =
+            applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val providers: List<String> = mLocationManager.getProviders(true)
+        var bestLocation: Location? = null
+        for (provider in providers) {
+            val l: Location = mLocationManager.getLastKnownLocation(provider) ?: continue
+            if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
+                // Found best last known location: %s", l);
+                bestLocation = l
+            }
+        }
+        return bestLocation!!
     }
 
     private fun Login() {

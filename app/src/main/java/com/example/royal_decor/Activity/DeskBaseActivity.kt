@@ -53,7 +53,9 @@ class DeskBaseActivity : AppCompatActivity() {
             Constants.VIEW_PRODUCT -> {
                 return ViewProductFragment()
             }
-
+            Constants.CREDIT_STATEMENT -> {
+                return CreditStatementFragment()
+            }
         }
         return null
     }
