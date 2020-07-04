@@ -52,8 +52,6 @@
                     android:id="@+id/atv_painter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-
                     android:inputType="none"
                     android:textSize="@dimen/_12sdp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small" />

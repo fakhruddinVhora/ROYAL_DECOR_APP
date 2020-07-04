@@ -121,8 +121,7 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_info"
-                android:tint="@color/colorPrimary" />
+                android:src="@drawable/ic_info" />
 
             <ImageView
                 android:id="@+id/imgdelete"
@@ -132,8 +131,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_delete"
-                android:tint="@color/colorPrimary" />
+                android:src="@drawable/ic_delete" />
 
         </LinearLayout>
     </LinearLayout>

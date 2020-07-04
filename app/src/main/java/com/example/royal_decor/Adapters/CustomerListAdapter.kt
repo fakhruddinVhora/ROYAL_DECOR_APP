@@ -58,7 +58,7 @@ class CustomerListAdapter(
             custname.text = custObj.name
             custaddress.text = custObj.address
             custmobile.text = custObj.mobileno
-
+            delete.visibility = View.INVISIBLE
             info.setOnClickListener {
                 clickListener.OnInfoClick(custObj)
             }

@@ -40,7 +40,7 @@
 
                 <TextView
                     android:id="@+id/paintername"
-                    android:layout_width="@dimen/_160sdp"
+                    android:layout_width="@dimen/_155sdp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/_2sdp"
@@ -54,7 +54,7 @@
 
                 <TextView
                     android:id="@+id/mobile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_70sdp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
@@ -71,7 +71,7 @@
 
                 <TextView
                     android:id="@+id/creditscore"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_50sdp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"

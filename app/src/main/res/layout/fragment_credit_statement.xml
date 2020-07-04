@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
+        android:animateLayoutChanges="true"
         android:orientation="vertical">
 
         <ProgressBar
@@ -33,114 +34,148 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/datelayout"
+            android:id="@+id/filterlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
+            android:orientation="vertical"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:orientation="horizontal">
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:fontFamily="@font/josefinsansbold"
+                android:gravity="center"
+                android:hint="Select Painter"
+                android:textColor="@color/colorPrimary"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextAppearance="@style/CustomLabel">
+
+                <AutoCompleteTextView
+                    android:id="@+id/atv_painter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:textSize="@dimen/_10sdp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_weight="1"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_startdate"
-                    style="@style/TextAppearance.AppCompat.Widget.Button"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="2"
-                    android:backgroundTint="#0C2733"
-                    android:elevation="@dimen/_10sdp"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/_10sdp"
-                    app:cornerRadius="@dimen/_10sdp"
-                    app:icon="@drawable/ic_date" />
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="5"
-                    android:fontFamily="@font/josefinsansregular"
-                    android:hint="Start Date"
-                    android:textColor="@color/colorPrimary"
-                    app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-                    app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-                    app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                    app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:hintTextAppearance="@style/CustomLabel">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_startdate"
+                        style="@style/TextAppearance.AppCompat.Widget.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_weight="2"
+                        android:backgroundTint="#0C2733"
+                        android:elevation="@dimen/_10sdp"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/_10sdp"
+                        app:cornerRadius="@dimen/_10sdp"
+                        app:icon="@drawable/ic_date" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_startdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:paddingTop="@dimen/_17sdp"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_weight="5"
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="Start Date"
                         android:textColor="@color/colorPrimary"
-                        android:textColorHint="@color/colorPrimary"
-                        android:textSize="@dimen/_10sdp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintTextAppearance="@style/CustomLabel">
 
-            </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_startdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:paddingTop="@dimen/_17sdp"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                </LinearLayout>
 
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_weight="5"
-                    android:fontFamily="@font/josefinsansregular"
-                    android:hint="End Date"
-                    android:textColor="@color/colorPrimary"
-                    app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-                    app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-                    app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                    app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:hintTextAppearance="@style/CustomLabel">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_enddate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:paddingTop="@dimen/_17sdp"
-                        android:textColor="@color/colorPrimary"
-                        android:textColorHint="@color/colorPrimary"
-                        android:textSize="@dimen/_10sdp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_enddate"
-                    style="@style/TextAppearance.AppCompat.Widget.Button"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_weight="2"
-                    android:backgroundTint="#0C2733"
-                    android:elevation="@dimen/_10sdp"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/_10sdp"
-                    app:cornerRadius="@dimen/_10sdp"
-                    app:icon="@drawable/ic_date" />
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_weight="5"
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="End Date"
+                        android:textColor="@color/colorPrimary"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintTextAppearance="@style/CustomLabel">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_enddate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:paddingTop="@dimen/_17sdp"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_enddate"
+                        style="@style/TextAppearance.AppCompat.Widget.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="2"
+                        android:backgroundTint="#0C2733"
+                        android:elevation="@dimen/_10sdp"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/_10sdp"
+                        app:cornerRadius="@dimen/_10sdp"
+                        app:icon="@drawable/ic_date" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -148,7 +183,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/datelayout"
+            android:layout_below="@id/filterlayout"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layoutAnimation="@anim/rv_layoutanimation">

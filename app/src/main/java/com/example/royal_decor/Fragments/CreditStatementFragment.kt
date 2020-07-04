@@ -4,22 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Adapters.CreditStatementAdapter
+import com.example.royal_decor.Adapters.PainterATVAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Interface.CredStmtCallback
+import com.example.royal_decor.Interface.PainterCallback
+import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.TallyLog
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,18 +28,31 @@ import java.util.*
 class CreditStatementFragment : Fragment(), View.OnClickListener {
 
     private lateinit var v: View
+    private lateinit var dbHelper: DatabaseHelper
     private lateinit var creditstmtlistrv: RecyclerView
     private lateinit var creditstmtadapter: CreditStatementAdapter
     private lateinit var VerticalLayout: LinearLayoutManager
     private lateinit var backImg: ImageView
+    private lateinit var FilterImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var pb_creditstmt: ProgressBar
     private lateinit var dbhandler: DatabaseHelper
+
+    private lateinit var FilterLayout: LinearLayout
 
     private lateinit var btn_startdate: Button
     private lateinit var btn_enddate: Button
     private lateinit var et_startdate: TextInputEditText
     private lateinit var et_enddate: TextInputEditText
+
+    private var PainterList: ArrayList<Painters> = ArrayList()
+    private var CustomerList: ArrayList<TallyLog> = ArrayList()
+
+    private lateinit var atvPainter: AutoCompleteTextView
+
+    private var PainterObj: Painters? = null
+    private var sStartDate: String = ""
+    private var sEndDate: String = ""
 
 
     override fun onCreateView(
@@ -48,9 +62,13 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_credit_statement, container, false)
         init()
         initialization()
+        feedValuesinSpinner()
 
         dbhandler.getCredStmt(pb_creditstmt, object : CredStmtCallback {
             override fun returnCredStmtrValues(list: ArrayList<TallyLog>) {
+                CustomerList.clear()
+                CustomerList = list
+                sortArray(list)
                 settingAdapter(list)
             }
         })
@@ -60,19 +78,105 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         btn_enddate.setOnClickListener(this)
 
 
+        FilterImg.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                if (FilterLayout.visibility == View.GONE) {
+                    FilterLayout.visibility = View.VISIBLE
+                } else {
+                    FilterLayout.visibility = View.GONE
+                }
+            }
+        })
+
         return v
+    }
+
+    private fun settingPainterAdapter() {
+        val adapter = PainterATVAdapter(v.context, R.layout.list_item, PainterList)
+        atvPainter.setAdapter(adapter)
+        atvPainter.threshold = 1
+
+        atvPainter.setOnItemClickListener { parent, _, position, _ ->
+            val selectedPainter = parent.adapter.getItem(position) as Painters
+            atvPainter.setText(selectedPainter.name)
+            PainterObj = Painters()
+            PainterObj = selectedPainter
+            FilterResults()
+        }
+    }
+
+    private fun FilterResults() {
+        var checkBool = true
+        var DateStart = Date()
+        var DateEnd = Date()
+        var TempcustomerList: ArrayList<TallyLog> = ArrayList()
+
+
+        if (PainterObj == null) {
+            checkBool = false
+        }
+        if (sStartDate == "") {
+            checkBool = false
+        }
+        if (sEndDate == "") {
+            checkBool = false
+        }
+        if (sStartDate != "" && sEndDate != "") {
+            DateStart = SimpleDateFormat("dd/MM/yyyy").parse(sStartDate)
+            DateEnd = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(sEndDate)
+            if (DateStart.after(DateEnd)) {
+                checkBool = false
+                Toast.makeText(activity, "Please select proper dates", Toast.LENGTH_SHORT).show()
+            }
+        }
+        if (checkBool) {
+
+            for (element in CustomerList) {
+                if (element.painterid.equals(PainterObj!!.id)) {
+                    val d = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(element.date)
+                    if (DateStart.compareTo(d) * d.compareTo(DateEnd) > 0) {
+                        TempcustomerList.add(element)
+                    }
+                }
+            }
+            sortArray(TempcustomerList)
+            creditstmtadapter.updateData(TempcustomerList)
+            creditstmtlistrv.scheduleLayoutAnimation()
+        }
+    }
+
+
+    private fun feedValuesinSpinner() {
+        dbHelper.getpainterdetails(pb_creditstmt, object : PainterCallback {
+            override fun returnPainterValues(list: ArrayList<Painters>) {
+                PainterList = list
+                settingPainterAdapter()
+            }
+        })
     }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
-        headertext.text = Constants.VIEW_CUSTOMER_LIST
+        headertext.text = Constants.CREDIT_STATEMENT
+        FilterImg.visibility = View.VISIBLE
+        FilterImg.setImageDrawable(resources.getDrawable(R.drawable.ic_filter))
+
     }
 
     private fun init() {
+
+        dbHelper = DatabaseHelper()
+        dbHelper.open()
         backImg = v.findViewById(R.id.img_back)
+        FilterImg = v.findViewById(R.id.img_logout)
         headertext = v.findViewById(R.id.header_text)
         creditstmtlistrv = v.findViewById(R.id.credstmtlistrv)
         pb_creditstmt = v.findViewById(R.id.pb_credstmt)
+        atvPainter = v.findViewById(R.id.atv_painter)
+
+
+        FilterLayout = v.findViewById(R.id.filterlayout)
+
 
         btn_enddate = v.findViewById(R.id.btn_enddate)
         btn_startdate = v.findViewById(R.id.btn_startdate)
@@ -190,16 +294,38 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
                 }
             } else {
                 val simpleFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+                val simpleFormatSelectDates = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US)
+
                 if (isStartDate) {
+                    sStartDate = simpleFormat.format(selecteddate)
                     et_startdate.setText(simpleFormat.format(selecteddate))
                     et_startdate.setError(null)
                 } else {
+                    sEndDate = simpleFormatSelectDates.format(selecteddate)
                     et_enddate.setText(simpleFormat.format(selecteddate))
+                    et_enddate.setError(null)
                 }
+                FilterResults()
             }
 
         }
         picker.show(fragmentManager!!, picker.toString())
+    }
+
+    private fun sortArray(list: ArrayList<TallyLog>) {
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); //your own date format
+
+        Collections.sort(list, object : Comparator<TallyLog> {
+            override fun compare(p0: TallyLog, p1: TallyLog): Int {
+                try {
+                    return simpleDateFormat.parse(p1.date)
+                        .compareTo(simpleDateFormat.parse(p0.date));
+                } catch (e: ParseException) {
+                    Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show()
+                    return 0
+                }
+            }
+        });
     }
 
 }

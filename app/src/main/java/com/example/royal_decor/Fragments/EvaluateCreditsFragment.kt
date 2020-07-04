@@ -117,6 +117,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
             atvProductName.setText(selectedProduct.productname)
             ProductObj = Product()
             ProductObj = selectedProduct
+            atvProductName.error = null
         }
     }
 
