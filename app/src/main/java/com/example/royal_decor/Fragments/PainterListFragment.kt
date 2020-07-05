@@ -182,7 +182,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         val aadhar = dialogView.findViewById<TextInputEditText>(R.id.aadhar)
         val mobile = dialogView.findViewById<TextInputEditText>(R.id.etmobile)
         val etdob = dialogView.findViewById<TextInputEditText>(R.id.dob)
-        val btn_dob = dialogView.findViewById<Button>(R.id.btn_selectdate)
+        val btn_dob = dialogView.findViewById<ImageButton>(R.id.btn_selectdate)
 
 
         name.setText(item.name)
@@ -322,7 +322,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         val formattedString = dateString.replace("/", ".")
         val fileName = "painterList$formattedString.csv"
         val extStorageDirectory = Environment.getExternalStorageDirectory().toString()
-        val folder = File(extStorageDirectory, "FolderName")
+        val folder = File(extStorageDirectory, "RoyalDecorFiles")
         folder.mkdirs()
         val file = File(folder, fileName)
         try {

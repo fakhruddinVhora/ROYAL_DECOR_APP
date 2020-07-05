@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:background="#262A2C"
     android:orientation="vertical">
 
     <ImageView
@@ -22,14 +21,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_140sdp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:src="@drawable/royaldecor"
                 app:civ_border_color="#fff"
                 app:civ_border_width="2dp" />
@@ -40,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_weight="2"
             android:orientation="vertical">
 
@@ -71,7 +70,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        android:hint="Username"
+                        android:hint="Email ID"
                         android:textColorHint="#0C2733"
                         app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
                         app:boxCornerRadiusBottomStart="@dimen/_15sdp"
@@ -81,6 +80,7 @@
                         app:hintTextColor="#0C2733">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/_20sdp"
@@ -106,6 +106,7 @@
                         app:passwordToggleTint="@color/colorPrimary">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
@@ -126,6 +127,7 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:backgroundTint="#0C2733"
                         android:elevation="10dp"
+                        android:textSize="@dimen/_13sdp"
                         android:gravity="center"
                         android:text="LOGIN"
                         android:textColor="#fff"

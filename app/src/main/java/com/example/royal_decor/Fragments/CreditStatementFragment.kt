@@ -1,10 +1,13 @@
 package com.example.royal_decor.Fragments
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,13 +22,16 @@ import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textview.MaterialTextView
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreditStatementFragment : Fragment(), View.OnClickListener {
+class CreditStatementFragment : Fragment(), View.OnClickListener,
+    CreditStatementAdapter.credStmtOnclickListener {
 
     private lateinit var v: View
     private lateinit var dbHelper: DatabaseHelper
@@ -35,15 +41,17 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
     private lateinit var backImg: ImageView
     private lateinit var FilterImg: ImageView
     private lateinit var headertext: TextView
+    private lateinit var clearFilters: TextView
     private lateinit var pb_creditstmt: ProgressBar
     private lateinit var dbhandler: DatabaseHelper
 
     private lateinit var FilterLayout: LinearLayout
 
-    private lateinit var btn_startdate: Button
-    private lateinit var btn_enddate: Button
+    private lateinit var btn_startdate: ImageButton
+    private lateinit var btn_enddate: ImageButton
     private lateinit var et_startdate: TextInputEditText
     private lateinit var et_enddate: TextInputEditText
+
 
     private var PainterList: ArrayList<Painters> = ArrayList()
     private var CustomerList: ArrayList<TallyLog> = ArrayList()
@@ -68,7 +76,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
             override fun returnCredStmtrValues(list: ArrayList<TallyLog>) {
                 CustomerList.clear()
                 CustomerList = list
-                sortArray(list)
+                sortArrayBasedOnDate(list)
                 settingAdapter(list)
             }
         })
@@ -78,15 +86,26 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         btn_enddate.setOnClickListener(this)
 
 
-        FilterImg.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                if (FilterLayout.visibility == View.GONE) {
-                    FilterLayout.visibility = View.VISIBLE
-                } else {
-                    FilterLayout.visibility = View.GONE
-                }
+        FilterImg.setOnClickListener {
+            if (FilterLayout.visibility == View.GONE) {
+                FilterLayout.visibility = View.VISIBLE
+            } else {
+                FilterLayout.visibility = View.GONE
             }
-        })
+        }
+
+
+        clearFilters.setOnClickListener {
+            creditstmtadapter.updateData(CustomerList)
+            creditstmtlistrv.scheduleLayoutAnimation()
+
+            et_enddate.setText("")
+            et_startdate.setText("")
+            atvPainter.setText("")
+            sEndDate = ""
+            sStartDate = ""
+            PainterObj == null
+        }
 
         return v
     }
@@ -123,7 +142,11 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         }
         if (sStartDate != "" && sEndDate != "") {
             DateStart = SimpleDateFormat("dd/MM/yyyy").parse(sStartDate)
-            DateEnd = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(sEndDate)
+            DateEnd = SimpleDateFormat("dd/MM/yyyy").parse(sEndDate)
+            val currentdate = Date(Calendar.getInstance().timeInMillis)
+            if (DateEnd.equals(currentdate)) {
+                DateEnd = currentdate
+            }
             if (DateStart.after(DateEnd)) {
                 checkBool = false
                 Toast.makeText(activity, "Please select proper dates", Toast.LENGTH_SHORT).show()
@@ -133,13 +156,13 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
 
             for (element in CustomerList) {
                 if (element.painterid.equals(PainterObj!!.id)) {
-                    val d = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(element.date)
-                    if (DateStart.compareTo(d) * d.compareTo(DateEnd) > 0) {
+                    val d = SimpleDateFormat("dd/MM/yyyy").parse(element.date)
+                    if (DateStart.compareTo(d) * d.compareTo(DateEnd) >= 0) {
                         TempcustomerList.add(element)
                     }
                 }
             }
-            sortArray(TempcustomerList)
+            sortArrayBasedOnDate(TempcustomerList)
             creditstmtadapter.updateData(TempcustomerList)
             creditstmtlistrv.scheduleLayoutAnimation()
         }
@@ -159,8 +182,17 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         backImg.visibility = View.VISIBLE
         headertext.text = Constants.CREDIT_STATEMENT
         FilterImg.visibility = View.VISIBLE
-        FilterImg.setImageDrawable(resources.getDrawable(R.drawable.ic_filter))
+        et_startdate.isEnabled = false
+        et_enddate.isEnabled = false
+        et_enddate.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
+        et_startdate.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
+        clearFilters.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
 
+
+        FilterImg.setImageDrawable(resources.getDrawable(R.drawable.ic_filter))
+        val underlinedString = SpannableString(clearFilters.text.toString())
+        underlinedString.setSpan(UnderlineSpan(), 0, underlinedString.length, 0)
+        clearFilters.setText(underlinedString)
     }
 
     private fun init() {
@@ -173,6 +205,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         creditstmtlistrv = v.findViewById(R.id.credstmtlistrv)
         pb_creditstmt = v.findViewById(R.id.pb_credstmt)
         atvPainter = v.findViewById(R.id.atv_painter)
+        clearFilters = v.findViewById(R.id.clearfilters)
 
 
         FilterLayout = v.findViewById(R.id.filterlayout)
@@ -215,41 +248,22 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
     }
 
 
-    fun OnInfoClick(item: TallyLog) {
-        // DialogCreator(item)
-    }
-
-/*
-    fun DialogCreator(item: Customers) {
+    fun DialogCreator(item: TallyLog) {
         val dialog = MaterialAlertDialogBuilder(context)
-        dialog.setTitle("${item.name}'s Feedback")
+        dialog.setTitle("Tally of ${item.paintername}'s Total of ${item.totalPoints}")
         val inflater = this.layoutInflater
 
-        val dialogView = inflater.inflate(R.layout.custom_customer_dialog_layout, null)
-
-        val expectations = dialogView.findViewById<MaterialTextView>(R.id.expectations)
-        val productshade = dialogView.findViewById<MaterialTextView>(R.id.productshade)
-        val employees = dialogView.findViewById<MaterialTextView>(R.id.employeeservices)
-        val overallstars = dialogView.findViewById<MaterialTextView>(R.id.overallrating)
-        val colorconsulatation = dialogView.findViewById<MaterialTextView>(R.id.colorselection)
-        val suggestions = dialogView.findViewById<MaterialTextView>(R.id.suggestions)
+        val dialogView = inflater.inflate(R.layout.custom_statement_dialog_layout, null)
 
 
-        expectations.setText(expectations.text.toString().replace("XXXE", item.expectations))
-        productshade.setText(
-            productshade.text.toString().replace("XXXPS", item.productshadequality)
-        )
-        employees.setText(employees.text.toString().replace("XXXES", item.employeeservicerating))
-        overallstars.setText(overallstars.text.toString().replace("XXXS", item.overallratingstars))
-        colorconsulatation.setText(
-            colorconsulatation.text.toString().replace("XXXCSC", item.colorselectionconsultation)
-        )
-        if (item.othersuggestions != "") {
-            suggestions.setText(item.othersuggestions)
+        val expectations = dialogView.findViewById<MaterialTextView>(R.id.tally)
 
+        var tallyString = ""
+        for (m in item.productMap) {
+            tallyString = tallyString + "${m.key} : Qt = ${m.value} " + System.lineSeparator()
         }
 
-
+        expectations.setText(tallyString)
 
         dialog.setView(dialogView)
         dialog.setNegativeButton("Cancel") { dialog, which ->
@@ -258,23 +272,20 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
 
         dialog.show()
     }
-*/
 
     private fun datePickerDialog(isStartDate: Boolean) {
 
 
         //setconstraints to restrict dates
         val constraints = CalendarConstraints.Builder()  // 1
-        val calendar = Calendar.getInstance()
-        constraints.setStart(calendar.timeInMillis)   //   2
-        //calendar.roll(Calendar.YEAR, -60)   //   3
-        constraints.setEnd(calendar.timeInMillis)   // 4
+            .setEnd(Calendar.getInstance().timeInMillis)  // 4
 
         val builder =
             MaterialDatePicker.Builder.datePicker()
         builder.setTitleText("Select date")
         val currentTimeInMillis = Calendar.getInstance().timeInMillis
         builder.setSelection(currentTimeInMillis)
+        builder.setCalendarConstraints(constraints.build())
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener {
             val timeZoneUTC: TimeZone = TimeZone.getDefault()
@@ -294,7 +305,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
                 }
             } else {
                 val simpleFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-                val simpleFormatSelectDates = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US)
+                val simpleFormatSelectDates = SimpleDateFormat("dd/MM/yyyy", Locale.US)
 
                 if (isStartDate) {
                     sStartDate = simpleFormat.format(selecteddate)
@@ -312,7 +323,12 @@ class CreditStatementFragment : Fragment(), View.OnClickListener {
         picker.show(fragmentManager!!, picker.toString())
     }
 
-    private fun sortArray(list: ArrayList<TallyLog>) {
+
+    override fun OnInfoClick(item: TallyLog) {
+        DialogCreator(item)
+    }
+
+    fun sortArrayBasedOnDate(list: java.util.ArrayList<TallyLog>) {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); //your own date format
 
         Collections.sort(list, object : Comparator<TallyLog> {

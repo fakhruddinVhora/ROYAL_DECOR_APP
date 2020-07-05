@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -29,7 +30,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
     private lateinit var paddress: TextInputEditText
     private lateinit var pdob: TextInputEditText
     private lateinit var pmobilenumber: TextInputEditText
-    private lateinit var btn_selectdate: Button
+    private lateinit var btn_selectdate: ImageButton
     private lateinit var paadhar: TextInputEditText
     private lateinit var dbhandler: DatabaseHelper
 
@@ -131,14 +132,9 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
                 returnbool = false
             }
         }
-        if (pdob.text!!.isEmpty()) {
+        /*if (pdob.text!!.isEmpty()) {
             pdob.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
-        }/* else {
-            if (pname.text.toString().length > 30) {
-                pname.error = Constants.ERROR_EXCEED_LIMIT
-                returnbool = false
-            }
         }*/
 
         if (paddress.text!!.isEmpty()) {
@@ -176,16 +172,15 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
 
         //setconstraints to restrict dates
         val constraints = CalendarConstraints.Builder()  // 1
-        val calendar = Calendar.getInstance()
-        //constraints.setStart(calendar.timeInMillis)   //   2
-        //calendar.roll(Calendar.YEAR, -60)   //   3
-        constraints.setEnd(calendar.timeInMillis)   // 4
+            /* .setValidator(DateValidatorPointForward.from(System.currentTimeMillis()))// 4*/
+            .setEnd(System.currentTimeMillis())
+            .build()
 
 
-        val builder =
-            MaterialDatePicker.Builder.datePicker()
+        val builder = MaterialDatePicker.Builder.datePicker()
         builder.setTitleText("Select date")
         val currentTimeInMillis = Calendar.getInstance().timeInMillis
+        builder.setCalendarConstraints(constraints)
         builder.setSelection(currentTimeInMillis)
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener {
@@ -197,4 +192,5 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         }
         picker.show(fragmentManager!!, picker.toString())
     }
+
 }

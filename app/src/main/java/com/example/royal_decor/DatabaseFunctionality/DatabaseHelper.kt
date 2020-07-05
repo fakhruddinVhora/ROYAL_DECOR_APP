@@ -43,7 +43,7 @@ class DatabaseHelper {
         var list = ArrayList<TallyLog>()
 
         val fetchCustomerDataRef = db.child(Constants.NODE_CREDIT_LOGS)
-        fetchCustomerDataRef.addValueEventListener(object : ValueEventListener {
+        fetchCustomerDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 progressbar.visibility = View.GONE
             }
@@ -76,7 +76,7 @@ class DatabaseHelper {
         var list = ArrayList<Customers>()
 
         val fetchCustomerDataRef = db.child(Constants.NODE_CUSTOMER)
-        fetchCustomerDataRef.addValueEventListener(object : ValueEventListener {
+        fetchCustomerDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 progressbar.visibility = View.GONE
             }

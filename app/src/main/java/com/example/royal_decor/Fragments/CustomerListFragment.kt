@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,9 @@ import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CustomerListFragment : Fragment(), View.OnClickListener,
     CustomerListAdapter.customerOnclickListener {
@@ -29,7 +33,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var pb_customer: ProgressBar
-
+    private var c: Constants = Constants()
     private lateinit var dbhandler: DatabaseHelper
 
     override fun onCreateView(
@@ -43,6 +47,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
 
         dbhandler.getcustomerdetails(pb_customer, object : CustomerCallback {
             override fun returnCustomerValues(list: ArrayList<Customers>) {
+                sortArrayBasedOnDate(list)
                 settingAdapter(list)
             }
 
@@ -143,6 +148,23 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         }
 
         dialog.show()
+    }
+
+    fun sortArrayBasedOnDate(list: java.util.ArrayList<Customers>) {
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); //your own date format
+
+        Collections.sort(list, object : Comparator<Customers> {
+            override fun compare(p0: Customers, p1: Customers): Int {
+                try {
+                    return simpleDateFormat.parse(p1.date)
+                        .compareTo(simpleDateFormat.parse(p0.date));
+                } catch (e: ParseException) {
+                    Toast.makeText(activity, e.toString(), Toast.LENGTH_SHORT).show()
+                    return 0
+                }
+            }
+
+        });
     }
 
 

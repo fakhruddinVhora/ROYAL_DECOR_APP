@@ -19,6 +19,7 @@ import com.example.royal_decor.Models.DashboardRVObj
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 
 
 class DashboardActivity : AppCompatActivity(), View.OnClickListener {
@@ -143,6 +144,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.img_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
         }

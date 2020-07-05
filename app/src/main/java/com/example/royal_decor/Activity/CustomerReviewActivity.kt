@@ -19,7 +19,7 @@ import java.util.*
 
 private lateinit var backImg: ImageView
 private lateinit var headertext: TextView
-private lateinit var btn_dob: Button
+private lateinit var btn_dob: ImageButton
 private lateinit var btn_submit: Button
 
 private lateinit var cname: TextInputEditText
@@ -35,10 +35,10 @@ private lateinit var rg_employeeservices: RadioGroup
 private lateinit var rg_colorconsultation: RadioGroup
 
 
-private var expectations: String = "Yes"
-private var prodshade: String = "Excellent"
-private var employeeservices: String = "Very Helpful"
-private var colorconsultation: String = "Excellent"
+private var expectations: String = ""
+private var prodshade: String = ""
+private var employeeservices: String = ""
+private var colorconsultation: String = ""
 
 private lateinit var ratingbar: RatingBar
 
@@ -71,19 +71,19 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
             })
 
         rg_expectations.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
+            RadioGroup.OnCheckedChangeListener { _, checkedId ->
                 val radio: RadioButton = findViewById(checkedId)
                 expectations = radio.text.toString()
             })
 
         rg_employeeservices.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
+            RadioGroup.OnCheckedChangeListener { _, checkedId ->
                 val radio: RadioButton = findViewById(checkedId)
                 employeeservices = radio.text.toString()
             })
 
         rg_colorconsultation.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
+            RadioGroup.OnCheckedChangeListener { _, checkedId ->
                 val radio: RadioButton = findViewById(checkedId)
                 colorconsultation = radio.text.toString()
             })
@@ -99,8 +99,8 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
         dbhandler = DatabaseHelper()
         dbhandler.open()
 
-        csuggestions.setScroller(Scroller(getApplicationContext()));
-        csuggestions.setVerticalScrollBarEnabled(true);
+        csuggestions.setScroller(Scroller(applicationContext));
+        csuggestions.isVerticalScrollBarEnabled = true;
     }
 
     private fun init() {
@@ -163,6 +163,12 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
                     dbhandler.addCustomerfeedback(obj)
                     DialogCreator()
 
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please fill the required details",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -170,7 +176,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun DialogCreator() {
+    private fun DialogCreator() {
         val dialog = MaterialAlertDialogBuilder(this)
         dialog.setTitle("Enter secret Code")
         val inflater = this.layoutInflater
@@ -202,6 +208,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun validation(): Boolean {
         var returnbool = true
+        var radioStringCheck = ""
         if (cname.text!!.isEmpty()) {
             cname.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
@@ -210,6 +217,23 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
                 cname.error = Constants.ERROR_EXCEED_LIMIT
                 returnbool = false
             }
+        }
+        if (ratingbar.rating == 0f) {
+            returnbool = false
+            Toast.makeText(applicationContext, "Please rate our services", Toast.LENGTH_SHORT)
+                .show()
+        }
+        if (rg_colorconsultation.checkedRadioButtonId == -1) {
+            returnbool = false
+        }
+        if (rg_employeeservices.checkedRadioButtonId == -1) {
+            returnbool = false
+        }
+        if (rg_expectations.checkedRadioButtonId == -1) {
+            returnbool = false
+        }
+        if (rg_prodshade.checkedRadioButtonId == -1) {
+            returnbool = false
         }
         if (cmobile.text!!.isEmpty()) {
             cmobile.error = Constants.ERROR_FILL_DETAILS

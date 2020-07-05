@@ -29,28 +29,27 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var BTNlogin: Button
+
+    private lateinit var et_username: TextInputEditText
+    private lateinit var et_password: TextInputEditText
     private lateinit var loginprogressbar: ProgressBar
     private lateinit var createnewaccount: MaterialTextView
     private lateinit var reviewus: MaterialTextView
+
+
     private var mAuth: FirebaseAuth? = null
-    private val TAG = "PermissionDemo"
     private val RECORD_REQUEST_CODE = 101
 
-    /* public override fun onStart() {
-         super.onStart()
 
-         //If user is signed in.. go to signed in screen
-         if(mAuth!!.currentUser != null){
-             val dbHelper = DatabaseHelper()
-             dbHelper.open()
-             dbHelper.fetchDataforPieChart(loginprogressbar)
-             if(loginprogressbar.visibility==View.GONE){
-                 startActivity(Intent(applicationContext,DashboardActivity::class.java))
-                 finish()
-             }
-         }
-     }
- */
+    public override fun onStart() {
+        super.onStart()
+
+        //If user is signed in.. go to signed in screen
+        if (mAuth!!.currentUser != null) {
+            startActivity(Intent(applicationContext, DashboardActivity::class.java))
+            finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -62,8 +61,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_login)
         setupPermissions()
 
+
         init()
+
+
         createnewaccount.setPaintFlags(createnewaccount.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+
+
         BTNlogin.setOnClickListener(this)
         createnewaccount.setOnClickListener(this)
         reviewus.setOnClickListener(this)
@@ -79,6 +83,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     //denies
+                    finishAffinity()
                 } else {
                     //granted
                 }
@@ -114,10 +119,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun init() {
+        mAuth = FirebaseAuth.getInstance()
+
         BTNlogin = findViewById(R.id.btn_login)
         loginprogressbar = findViewById(R.id.loginprogressbar)
         createnewaccount = findViewById(R.id.createnewaccount)
         reviewus = findViewById(R.id.reviewus)
+
+        et_username = findViewById(R.id.username)
+        et_password = findViewById(R.id.password)
 
 
         mAuth = FirebaseAuth.getInstance()
@@ -129,8 +139,38 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btn_login -> {
+                if (validation()) {
+                    loginprogressbar.visibility = View.VISIBLE
 
-                startActivity(Intent(applicationContext, DashboardActivity::class.java))
+                    mAuth!!.signInWithEmailAndPassword(
+                        et_username.text.toString(),
+                        et_password.text.toString()
+                    )
+                        .addOnCompleteListener { task ->
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            loginprogressbar.visibility = View.GONE
+
+                            if (task.isSuccessful) {
+                                startActivity(
+                                    Intent(
+                                        applicationContext,
+                                        DashboardActivity::class.java
+                                    )
+                                )
+
+                                finish()
+                            } else {
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "Authentication Failed.. Please Check Username/Password",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                }
+
                 //   loginprogressbar.visibility == View.VISIBLE
 
                 /*   if (loginprogressbar.visibility == View.GONE) {
@@ -160,6 +200,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun validation(): Boolean {
+        var returnBool = true
+        if (et_username.text.toString() == "") {
+            returnBool = false
+            et_username.error = "Please Enter a Username"
+        }
+        if (et_password.text.toString() == "") {
+            returnBool = false
+            et_password.error = "Please Enter Password"
+        }
+        return returnBool
+    }
+
     @SuppressLint("MissingPermission")
     private fun getLastKnownLocation(): Location {
         val mLocationManager =
@@ -174,32 +227,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         return bestLocation!!
-    }
-
-    private fun Login() {
-
-        loginprogressbar.visibility = View.VISIBLE
-
-        mAuth!!.signInWithEmailAndPassword("username", "password")
-            .addOnCompleteListener { task ->
-                // If sign in fails, display a message to the user. If sign in succeeds
-                // the auth state listener will be notified and logic to handle the
-                // signed in user can be handled in the listener.
-                if (task.isSuccessful) {
-                    /*val dbHelper = DatabaseHelper()
-                    dbHelper.open()
-                    dbHelper.fetchDataforPieChart(loginprogressbar)*/
-                    if (loginprogressbar.visibility == View.GONE) {
-                        Login()
-                        startActivity(Intent(applicationContext, DashboardActivity::class.java))
-                        finish()
-                    }
-                } else {
-                    Toast.makeText(this@LoginActivity, "Authentication Failed", Toast.LENGTH_LONG)
-                        .show()
-
-                }
-            }
     }
 
 

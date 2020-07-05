@@ -120,7 +120,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pmobile"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@null"
                     android:inputType="number"
                     android:maxLength="10"
@@ -136,7 +136,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
-                android:hint="Aadhar ID"
+                android:hint="Aadhar ID(Optional)"
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                 app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -149,7 +149,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/paadhar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@null"
                     android:inputType="number"
                     android:maxLength="16"
@@ -171,7 +171,7 @@
                     android:layout_weight="8"
                     app:hintTextAppearance="@style/CustomLabel"
                     android:fontFamily="@font/josefinsansregular"
-                    android:hint="Date of Birth"
+                    android:hint="Date of Birth(Optional)"
                     android:textColor="@color/colorPrimary"
                     app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                     app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -183,30 +183,29 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_dateofbirth"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@null"
+                        android:text=""
                         android:textColor="@color/colorPrimary"
                         android:gravity="center"
-                        android:inputType="number"
                         android:textColorHint="@color/colorPrimary"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.button.MaterialButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btn_selectdate"
-                    style="@style/TextAppearance.AppCompat.Widget.Button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/customroundedlayoutimagebutton"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/ic_date"
                     android:layout_weight="2"
                     android:backgroundTint="#0C2733"
                     android:elevation="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_17sdp"
                     android:textColor="#fff"
                     android:textSize="@dimen/_10sdp"
-                    app:cornerRadius="@dimen/_10sdp"
-                    app:icon="@drawable/ic_date" />
+                    app:cornerRadius="@dimen/_10sdp" />
 
             </LinearLayout>
 

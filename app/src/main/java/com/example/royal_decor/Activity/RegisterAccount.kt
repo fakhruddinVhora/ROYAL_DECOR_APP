@@ -1,17 +1,18 @@
 package com.example.royal_decor.Activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterAccount : AppCompatActivity(), View.OnClickListener {
 
@@ -19,6 +20,8 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
     private lateinit var et_emailid: TextInputEditText
     private lateinit var et_password: TextInputEditText
     private lateinit var et_confirmpassword: TextInputEditText
+    private lateinit var pb_registeraccount: ProgressBar
+    private var mAuth: FirebaseAuth? = null
 
     private lateinit var btn_Submit: Button
     private lateinit var backImg: ImageView
@@ -41,9 +44,11 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun init() {
+        mAuth = FirebaseAuth.getInstance()
         backImg = findViewById(R.id.img_back)
         headertext = findViewById(R.id.header_text)
 
+        pb_registeraccount = findViewById(R.id.pb_registeraccount)
         etname = findViewById(R.id.name)
         et_emailid = findViewById(R.id.emailid)
         et_password = findViewById(R.id.password)
@@ -60,7 +65,31 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.btn_register -> {
                 if (validation()) {
-                    Toast.makeText(applicationContext, "Account Created", Toast.LENGTH_SHORT).show()
+                    mAuth!!.createUserWithEmailAndPassword(
+                        et_emailid.text.toString(),
+                        et_password.text.toString()
+                    )
+                        .addOnCompleteListener(this) { task ->
+                            Toast.makeText(
+                                this@RegisterAccount,
+                                "createUserWithEmail:onComplete:" + task.isSuccessful(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            pb_registeraccount.visibility = View.GONE
+
+                            if (task.isSuccessful) {
+                                DialogCreator()
+
+                            } else {
+                                Toast.makeText(
+                                    this@RegisterAccount,
+                                    "Registration failed." + task.getException(),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                Log.e("MyTag", task.getException().toString())
+                            }
+                        }
+
                 }
             }
         }
@@ -99,7 +128,7 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
             et_confirmpassword.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
         } else {
-            if (et_confirmpassword.text.toString().length > 100) {
+            if (et_confirmpassword.text.toString().length > 20) {
                 et_confirmpassword.error = Constants.ERROR_EXCEED_LIMIT
                 returnbool = false
             }
@@ -112,4 +141,23 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
         }
         return returnbool
     }
+
+    private fun DialogCreator() {
+        val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Success")
+        val inflater = this.layoutInflater
+        dialog.setMessage("Proceed To Dashboard??")
+        dialog.setPositiveButton("Sure") { dialog, which ->
+            dialog.dismiss()
+            startActivity(Intent(this@RegisterAccount, DashboardActivity::class.java))
+            finish()
+        }
+        dialog.setNegativeButton("Not Now") { dialog, which ->
+            dialog.dismiss()
+            mAuth!!.signOut()
+            finish()
+        }
+        dialog.show()
+    }
+
 }
