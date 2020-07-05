@@ -155,7 +155,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
                         android:fontFamily="@font/josefinsansregular"
-                        android:hint="Email ID"
+                        android:hint="Email ID(Optional)"
                         android:textColor="@color/colorPrimary"
                         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -190,7 +190,7 @@
                             android:layout_height="@dimen/_45sdp"
                             android:layout_weight="8"
                             android:fontFamily="@font/josefinsansregular"
-                            android:hint="Date of Birth"
+                            android:hint="Date of Birth(Optional)"
                             android:textColor="@color/colorPrimary"
                             app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                             app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -212,21 +212,20 @@
                                 android:textSize="@dimen/_13sdp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.button.MaterialButton
+                        <androidx.appcompat.widget.AppCompatImageButton
                             android:id="@+id/btn_selectdate"
-                            style="@style/TextAppearance.AppCompat.Widget.Button"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_weight="2"
+                            android:background="@drawable/customroundedlayoutimagebutton"
                             android:backgroundTint="#0C2733"
-                            android:elevation="@dimen/_10sdp"
-                            android:paddingStart="@dimen/_17sdp"
+                            android:elevation="@dimen/_5sdp"
+                            android:src="@drawable/ic_date"
                             android:textColor="#fff"
                             android:textSize="@dimen/_10sdp"
-                            app:cornerRadius="@dimen/_10sdp"
-                            app:icon="@drawable/ic_date" />
+                            app:cornerRadius="@dimen/_10sdp" />
 
                     </LinearLayout>
 
@@ -294,7 +293,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:checked="true"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Yes"
@@ -305,7 +303,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_10sdp"
-                                android:layout_weight="1"
+                                android:layout_weight="1.3"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Somewhat"
@@ -355,8 +353,7 @@
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:checked="true"
+                                android:layout_weight="1.3"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Excellent"
@@ -418,7 +415,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:checked="true"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Very Helpful"
@@ -469,11 +465,10 @@
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.3"
                                 android:buttonTint="@color/colorPrimary"
                                 android:fontFamily="@font/ralewaysemibold"
                                 android:text="Excellent"
-                                android:checked="true"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/_10sdp" />
 
@@ -529,7 +524,6 @@
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:isIndicator="false"
                             android:numStars="10"
-                            android:rating="1"
                             android:progressTint="@color/colorPrimary"
                             android:stepSize="1" />
                     </LinearLayout>
