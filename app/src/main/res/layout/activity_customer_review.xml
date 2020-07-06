@@ -86,7 +86,8 @@
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:maxLength="30"
-                            android:inputType="textCapSentences"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapSentences|textNoSuggestions"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -113,7 +114,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:inputType="textCapSentences"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapSentences|textNoSuggestions"
                             android:maxLines="2"
                             android:maxLength="30"
                             android:textColorHint="@color/colorPrimary"
@@ -144,7 +146,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:inputType="number"
+                            android:importantForAutofill="no"
+                            android:inputType="number|textNoSuggestions"
                             android:maxLength="10"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
@@ -157,7 +160,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
                         android:fontFamily="@font/josefinsansregular"
-                        android:hint="Email ID(Optional)"
+                        android:hint="Email ID (Optional)"
                         android:textColor="@color/colorPrimary"
                         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -173,7 +176,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:inputType="textEmailAddress"
+                            android:importantForAutofill="no"
+                            android:inputType="textEmailAddress|textCapSentences|textNoSuggestions"
                             android:maxLength="40"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
@@ -192,7 +196,7 @@
                             android:layout_height="@dimen/_45sdp"
                             android:layout_weight="8"
                             android:fontFamily="@font/josefinsansregular"
-                            android:hint="Date of Birth(Optional)"
+                            android:hint="Date of Birth (Optional)"
                             android:textColor="@color/colorPrimary"
                             app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                             app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -211,7 +215,7 @@
                                 android:inputType="number"
                                 android:textColor="@color/colorPrimary"
                                 android:textColorHint="@color/colorPrimary"
-                                android:textSize="@dimen/_11sdp" />
+                                android:textSize="@dimen/_10sdp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <androidx.appcompat.widget.AppCompatImageButton
@@ -550,7 +554,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_100sdp"
                             android:layout_marginStart="@dimen/_25sdp"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_25sdp"
@@ -570,9 +574,13 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/suggestions"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:background="@null"
-                                android:inputType="textMultiLine|textCapSentences"
+                                android:gravity="top|left"
+                                android:importantForAutofill="no"
+                                android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
+                                android:paddingTop="@dimen/_16sdp"
+                                android:text="43"
                                 android:maxLength="600"
                                 android:maxLines="7"
                                 android:textColorHint="@color/colorPrimary"

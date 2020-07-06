@@ -85,6 +85,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/_20sdp"
                             android:textColor="#0C2733"
+                            android:inputType="textNoSuggestions"
                             android:textSize="@dimen/_12sdp"
                             app:strokeColor="@color/primary_text" />
                     </com.google.android.material.textfield.TextInputLayout>

@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_1sdp"
+            android:gravity="center_horizontal"
             android:layout_marginEnd="@dimen/_2sdp"
             android:maxLines="2"
             android:paddingStart="@dimen/_2sdp"

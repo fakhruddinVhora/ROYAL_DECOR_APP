@@ -118,6 +118,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
         atvPainter.setOnItemClickListener { parent, _, position, _ ->
             val selectedPainter = parent.adapter.getItem(position) as Painters
             atvPainter.setText(selectedPainter.name)
+            atvPainter.setSelection(atvPainter.text.length)
             PainterObj = Painters()
             PainterObj = selectedPainter
             FilterResults()

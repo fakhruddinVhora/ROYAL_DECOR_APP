@@ -101,6 +101,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         atvPainter.setOnItemClickListener { parent, _, position, _ ->
             val selectedPainter = parent.adapter.getItem(position) as Painters
             atvPainter.setText(selectedPainter.name)
+            atvPainter.setSelection(atvPainter.text.length)
             PainterObj = Painters()
             PainterObj = selectedPainter
         }
@@ -114,6 +115,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
         atvProductName.setOnItemClickListener { parent, _, position, _ ->
             val selectedProduct = parent.adapter.getItem(position) as Product
             atvProductName.setText(selectedProduct.productname)
+            atvProductName.setSelection(atvPainter.text.length)
             ProductObj = Product()
             ProductObj = selectedProduct
             atvProductName.error = null
