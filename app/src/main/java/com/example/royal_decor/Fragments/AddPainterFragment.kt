@@ -73,10 +73,13 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         btn_selectdate = v.findViewById(R.id.btn_selectdate)
     }
 
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.img_back -> {
                 activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+
             }
 
             R.id.btn_selectdate -> {
@@ -191,6 +194,11 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
             pdob.setText(simpleFormat.format(date))
         }
         picker.show(fragmentManager!!, picker.toString())
+    }
+
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
     }
 
 }

@@ -86,6 +86,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         when (v.id) {
             R.id.img_back -> {
                 activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
         }
     }
@@ -185,4 +186,8 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         return returnbool
     }
 
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+    }
 }

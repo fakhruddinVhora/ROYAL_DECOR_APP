@@ -158,7 +158,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                         applicationContext,
                                         DashboardActivity::class.java
                                     )
+
                                 )
+                                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
 
                                 finish()
                             } else {
@@ -195,6 +197,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.reviewus -> {
                 startActivity(Intent(applicationContext, CustomerReviewActivity::class.java))
+                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
         }
 
@@ -247,6 +250,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         dialog.setPositiveButton("Create") { dialog, which ->
             if (secretcode.text!!.toString().equals(Constants.SECRET_CODE)) {
                 startActivity(Intent(applicationContext, RegisterAccount::class.java))
+                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             } else {
                 Toast.makeText(applicationContext, "Wrong Code", Toast.LENGTH_SHORT).show()
             }

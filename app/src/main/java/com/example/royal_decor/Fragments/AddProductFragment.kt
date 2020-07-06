@@ -66,6 +66,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
 
             R.id.img_back -> {
                 activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
             R.id.btn_addproduct -> {
                 if (validation()) {
@@ -131,4 +132,8 @@ class AddProductFragment : Fragment(), View.OnClickListener {
         return returnbool
     }
 
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+    }
 }

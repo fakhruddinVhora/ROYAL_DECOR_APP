@@ -41,6 +41,7 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
         init()
         initialization()
         btn_Submit.setOnClickListener(this)
+        backImg.setOnClickListener(this)
     }
 
     private fun init() {
@@ -63,6 +64,12 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
+
+            R.id.img_back -> {
+                finish()
+                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+            }
+
             R.id.btn_register -> {
                 if (validation()) {
                     mAuth!!.createUserWithEmailAndPassword(
@@ -140,6 +147,12 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
             }
         }
         return returnbool
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
     }
 
     private fun DialogCreator() {

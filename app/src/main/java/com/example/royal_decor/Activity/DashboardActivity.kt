@@ -18,6 +18,7 @@ import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Models.DashboardRVObj
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 
@@ -100,6 +101,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
                 i.putExtra(stringtag, Constants.CREDIT_STATEMENT)
             }
             startActivity(i)
+            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
         }
         HorizontalLayout =
             LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -141,14 +143,34 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         dashboardprogressbar = findViewById(R.id.dashboardprogressbar)
     }
 
+    override fun onBackPressed() {
+        DialogCreator()
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.img_logout -> {
-                FirebaseAuth.getInstance().signOut()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                DialogCreator()
             }
         }
     }
+
+    private fun DialogCreator() {
+        val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Want to Logout..??")
+        val inflater = this.layoutInflater
+        dialog.setPositiveButton("Yes") { dialog, which ->
+            dialog.dismiss()
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(this, LoginActivity::class.java))
+            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+            finish()
+        }
+        dialog.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
 }
 

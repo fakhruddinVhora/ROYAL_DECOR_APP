@@ -124,9 +124,14 @@ class ViewCreditFragment : Fragment(), View.OnClickListener {
 
             R.id.img_back -> {
                 activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
         }
     }
 
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+    }
 
 }

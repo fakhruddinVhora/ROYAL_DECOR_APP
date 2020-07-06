@@ -144,12 +144,11 @@ class PainterListFragment : Fragment(), View.OnClickListener,
                 }
             }
             R.id.img_save -> {
-                //activity!!.finish()
                 DownloadAsCSV(tempList)
             }
             R.id.img_back -> {
                 activity!!.finish()
-                //DownloadAsCSV(tempList)
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
         }
     }
@@ -387,4 +386,8 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         dialog.show()
     }
 
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+    }
 }

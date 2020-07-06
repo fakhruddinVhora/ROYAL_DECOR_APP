@@ -10,7 +10,7 @@ import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 
 
-class DeskBaseActivity : AppCompatActivity() {
+public class DeskBaseActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +28,11 @@ class DeskBaseActivity : AppCompatActivity() {
         val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.deskbaselayout, fragment).commit()
 
+    }
+
+    public fun closeFragment() {
+        finish()
+        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
     }
 
     private fun getFragment(sectionName: String): Fragment? {
@@ -58,5 +63,41 @@ class DeskBaseActivity : AppCompatActivity() {
             }
         }
         return null
+    }
+
+    override fun onBackPressed() {
+        val currentFragment =
+            supportFragmentManager.findFragmentById(R.id.deskbaselayout)
+        val c = supportFragmentManager.backStackEntryCount
+        if (currentFragment is AddPainterFragment) {
+            (currentFragment as AddPainterFragment).onBackPressed()
+        }
+        if (currentFragment is AddProductFragment) {
+            (currentFragment as AddProductFragment).onBackPressed()
+        }
+        if (currentFragment is CreditStatementFragment) {
+            (currentFragment as CreditStatementFragment).onBackPressed()
+        }
+        if (currentFragment is CustomerListFragment) {
+            (currentFragment as CustomerListFragment).onBackPressed()
+        }
+        if (currentFragment is EvaluateCreditsFragment) {
+            (currentFragment as EvaluateCreditsFragment).onBackPressed()
+        }
+        if (currentFragment is PainterListFragment) {
+            (currentFragment as PainterListFragment).onBackPressed()
+        }
+        if (currentFragment is ViewCreditFragment) {
+            (currentFragment as ViewCreditFragment).onBackPressed()
+        }
+        if (currentFragment is ViewProductFragment) {
+            (currentFragment as ViewProductFragment).onBackPressed()
+        }
+        if (c == 0) {
+
+            super.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
     }
 }

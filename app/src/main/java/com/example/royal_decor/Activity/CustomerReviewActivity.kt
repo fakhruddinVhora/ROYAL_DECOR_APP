@@ -138,6 +138,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.img_back -> {
                 finish()
+                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
             R.id.btn_submit -> {
                 if (validation()) {
@@ -176,6 +177,12 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+    }
+
     private fun DialogCreator() {
         val dialog = MaterialAlertDialogBuilder(this)
         dialog.setTitle("Enter secret Code")
@@ -187,6 +194,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
         }
         dialog.setNegativeButton("Exit") { dialog, which ->
             dialog.dismiss()
+            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             finish()
         }
         dialog.show()

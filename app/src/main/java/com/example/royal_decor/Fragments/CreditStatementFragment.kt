@@ -237,6 +237,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
         when (v.id) {
             R.id.img_back -> {
                 activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
             R.id.btn_startdate -> {
                 datePickerDialog(true)
@@ -344,4 +345,8 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
         });
     }
 
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+    }
 }

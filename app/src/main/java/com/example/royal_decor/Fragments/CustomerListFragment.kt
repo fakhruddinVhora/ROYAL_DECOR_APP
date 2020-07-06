@@ -94,6 +94,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         when (v.id) {
             R.id.img_back -> {
                 activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
             }
         }
     }
@@ -165,6 +166,11 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
             }
 
         });
+    }
+
+    fun onBackPressed() {
+        activity!!.finish()
+        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
     }
 
 
