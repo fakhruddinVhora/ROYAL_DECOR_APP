@@ -86,7 +86,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         when (v.id) {
             R.id.img_back -> {
                 activity!!.finish()
-                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         }
     }
@@ -188,6 +188,6 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
 
     fun onBackPressed() {
         activity!!.finish()
-        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 }

@@ -148,7 +148,7 @@ class PainterListFragment : Fragment(), View.OnClickListener,
             }
             R.id.img_back -> {
                 activity!!.finish()
-                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
         }
     }
@@ -388,6 +388,6 @@ class PainterListFragment : Fragment(), View.OnClickListener,
 
     fun onBackPressed() {
         activity!!.finish()
-        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 }

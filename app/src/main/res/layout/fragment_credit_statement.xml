@@ -63,7 +63,8 @@
                     android:id="@+id/atv_painter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
+                    android:inputType="textCapSentences"
+                    android:maxLength="20"
                     android:paddingTop="@dimen/_16sdp"
                     android:textSize="@dimen/_10sdp"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small" />

@@ -101,7 +101,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
                 i.putExtra(stringtag, Constants.CREDIT_STATEMENT)
             }
             startActivity(i)
-            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         }
         HorizontalLayout =
             LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -157,13 +157,14 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun DialogCreator() {
         val dialog = MaterialAlertDialogBuilder(this)
-        dialog.setTitle("Want to Logout..??")
+        dialog.setTitle("Logout..!!")
+        dialog.setMessage("Are you sure you want to Logout?")
         val inflater = this.layoutInflater
         dialog.setPositiveButton("Yes") { dialog, which ->
             dialog.dismiss()
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, LoginActivity::class.java))
-            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             finish()
         }
         dialog.setNegativeButton("No") { dialog, which ->

@@ -32,7 +32,7 @@ public class DeskBaseActivity : AppCompatActivity() {
 
     public fun closeFragment() {
         finish()
-        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     private fun getFragment(sectionName: String): Fragment? {

@@ -138,7 +138,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.img_back -> {
                 finish()
-                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
             R.id.btn_submit -> {
                 if (validation()) {
@@ -180,7 +180,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     private fun DialogCreator() {
@@ -194,7 +194,7 @@ class CustomerReviewActivity : AppCompatActivity(), View.OnClickListener {
         }
         dialog.setNegativeButton("Exit") { dialog, which ->
             dialog.dismiss()
-            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             finish()
         }
         dialog.show()

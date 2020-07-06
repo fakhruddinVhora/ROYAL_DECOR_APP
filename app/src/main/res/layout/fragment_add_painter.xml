@@ -66,6 +66,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:inputType="text|textCapWords"
+                    android:maxLength="30"
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +80,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
-                android:hint="Address"
+                android:hint="City/Village"
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                 app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -94,6 +96,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:maxLines="2"
+                    android:inputType="text|textCapWords"
+                    android:maxLength="50"
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -136,7 +140,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:fontFamily="@font/josefinsansregular"
-                android:hint="Aadhar ID(Optional)"
+                android:hint="Aadhar ID (Optional)"
                 android:textColor="@color/colorPrimary"
                 app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                 app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -189,7 +193,7 @@
                         android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:textColorHint="@color/colorPrimary"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_11sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatImageButton

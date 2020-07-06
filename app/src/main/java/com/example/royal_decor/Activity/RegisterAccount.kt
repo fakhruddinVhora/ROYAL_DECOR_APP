@@ -67,7 +67,7 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
 
             R.id.img_back -> {
                 finish()
-                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
 
             R.id.btn_register -> {
@@ -152,7 +152,7 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
 
     private fun DialogCreator() {

@@ -10,11 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.DataAddedSuccessCallback
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,7 +80,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         when (v.id) {
             R.id.img_back -> {
                 activity!!.finish()
-                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
             }
 
@@ -99,25 +101,23 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
                         pdob.text.toString(),
                         paadhar.text.toString()
                     )
-                    val response = dbhandler.addpainter(painterObj)
-                    if (response) {
-                        constant.generateSnackBar(
-                            activity!!.applicationContext,
-                            v,
-                            "Painter added successfully"
-                        )
-                    } else {
-                        constant.generateSnackBar(
-                            activity!!.applicationContext,
-                            v,
-                            "Painter not added successfully"
-                        )
-                    }
-                    pname.text!!.clear()
-                    pmobilenumber.text!!.clear()
-                    paddress.text!!.clear()
-                    paadhar.text!!.clear()
-                    pdob.text!!.clear()
+                    dbhandler.addpainter(painterObj, object : DataAddedSuccessCallback {
+                        override fun returnCredStmtrValues(isSuccess: Boolean) {
+                            if (isSuccess) {
+                                DialogCreator("Success", "Painter Added Successfully")
+                                pname.text!!.clear()
+                                pmobilenumber.text!!.clear()
+                                paddress.text!!.clear()
+                                paadhar.text!!.clear()
+                                pdob.text!!.clear()
+                                pname.isFocusable = true
+                            } else {
+                                DialogCreator("Failure", "Failed to Add Painter")
+                            }
+                        }
+
+                    })
+
                 }
 
             }
@@ -198,7 +198,23 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
 
     fun onBackPressed() {
         activity!!.finish()
-        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+    }
+
+    private fun DialogCreator(title: String, msg: String) {
+        val dialog = MaterialAlertDialogBuilder(activity)
+        dialog.setTitle(title)
+        dialog.setMessage("Add Another Painter?")
+        val inflater = this.layoutInflater
+        dialog.setPositiveButton("Yes") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialog.setNegativeButton("No") { dialog, which ->
+
+            activity!!.finish()
+            activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        }
+        dialog.show()
     }
 
 }

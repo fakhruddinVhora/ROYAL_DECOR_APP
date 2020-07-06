@@ -86,6 +86,7 @@
                             android:layout_height="wrap_content"
                             android:background="@null"
                             android:maxLength="30"
+                            android:inputType="textCapSentences"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +98,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
                         android:fontFamily="@font/josefinsansregular"
-                        android:hint="Address"
+                        android:hint="City/Village"
                         android:textColor="@color/colorPrimary"
                         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -112,8 +113,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:maxLength="100"
+                            android:inputType="textCapSentences"
                             android:maxLines="2"
+                            android:maxLength="30"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -209,7 +211,7 @@
                                 android:inputType="number"
                                 android:textColor="@color/colorPrimary"
                                 android:textColorHint="@color/colorPrimary"
-                                android:textSize="@dimen/_13sdp" />
+                                android:textSize="@dimen/_11sdp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <androidx.appcompat.widget.AppCompatImageButton
@@ -570,7 +572,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@null"
-                                android:inputType="textMultiLine"
+                                android:inputType="textMultiLine|textCapSentences"
                                 android:maxLength="600"
                                 android:maxLines="7"
                                 android:textColorHint="@color/colorPrimary"

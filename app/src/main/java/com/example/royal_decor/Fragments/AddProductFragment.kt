@@ -9,9 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
+import com.example.royal_decor.Interface.DataAddedSuccessCallback
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
 import com.example.royal_decor.Utils.Constants
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -66,7 +68,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
 
             R.id.img_back -> {
                 activity!!.finish()
-                activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
             R.id.btn_addproduct -> {
                 if (validation()) {
@@ -78,18 +80,22 @@ class AddProductFragment : Fragment(), View.OnClickListener {
                         et_prodname.text.toString(),
                         et_prodcredits.text.toString()
                     )
-                    val returnbool = dbHelper.addproduct(obj)
-                    if (returnbool) {
-                        constant.generateSnackBar(
-                            activity!!.applicationContext,
-                            v,
-                            "Product Added Successfully"
-                        )
+                    dbHelper.addproduct(obj, object : DataAddedSuccessCallback {
+                        override fun returnCredStmtrValues(isSuccess: Boolean) {
+                            if (isSuccess) {
+                                DialogCreator("Success")
 
-                        et_prodname.setText("")
-                        et_prodcredits.setText("")
-                        et_prodcode.setText("")
-                    }
+                                et_prodname.setText("")
+                                et_prodcredits.setText("")
+                                et_prodcode.setText("")
+                                et_prodcode.isFocusable = true
+                            } else {
+                                DialogCreator("Failure")
+                            }
+                        }
+
+                    })
+
                 }
 
 
@@ -134,6 +140,23 @@ class AddProductFragment : Fragment(), View.OnClickListener {
 
     fun onBackPressed() {
         activity!!.finish()
-        activity!!.overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+        activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
+
+    private fun DialogCreator(title: String) {
+        val dialog = MaterialAlertDialogBuilder(activity)
+        dialog.setTitle(title)
+        dialog.setMessage("Add Another Product?")
+        val inflater = this.layoutInflater
+        dialog.setPositiveButton("Yes") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialog.setNegativeButton("No") { dialog, which ->
+
+            activity!!.finish()
+            activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        }
+        dialog.show()
+    }
+
 }

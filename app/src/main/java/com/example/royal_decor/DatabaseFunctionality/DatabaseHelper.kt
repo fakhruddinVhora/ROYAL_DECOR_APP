@@ -140,17 +140,17 @@ class DatabaseHelper {
 /*-------------------------------------------Evaluate Credit DataHandling End------------------------------------------------------------------------*/
 
     /*-------------------------------------------Product's DataHandling Start------------------------------------------------------------------------*/
-    fun addproduct(prodObj: Product): Boolean {
+    fun addproduct(prodObj: Product, param: DataAddedSuccessCallback): Boolean {
         var returnbool = true
 
 
         //val id = db.push().key
         db.child(Constants.NODE_PRODUCT).child(prodObj.productID).setValue(prodObj)
             .addOnSuccessListener {
-                returnbool = true
+                param.returnCredStmtrValues(true)
             }
             .addOnFailureListener {
-                returnbool = false
+                param.returnCredStmtrValues(false)
             }
 
         return returnbool
@@ -243,19 +243,21 @@ class DatabaseHelper {
     }
 
 
-    fun addpainter(painterObj: Painters): Boolean {
+    fun addpainter(
+        painterObj: Painters,
+        param: DataAddedSuccessCallback
+    ) {
 
         var returnbool = true
         //val id = db.push().key
         db.child(Constants.NODE_PAINTER).child(painterObj.id).setValue(painterObj)
             .addOnSuccessListener {
-                returnbool = true
+                param.returnCredStmtrValues(true)
             }
             .addOnFailureListener {
-                returnbool = false
+                param.returnCredStmtrValues(false)
             }
 
-        return returnbool
     }
 /*-------------------------------------------Painter's DataHandling End------------------------------------------------------------------------*/
 

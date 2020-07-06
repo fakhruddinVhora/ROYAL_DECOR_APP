@@ -55,6 +55,7 @@
             android:background="@drawable/customsearchlayout"
             android:layoutDirection="rtl"
             android:textCursorDrawable="@null"
+            android:inputType="textCapSentences"
             android:visibility="gone"
             app:iconifiedByDefault="false"
             app:queryBackground="@null" />
