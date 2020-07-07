@@ -37,7 +37,6 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var creditstmtlistrv: RecyclerView
     private lateinit var creditstmtadapter: CreditStatementAdapter
-    private lateinit var VerticalLayout: LinearLayoutManager
     private lateinit var backImg: ImageView
     private lateinit var FilterImg: ImageView
     private lateinit var headertext: TextView
@@ -54,7 +53,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
 
 
     private var PainterList: ArrayList<Painters> = ArrayList()
-    private var CustomerList: ArrayList<TallyLog> = ArrayList()
+    private var CreditLogList: ArrayList<TallyLog> = ArrayList()
 
     private lateinit var atvPainter: AutoCompleteTextView
 
@@ -74,8 +73,8 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
 
         dbhandler.getCredStmt(pb_creditstmt, object : CredStmtCallback {
             override fun returnCredStmtrValues(list: ArrayList<TallyLog>) {
-                CustomerList.clear()
-                CustomerList = list
+                CreditLogList.clear()
+                CreditLogList = list
                 sortArrayBasedOnDate(list)
                 settingAdapter(list)
             }
@@ -96,7 +95,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
 
 
         clearFilters.setOnClickListener {
-            creditstmtadapter.updateData(CustomerList)
+            creditstmtadapter.updateData(CreditLogList)
             creditstmtlistrv.scheduleLayoutAnimation()
 
             et_enddate.setText("")
@@ -155,7 +154,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
         }
         if (checkBool) {
 
-            for (element in CustomerList) {
+            for (element in CreditLogList) {
                 if (element.painterid.equals(PainterObj!!.id)) {
                     val d = SimpleDateFormat("dd/MM/yyyy").parse(element.date)
                     if (DateStart.compareTo(d) * d.compareTo(DateEnd) >= 0) {
