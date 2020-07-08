@@ -115,11 +115,8 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
                                 DialogCreator("Failure", "Failed to Add Painter")
                             }
                         }
-
                     })
-
                 }
-
             }
         }
     }

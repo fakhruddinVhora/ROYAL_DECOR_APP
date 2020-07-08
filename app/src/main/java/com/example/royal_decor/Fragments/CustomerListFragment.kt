@@ -11,7 +11,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.royal_decor.Adapters.CustomerATVAdapter
 import com.example.royal_decor.Adapters.CustomerListAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Interface.CustomerCallback
@@ -51,7 +50,6 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
 
     private var CustomerList: ArrayList<Customers> = ArrayList()
 
-    private lateinit var atvCustomer: AutoCompleteTextView
 
     private var CustomerObj: Customers? = null
     private var sStartDate: String = ""
@@ -75,7 +73,6 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
                 sortArrayBasedOnDate(list)
                 CustomerList = list
                 settingAdapter(list)
-                settingCustomerATVAdapter(list)
             }
 
         })
@@ -87,7 +84,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
 
             et_enddate.setText("")
             et_startdate.setText("")
-            atvCustomer.setText("")
+
             sEndDate = ""
             sStartDate = ""
             CustomerObj == null
@@ -109,6 +106,20 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
 
     }
 
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.img_back -> {
+                activity!!.finish()
+                activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            }
+            R.id.btn_startdate -> {
+                datePickerDialog(true)
+            }
+            R.id.btn_enddate -> {
+                datePickerDialog(false)
+            }
+        }
+    }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
@@ -138,7 +149,6 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         FilterImg = v.findViewById(R.id.img_logout)
 
         FilterLayout = v.findViewById(R.id.filterlayout)
-        atvCustomer = v.findViewById(R.id.atv_customer)
         clearFilters = v.findViewById(R.id.clearfilters)
 
         btn_enddate = v.findViewById(R.id.btn_enddate)
@@ -162,30 +172,6 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
     }
 
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.img_back -> {
-                activity!!.finish()
-                activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-            }
-        }
-    }
-
-    private fun settingCustomerATVAdapter(list: ArrayList<Customers>) {
-        val adapter = CustomerATVAdapter(v.context, R.layout.list_item, list)
-        atvCustomer.setAdapter(adapter)
-        atvCustomer.threshold = 1
-
-        atvCustomer.setOnItemClickListener { parent, _, position, _ ->
-            val selectedCustomer = parent.adapter.getItem(position) as Customers
-            atvCustomer.setText(selectedCustomer.name)
-            atvCustomer.setSelection(atvCustomer.text.length)
-            CustomerObj = Customers()
-            CustomerObj = selectedCustomer
-            FilterResults()
-        }
-    }
-
     private fun FilterResults() {
         var checkBool = true
         var DateStart = Date()
@@ -193,9 +179,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         var TempcustomerList: ArrayList<Customers> = ArrayList()
 
 
-        if (CustomerObj == null) {
-            checkBool = false
-        }
+
         if (sStartDate == "") {
             checkBool = false
         }
@@ -217,11 +201,10 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         if (checkBool) {
 
             for (element in CustomerList) {
-                if (element.id.equals(CustomerObj!!.id)) {
-                    val d = SimpleDateFormat("dd/MM/yyyy").parse(element.date)
-                    if (DateStart.compareTo(d) * d.compareTo(DateEnd) >= 0) {
-                        TempcustomerList.add(element)
-                    }
+                val d = SimpleDateFormat("dd/MM/yyyy").parse(element.date)
+                if (DateStart.compareTo(d) * d.compareTo(DateEnd) >= 0) {
+                    TempcustomerList.add(element)
+
                 }
             }
             sortArrayBasedOnDate(TempcustomerList)

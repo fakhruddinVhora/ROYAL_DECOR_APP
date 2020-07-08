@@ -42,32 +42,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:fontFamily="@font/josefinsansbold"
-                android:gravity="center"
-                android:hint="Select Painter"
-                android:textColor="@color/colorPrimary"
-                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:hintTextAppearance="@style/CustomLabel">
-
-                <AutoCompleteTextView
-                    android:id="@+id/atv_customer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapSentences"
-                    android:maxLength="20"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:textSize="@dimen/_10sdp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
 
