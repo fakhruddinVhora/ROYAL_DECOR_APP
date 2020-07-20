@@ -169,33 +169,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_weight="8"
-                    app:hintTextAppearance="@style/CustomLabel"
                     android:fontFamily="@font/josefinsansregular"
-                    android:hint="Date of Birth(Optional)"
+                    android:hint="Date of Birth (Optional)"
                     android:textColor="@color/colorPrimary"
                     app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                     app:boxCornerRadiusBottomStart="@dimen/_10sdp"
                     app:boxCornerRadiusTopEnd="@dimen/_10sdp"
                     app:boxCornerRadiusTopStart="@dimen/_10sdp"
                     app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp">
+                    app:boxStrokeWidthFocused="0dp"
+                    app:hintTextAppearance="@style/CustomLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_dateofbirth"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@null"
-                        android:text=""
-                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
+                        android:inputType="number"
+                        android:textColor="@color/colorPrimary"
                         android:textColorHint="@color/colorPrimary"
                         android:textSize="@dimen/_10sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -204,13 +204,13 @@
                     android:id="@+id/btn_selectdate"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/customroundedlayoutimagebutton"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:src="@drawable/ic_date"
                     android:layout_weight="2"
+                    android:background="@drawable/customroundedlayoutimagebutton"
                     android:backgroundTint="#0C2733"
-                    android:elevation="@dimen/_10sdp"
+                    android:elevation="@dimen/_5sdp"
+                    android:src="@drawable/ic_date"
                     android:textColor="#fff"
                     android:textSize="@dimen/_10sdp"
                     app:cornerRadius="@dimen/_10sdp" />
@@ -235,6 +235,14 @@
             android:textColor="#fff"
             android:textSize="@dimen/_14sdp"
             app:cornerRadius="@dimen/_10sdp" />
+
+        <ProgressBar
+            android:id="@+id/pb_addpainter"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </LinearLayout>

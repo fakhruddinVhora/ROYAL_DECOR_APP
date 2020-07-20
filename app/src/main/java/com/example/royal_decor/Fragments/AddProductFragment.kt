@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
@@ -27,6 +28,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
     private lateinit var et_prodname: TextInputEditText
     private lateinit var et_prodcode: TextInputEditText
     private lateinit var et_prodcredits: TextInputEditText
+    private lateinit var pb_addproduct: ProgressBar
 
     private lateinit var dbHelper: DatabaseHelper
 
@@ -60,6 +62,8 @@ class AddProductFragment : Fragment(), View.OnClickListener {
         et_prodcode = v.findViewById(R.id.prod_code)
         et_prodcredits = v.findViewById(R.id.prod_credits)
         et_prodname = v.findViewById(R.id.prod_name)
+
+        pb_addproduct = v.findViewById(R.id.pb_addproduct)
     }
 
     override fun onClick(v: View) {
@@ -73,35 +77,52 @@ class AddProductFragment : Fragment(), View.OnClickListener {
             R.id.btn_addproduct -> {
                 if (validation()) {
                     val constant = Constants()
-                    val id = constant.idGenerator(Constants.isProduct)
-                    val obj = Product(
-                        id,
+
+                    dbHelper.CheckProdCodeForDuplicates(
                         et_prodcode.text.toString(),
-                        et_prodname.text.toString(),
-                        et_prodcredits.text.toString()
-                    )
-                    dbHelper.addproduct(obj, object : DataAddedSuccessCallback {
-                        override fun returnCredStmtrValues(isSuccess: Boolean) {
-                            if (isSuccess) {
-                                DialogCreator("Success")
-
-                                et_prodname.setText("")
-                                et_prodcredits.setText("")
-                                et_prodcode.setText("")
-                                et_prodcode.isFocusable = true
-                            } else {
-                                DialogCreator("Failure")
+                        pb_addproduct,
+                        object : DataAddedSuccessCallback {
+                            override fun returnCredStmtrValues(isSuccess: Boolean) {
+                                if (isSuccess) {
+                                    AddProduct(constant)
+                                } else {
+                                    constant.generateSnackBar(
+                                        activity!!.applicationContext,
+                                        v,
+                                        "Product with this product code already exists"
+                                    )
+                                }
                             }
-                        }
-
-                    })
-
+                        })
                 }
-
-
             }
         }
 
+    }
+
+    private fun AddProduct(constant: Constants) {
+        val id = constant.idGenerator(Constants.isProduct)
+        val obj = Product(
+            id,
+            et_prodcode.text.toString(),
+            et_prodname.text.toString(),
+            et_prodcredits.text.toString()
+        )
+        dbHelper.addproduct(obj, pb_addproduct, object : DataAddedSuccessCallback {
+            override fun returnCredStmtrValues(isSuccess: Boolean) {
+                if (isSuccess) {
+                    DialogCreator("Success")
+
+                    et_prodname.setText("")
+                    et_prodcredits.setText("")
+                    et_prodcode.setText("")
+                    et_prodcode.isFocusable = true
+                } else {
+                    DialogCreator("Failure")
+                }
+            }
+
+        })
     }
 
     private fun validation(): Boolean {

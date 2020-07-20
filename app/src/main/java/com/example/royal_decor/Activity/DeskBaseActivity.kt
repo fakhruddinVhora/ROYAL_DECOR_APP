@@ -61,6 +61,9 @@ public class DeskBaseActivity : AppCompatActivity() {
             Constants.CREDIT_STATEMENT -> {
                 return CreditStatementFragment()
             }
+            Constants.CUSTOMER_FEEDBACK -> {
+                return CustomerFeedBackFragment()
+            }
         }
         return null
     }
@@ -92,6 +95,9 @@ public class DeskBaseActivity : AppCompatActivity() {
         }
         if (currentFragment is ViewProductFragment) {
             (currentFragment as ViewProductFragment).onBackPressed()
+        }
+        if (currentFragment is CustomerFeedBackFragment) {
+            (currentFragment as CustomerFeedBackFragment).onBackPressed()
         }
         if (c == 0) {
 

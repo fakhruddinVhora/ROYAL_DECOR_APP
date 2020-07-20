@@ -145,5 +145,13 @@
             android:textSize="@dimen/_14sdp"
             app:cornerRadius="@dimen/_10sdp" />
 
+        <ProgressBar
+            android:id="@+id/pb_addproduct"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
+
     </RelativeLayout>
 </LinearLayout>

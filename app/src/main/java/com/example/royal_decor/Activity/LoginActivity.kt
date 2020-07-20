@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -33,8 +34,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var et_username: TextInputEditText
     private lateinit var et_password: TextInputEditText
     private lateinit var loginprogressbar: ProgressBar
+    private lateinit var forgotpassword: MaterialTextView
     private lateinit var createnewaccount: MaterialTextView
-    private lateinit var reviewus: MaterialTextView
 
 
     private var mAuth: FirebaseAuth? = null
@@ -65,12 +66,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         init()
 
 
-        createnewaccount.setPaintFlags(createnewaccount.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+        forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
 
 
         BTNlogin.setOnClickListener(this)
+        forgotpassword.setOnClickListener(this)
         createnewaccount.setOnClickListener(this)
-        reviewus.setOnClickListener(this)
     }
 
 
@@ -123,8 +124,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         BTNlogin = findViewById(R.id.btn_login)
         loginprogressbar = findViewById(R.id.loginprogressbar)
+        forgotpassword = findViewById(R.id.forgetpassword)
         createnewaccount = findViewById(R.id.createnewaccount)
-        reviewus = findViewById(R.id.reviewus)
 
         et_username = findViewById(R.id.username)
         et_password = findViewById(R.id.password)
@@ -195,12 +196,51 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 DialogCreator()
             }
 
-            R.id.reviewus -> {
-                startActivity(Intent(applicationContext, CustomerReviewActivity::class.java))
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            R.id.forgetpassword -> {
+                /*val user1 = mAuth!!.currentUser;
+                user1!!.updatePassword("dhfsdfh").addOnCompleteListener{
+                    task ->
+                    if (task.isSuccessful){
+
+                    }else{
+
+                    }
+                }*/
+                if (ValidateEmail()) {
+                    loginprogressbar.visibility = View.VISIBLE
+                    mAuth!!.sendPasswordResetEmail(et_username.text.toString())
+                        .addOnCompleteListener { task ->
+                            loginprogressbar.visibility = View.GONE
+                            if (task.isSuccessful) {
+                                ForgetPasswordDialogCreator()
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Reset Password Failed.. Please try after sometime",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                }
+            }
+
+        }
+
+    }
+
+    private fun ValidateEmail(): Boolean {
+        var returnBool = true;
+        if (et_username.text.toString().equals("")) {
+            et_username.setError("Please enter a email ID")
+            returnBool = false;
+        } else {
+            if (!Patterns.EMAIL_ADDRESS.toRegex().matches(et_username.text.toString())) {
+                et_username.setError("Please Enter a Valid Email ID")
+                returnBool = false
             }
         }
 
+        return returnBool
     }
 
     private fun validation(): Boolean {
@@ -208,6 +248,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         if (et_username.text.toString() == "") {
             returnBool = false
             et_username.error = "Please Enter a Username"
+        } else {
+            if (!Patterns.EMAIL_ADDRESS.toRegex().matches(et_username.text.toString())) {
+                et_username.setError("Please Enter a Valid Email ID")
+                returnBool = false
+            }
         }
         if (et_password.text.toString() == "") {
             returnBool = false
@@ -261,4 +306,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
         dialog.show()
     }
+
+    private fun ForgetPasswordDialogCreator() {
+        val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Reset Password")
+        dialog.setMessage("Sent password link to ${et_username.text.toString()}")
+        dialog.setPositiveButton("Cancel") { dialog, which ->
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
 }

@@ -22,7 +22,8 @@ class Constants {
         val VIEW_PRODUCT = "Products List"
         val ADD_PAINTER = "Add Painter"
         val VIEW_PAINTERS_LIST = "Painters List"
-        val VIEW_CUSTOMER_LIST = "Customer List"
+        val VIEW_CUSTOMER_LIST = "Customer Feedback List"
+        val CUSTOMER_FEEDBACK = "Customer Feedback"
         val VIEW_CREDIT_SCORE = "Credit Scores"
         val CREDIT_STATEMENT = "Credit Statement"
 
@@ -43,6 +44,13 @@ class Constants {
         //Messages
         val ERROR_FILL_DETAILS = "Enter appropriate values"
         val ERROR_EXCEED_LIMIT = "Dont exceed the limit"
+
+
+        //errors
+
+        val DUPLICATE_VALUES_ENTRY = 1
+        val NO_DUPLICATES = 2
+        val SUCCESS = 3
 
 
         //Database Values
@@ -97,5 +105,6 @@ class Constants {
         )
         snack.show()
     }
+
 
 }

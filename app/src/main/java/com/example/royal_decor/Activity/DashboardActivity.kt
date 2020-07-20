@@ -54,7 +54,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
 
         logoutImg.setOnClickListener(this)
-
+        backImg.setOnClickListener(this)
     }
 
     private fun storeDBValuesInConstants() {
@@ -64,8 +64,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialization() {
-        backImg.visibility = View.GONE
+        backImg.visibility = View.VISIBLE
         logoutImg.visibility = View.VISIBLE
+        backImg.setImageDrawable(resources.getDrawable(R.drawable.ic_question_answer_black_18dp))
         headertext.text = "DASHBOARD"
     }
 
@@ -74,6 +75,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             LinearLayoutManager(applicationContext)
         dashboardrv.layoutManager = RecyclerViewLayoutManager
         adapter = DashboardRecyclerViewAdapter(fetchMapValues()) {
+
             val i = Intent(this, DeskBaseActivity::class.java)
             val stringtag = "ItemSelected"
             if (it.text.equals(Constants.ADD_PAINTER)) {
@@ -102,6 +104,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
             }
             startActivity(i)
             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
+
         }
         HorizontalLayout =
             LinearLayoutManager(this@DashboardActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -111,9 +115,15 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun fetchMapValues(): ArrayList<DashboardRVObj> {
         val tempMap = ArrayList<DashboardRVObj>()
+
+
+
         tempMap.add(DashboardRVObj(Constants.ADD_PAINTER, R.drawable.ic_addpainter))
-        tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
         tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
+        tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
+
+
+
         tempMap.add(DashboardRVObj(Constants.VIEW_PRODUCT, R.drawable.ic_view_product))
         tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.view_customer))
         tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))
@@ -125,7 +135,8 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setupGraphAdapter() {
 
-        val adapter = GraphViewAdapter(this, supportFragmentManager, 2)
+        val PAGES_FOR_SLIDER = 1
+        val adapter = GraphViewAdapter(this, supportFragmentManager, PAGES_FOR_SLIDER)
         tablayout.setupWithViewPager(viewPager)
         viewPager.adapter = adapter
     }
@@ -151,6 +162,14 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.img_logout -> {
                 DialogCreator()
+            }
+
+            R.id.img_back -> {
+                val i = Intent(this, DeskBaseActivity::class.java)
+                i.putExtra("ItemSelected", Constants.CUSTOMER_FEEDBACK)
+                startActivity(i)
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+
             }
         }
     }

@@ -140,20 +140,50 @@ class DatabaseHelper {
 /*-------------------------------------------Evaluate Credit DataHandling End------------------------------------------------------------------------*/
 
     /*-------------------------------------------Product's DataHandling Start------------------------------------------------------------------------*/
-    fun addproduct(prodObj: Product, param: DataAddedSuccessCallback): Boolean {
+    fun addproduct(
+        prodObj: Product,
+        progressbar: ProgressBar,
+        param: DataAddedSuccessCallback
+    ): Boolean {
         var returnbool = true
 
-
+        progressbar.visibility = View.VISIBLE
         //val id = db.push().key
         db.child(Constants.NODE_PRODUCT).child(prodObj.productID).setValue(prodObj)
             .addOnSuccessListener {
+                progressbar.visibility = View.GONE
                 param.returnCredStmtrValues(true)
             }
             .addOnFailureListener {
+                progressbar.visibility = View.GONE
                 param.returnCredStmtrValues(false)
             }
 
         return returnbool
+    }
+
+    fun CheckProdCodeForDuplicates(
+        prodcode: String,
+        progressbar: ProgressBar,
+        param: DataAddedSuccessCallback
+    ) {
+        val query: Query =
+            db.child(Constants.NODE_PRODUCT).orderByChild("productcode").equalTo(prodcode)
+        progressbar.visibility = View.VISIBLE
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                progressbar.visibility = View.GONE
+                if (snapshot.exists()) {
+                    param.returnCredStmtrValues(false)
+                } else {
+                    param.returnCredStmtrValues(true)
+                }
+            }
+        })
     }
 
     fun getproductdetails(
@@ -244,20 +274,49 @@ class DatabaseHelper {
 
 
     fun addpainter(
+        progressbar: ProgressBar,
         painterObj: Painters,
         param: DataAddedSuccessCallback
     ) {
-
+        progressbar.visibility = View.VISIBLE
         var returnbool = true
         //val id = db.push().key
         db.child(Constants.NODE_PAINTER).child(painterObj.id).setValue(painterObj)
             .addOnSuccessListener {
+                progressbar.visibility = View.GONE
                 param.returnCredStmtrValues(true)
             }
             .addOnFailureListener {
+                progressbar.visibility = View.GONE
                 param.returnCredStmtrValues(false)
             }
 
+    }
+
+
+    fun checkPainterDataForDuplicates(
+        progressbar: ProgressBar,
+        mobileno: String,
+        param: DataAddedSuccessCallback
+    ) {
+        progressbar.visibility = View.VISIBLE
+        val query: Query =
+            db.child(Constants.NODE_PAINTER).orderByChild("mobile").equalTo(mobileno);
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onCancelled(error: DatabaseError) {
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                progressbar.visibility = View.GONE
+                if (snapshot.exists()) {
+                    param.returnCredStmtrValues(false)
+                } else {
+                    param.returnCredStmtrValues(true)
+                }
+            }
+        })
     }
 /*-------------------------------------------Painter's DataHandling End------------------------------------------------------------------------*/
 

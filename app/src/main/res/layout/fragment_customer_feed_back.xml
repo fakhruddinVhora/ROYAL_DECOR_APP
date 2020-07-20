@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:elevation="@dimen/_100sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <include layout="@layout/header" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/customerdetailstext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:fontFamily="@font/josefinsansbold"
+                    android:gravity="left"
+                    android:text="Add Customer Details"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_15sdp" />
+
+                <View
+                    android:id="@+id/borderbelowadd"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_below="@id/customerdetailstext"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:id="@+id/formbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/borderbelowadd"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:background="@null"
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="Name"
+                        android:textColor="@color/colorPrimary"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintTextAppearance="@style/CustomLabel">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:maxLength="30"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapSentences|textNoSuggestions"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="City/Village"
+                        android:textColor="@color/colorPrimary"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintTextAppearance="@style/CustomLabel">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/caddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapSentences|textNoSuggestions"
+                            android:maxLines="2"
+                            android:maxLength="30"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="Mobile Number"
+                        android:textColor="@color/colorPrimary"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10"
+                        app:hintTextAppearance="@style/CustomLabel">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cmobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:importantForAutofill="no"
+                            android:inputType="number|textNoSuggestions"
+                            android:maxLength="10"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="Email ID (Optional)"
+                        android:textColor="@color/colorPrimary"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:counterMaxLength="16"
+                        app:hintTextAppearance="@style/CustomLabel">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cemail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:importantForAutofill="no"
+                            android:inputType="textEmailAddress|textCapSentences|textNoSuggestions"
+                            android:maxLength="40"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_45sdp"
+                            android:layout_weight="8"
+                            android:fontFamily="@font/josefinsansregular"
+                            android:hint="Date of Birth (Optional)"
+                            android:textColor="@color/colorPrimary"
+                            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
+                            app:hintTextAppearance="@style/CustomLabel">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_dateofbirth"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:textColor="@color/colorPrimary"
+                                android:textColorHint="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/btn_selectdate"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_weight="2"
+                            android:background="@drawable/customroundedlayoutimagebutton"
+                            android:backgroundTint="#0C2733"
+                            android:elevation="@dimen/_5sdp"
+                            android:src="@drawable/ic_date"
+                            android:textColor="#fff"
+                            android:textSize="@dimen/_10sdp"
+                            app:cornerRadius="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/reviewtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/formbox"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:fontFamily="@font/josefinsansbold"
+                    android:gravity="left"
+                    android:text="Please review us"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_15sdp" />
+
+                <View
+                    android:id="@+id/borderbelowreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_below="@id/reviewtext"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:id="@+id/reviewbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/borderbelowreview"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/ralewaysemibold"
+                            android:gravity="left"
+                            android:text="Did we meet your expectations?"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_expectations"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_35sdp"
+                            android:layout_marginEnd="@dimen/_35sdp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Yes"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1.3"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Somewhat"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="No"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/ralewaysemibold"
+                            android:gravity="left"
+                            android:text="How was the product and shade quality?"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_shadeproduct"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_35sdp"
+                            android:layout_marginEnd="@dimen/_35sdp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.3"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Excellent"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Good"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Poor"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/ralewaysemibold"
+                            android:gravity="left"
+                            android:text="How would you rate our employee's services?"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_employeeservices"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_35sdp"
+                            android:layout_marginEnd="@dimen/_35sdp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Very Helpful"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Not Interested"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/ralewaysemibold"
+                            android:gravity="left"
+                            android:text="How was our color selection consultation for your home?"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_colorconsultations"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_35sdp"
+                            android:layout_marginEnd="@dimen/_35sdp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.3"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Excellent"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Good"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:buttonTint="@color/colorPrimary"
+                                android:fontFamily="@font/ralewaysemibold"
+                                android:text="Poor"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_10sdp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/ralewaysemibold"
+                            android:gravity="left"
+                            android:text="Kindly rate our painting services"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            android:id="@+id/ratingbar"
+                            style="@style/Widget.AppCompat.RatingBar.Indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:isIndicator="false"
+                            android:numStars="10"
+                            android:progressTint="@color/colorPrimary"
+                            android:stepSize="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/ralewaysemibold"
+                            android:gravity="left"
+                            android:text="Any other suggestions or reviews if you wish to tell to us..!!"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100sdp"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:fontFamily="@font/josefinsansregular"
+                            android:scrollbars="vertical"
+                            android:textColor="@color/colorPrimary"
+                            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
+                            app:counterMaxLength="16"
+                            app:hintEnabled="false"
+                            app:hintTextAppearance="@style/CustomLabel">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/suggestions"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:gravity="top|left"
+                                android:importantForAutofill="no"
+                                android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
+                                android:paddingTop="@dimen/_16sdp"
+                                android:text=""
+                                android:maxLength="600"
+                                android:maxLines="7"
+                                android:textColorHint="@color/colorPrimary"
+                                android:textSize="@dimen/_12sdp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_submit"
+                    style="@style/TextAppearance.AppCompat.Widget.Button"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_below="@id/reviewbox"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_50sdp"
+                    android:backgroundTint="#0C2733"
+                    android:elevation="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="SUBMIT"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/_14sdp"
+                    app:cornerRadius="@dimen/_10sdp" />
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

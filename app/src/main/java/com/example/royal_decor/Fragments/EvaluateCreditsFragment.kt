@@ -104,6 +104,8 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
             atvPainter.setSelection(atvPainter.text.length)
             PainterObj = Painters()
             PainterObj = selectedPainter
+            atvPainter.error = null
+
         }
     }
 
@@ -192,7 +194,7 @@ class EvaluateCreditsFragment : Fragment(), View.OnClickListener,
                     val total: Int = calculateTotal()
                     CreditList.add(
                         TallyCredit(
-                            atvProductName.text.toString(),
+                            ProductObj!!.productname,
                             ProductObj!!.points,
                             et_quantity.text.toString(),
                             total.toString()

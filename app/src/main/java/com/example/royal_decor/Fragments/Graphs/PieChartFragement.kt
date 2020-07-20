@@ -1,7 +1,6 @@
 package com.example.royal_decor.Fragments.Graphs
 
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Interface.PiechartCallback
 import com.example.royal_decor.R
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -72,35 +70,6 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
 
     }
 
-    fun chartDetails(mChart: PieChart, tf: Typeface) {
-
-        mChart.description.isEnabled = true
-        mChart.centerText = ""
-        mChart.setCenterTextSize(10F)
-        mChart.setCenterTextTypeface(tf)
-        val l = mChart.legend
-        mChart.legend.isWordWrapEnabled = true
-        mChart.legend.isEnabled = false
-        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        l.formSize = 20F
-        l.formToTextSpace = 5f
-        l.form = Legend.LegendForm.SQUARE
-        l.textSize = 12f
-        l.orientation = Legend.LegendOrientation.HORIZONTAL
-        l.isWordWrapEnabled = true
-        l.setDrawInside(false)
-        mChart.setTouchEnabled(false)
-        mChart.setDrawEntryLabels(false)
-        mChart.legend.isWordWrapEnabled = true
-        mChart.setExtraOffsets(20f, 0f, 20f, 0f)
-        mChart.setUsePercentValues(true)
-        // mChart.rotationAngle = 0f
-        mChart.setUsePercentValues(true)
-        mChart.setDrawCenterText(false)
-        mChart.description.isEnabled = true
-        mChart.isRotationEnabled = false
-    }
 
     override fun onNothingSelected() {
     }
@@ -137,15 +106,15 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
             NoOfEmp.add(PieEntry((element.value).toFloat(), element.key))
         }
 
-        val dataSet = PieDataSet(NoOfEmp, "Product Wise Sale")
+        val dataSet = PieDataSet(NoOfEmp, "")
         dataSet.setDrawIcons(false)
-        dataSet.sliceSpace = 1f
+        dataSet.sliceSpace = 0f
         dataSet.iconsOffset = MPPointF(0F, 20F)
-        dataSet.selectionShift = 5f
+        dataSet.selectionShift = 2f
         dataSet.setColors(*ColorTemplate.PASTEL_COLORS)
 
         val data = PieData(dataSet)
-        data.setValueTextSize(17f)
+        data.setValueTextSize(15f)
         data.setValueTextColor(Color.BLACK)
         data.setValueFormatter(DefaultValueFormatter(0))
         data.setValueTypeface(
@@ -154,13 +123,18 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
                 R.font.ralewaysemibold
             )
         )
-        pieChart.isDrawHoleEnabled = false
-
         pieChart.data = data
+        pieChart.isDrawHoleEnabled = true
+        pieChart.transparentCircleRadius = 50f
+        pieChart.holeRadius = 40f
+        pieChart.description.text = "Product Sales"
+        pieChart.description.textSize = 16f
+
+
         pieChart.setEntryLabelColor(Color.BLACK)
         pieChart.setEntryLabelTextSize(10f)
         pieChart.setEntryLabelTypeface(ResourcesCompat.getFont(context!!, R.font.ralewaysemibold))
-        pieChart.description.isEnabled = false
+        pieChart.description.isEnabled = true
         pieChart.legend.isEnabled = false
         pieChart.highlightValues(null)
         pieChart.invalidate()

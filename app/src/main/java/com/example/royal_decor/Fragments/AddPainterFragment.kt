@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Interface.DataAddedSuccessCallback
@@ -35,6 +32,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
     private lateinit var btn_selectdate: ImageButton
     private lateinit var paadhar: TextInputEditText
     private lateinit var dbhandler: DatabaseHelper
+    private lateinit var pb_addpainter: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,8 +42,6 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_add_painter, container, false)
         init()
         initialization()
-
-
 
         btnAdd.setOnClickListener(this)
         backImg.setOnClickListener(this)
@@ -73,6 +69,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         pdob = v.findViewById(R.id.et_dateofbirth)
         pmobilenumber = v.findViewById(R.id.pmobile)
         btn_selectdate = v.findViewById(R.id.btn_selectdate)
+        pb_addpainter = v.findViewById(R.id.pb_addpainter)
     }
 
 
@@ -91,34 +88,56 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
             R.id.btn_add -> {
                 if (validation()) {
                     val constant = Constants()
-                    val pid = constant.idGenerator(Constants.isPainter)
-
-                    val painterObj = Painters(
-                        pid,
-                        pname.text.toString(),
+                    dbhandler.checkPainterDataForDuplicates(pb_addpainter,
                         pmobilenumber.text.toString(),
-                        paddress.text.toString(),
-                        pdob.text.toString(),
-                        paadhar.text.toString()
-                    )
-                    dbhandler.addpainter(painterObj, object : DataAddedSuccessCallback {
-                        override fun returnCredStmtrValues(isSuccess: Boolean) {
-                            if (isSuccess) {
-                                DialogCreator("Success", "Painter Added Successfully")
-                                pname.text!!.clear()
-                                pmobilenumber.text!!.clear()
-                                paddress.text!!.clear()
-                                paadhar.text!!.clear()
-                                pdob.text!!.clear()
-                                pname.isFocusable = true
-                            } else {
-                                DialogCreator("Failure", "Failed to Add Painter")
+                        object : DataAddedSuccessCallback {
+                            override fun returnCredStmtrValues(isSuccess: Boolean) {
+                                if (isSuccess) {
+                                    AddingPainter(constant)
+                                } else {
+                                    constant.generateSnackBar(
+                                        activity!!.applicationContext,
+                                        v,
+                                        "Painter with this mobile number already exists"
+                                    )
+                                }
                             }
-                        }
-                    })
+                        })
                 }
             }
         }
+    }
+
+    private fun AddingPainter(constant: Constants) {
+        val pid = constant.idGenerator(Constants.isPainter)
+
+        val painterObj = Painters(
+            pid,
+            pname.text.toString(),
+            pmobilenumber.text.toString(),
+            paddress.text.toString(),
+            pdob.text.toString(),
+            paadhar.text.toString()
+        )
+
+        dbhandler.addpainter(
+            pb_addpainter,
+            painterObj,
+            object : DataAddedSuccessCallback {
+                override fun returnCredStmtrValues(isSuccess: Boolean) {
+                    if (isSuccess) {
+                        DialogCreator("Success", "Painter Added Successfully")
+                        pname.text!!.clear()
+                        pmobilenumber.text!!.clear()
+                        paddress.text!!.clear()
+                        paadhar.text!!.clear()
+                        pdob.text!!.clear()
+                        pname.isFocusable = true
+                    } else {
+                        DialogCreator("Failure", "Failed to Add Painter")
+                    }
+                }
+            })
     }
 
     private fun validation(): Boolean {
@@ -150,8 +169,8 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
             pmobilenumber.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
         } else {
-            if (pmobilenumber.text.toString().length > 10) {
-                pmobilenumber.error = Constants.ERROR_EXCEED_LIMIT
+            if (pmobilenumber.text.toString().length != 10) {
+                pmobilenumber.error = "10 Digit Mobile Number Needed.."
                 returnbool = false
                 returnbool = false
             }
@@ -184,11 +203,31 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         builder.setSelection(currentTimeInMillis)
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener {
+
+            val cal = Calendar.getInstance()
+            cal.add(Calendar.YEAR, -18)
+            cal.add(Calendar.DATE, -1)
+            val dateminus18 = cal.time
+
             val timeZoneUTC: TimeZone = TimeZone.getDefault()
             val offsetFromUTC: Int = timeZoneUTC.getOffset(Date().time) * -1
             val simpleFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            val date = Date(it + offsetFromUTC)
-            pdob.setText(simpleFormat.format(date))
+            val selecteddate = Date(it + offsetFromUTC)
+            if (selecteddate.before(Date(Calendar.getInstance().timeInMillis))) {
+                if (selecteddate.before(dateminus18)) {
+                    pdob.setText(simpleFormat.format(selecteddate))
+                } else {
+                    pdob.setText("")
+                    Toast.makeText(
+                        activity,
+                        "Age should be greater than 18 years",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                pdob.setText("")
+                Toast.makeText(activity, "Future dates not allowed", Toast.LENGTH_SHORT).show()
+            }
         }
         picker.show(fragmentManager!!, picker.toString())
     }

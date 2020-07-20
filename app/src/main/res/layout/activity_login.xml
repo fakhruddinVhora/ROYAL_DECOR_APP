@@ -135,16 +135,15 @@
                         app:cornerRadius="@dimen/_14sdp" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/createnewaccount"
+                        android:id="@+id/forgetpassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:fontFamily="@font/ralewaysemibold"
                         android:gravity="center"
-                        android:text="Create a new account??"
+                        android:text="Forgot Password??"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_12sdp" />
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -168,13 +167,13 @@
                     android:paddingBottom="@dimen/_5sdp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/reviewus"
+                        android:id="@+id/createnewaccount"
                         style="@style/TextAppearance.AppCompat.Widget.Button"
                         android:layout_width="@dimen/_150sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="Customer Feedback"
+                        android:text="Create New Account"
                         android:textColor="#0C2733"
                         android:textSize="@dimen/_12sdp"
                         app:cornerRadius="@dimen/_4sdp"
