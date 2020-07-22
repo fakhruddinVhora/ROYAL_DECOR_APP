@@ -7,7 +7,6 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.example.royal_decor.Models.Painters
-import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
 import com.google.android.material.snackbar.Snackbar
 import java.util.concurrent.TimeUnit
@@ -18,7 +17,7 @@ class Constants {
     companion object {
         //dashboard
         val ADD_PRODUCT = "Add Product"
-        val EVALUATE_CREDITS = "Evaluate Credits"
+        val EVALUATE_CREDITS = "Add Credits"
         val VIEW_PRODUCT = "Products List"
         val ADD_PAINTER = "Add Painter"
         val VIEW_PAINTERS_LIST = "Painters List"
@@ -27,6 +26,8 @@ class Constants {
         val VIEW_CREDIT_SCORE = "Credit Scores"
         val CREDIT_STATEMENT = "Credit Statement"
 
+        val CHANGE_SECRET_CODE = "Change Secret Code"
+        val CHANGE_PASSWORD = "Change Password"
 
         //id generator
         val isCust = "CUS"
@@ -56,12 +57,9 @@ class Constants {
         //Database Values
 
         var PAINTER_DB: ArrayList<Painters> = ArrayList()
-        var TEMP_PAINTER: ArrayList<Painters> = ArrayList()
-
-        var PRODUCT_DB: ArrayList<Product> = ArrayList()
 
 
-        val SECRET_CODE = "Huz5253"
+        var SECRET_CODE = "Huz5253"
 
 
         //PieChart Values

@@ -2,10 +2,9 @@ package com.example.royal_decor.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +30,7 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var adapter: DashboardRecyclerViewAdapter
     private lateinit var HorizontalLayout: LinearLayoutManager
     private lateinit var backImg: ImageView
-    private lateinit var logoutImg: ImageView
+    private lateinit var moreInfoImg: ImageView
     private lateinit var headertext: TextView
     private lateinit var dashboardprogressbar: ProgressBar
     private var dbHelper: DatabaseHelper = DatabaseHelper()
@@ -52,21 +51,58 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         setupRecyclerView()
 
 
+        moreInfoImg.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                val popup = PopupMenu(this@DashboardActivity, v)
+                popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                    override fun onMenuItemClick(m: MenuItem): Boolean {
 
-        logoutImg.setOnClickListener(this)
+
+                        when (m.itemId) {
+                            R.id.m_logout -> {
+                                LogoutDialogCreator()
+                            }
+
+                            R.id.m_changepassword -> {
+                                LaunchChangePasswordCode(Constants.CHANGE_PASSWORD)
+                            }
+
+                            R.id.m_changesecretcode -> {
+                                LaunchChangePasswordCode(Constants.CHANGE_SECRET_CODE)
+                            }
+                        }
+
+                        return true
+                    }
+
+                })
+                popup.inflate(R.menu.menulist)
+                popup.show()
+            }
+        })
+
+
         backImg.setOnClickListener(this)
     }
 
-    private fun storeDBValuesInConstants() {
-        dbHelper.open()
-        dashboardprogressbar.visibility = View.VISIBLE
-        dbHelper.storeDBValuesInConstants(dashboardprogressbar)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    private fun LaunchChangePasswordCode(sClass: String) {
+        val i = Intent(this, DeskBaseActivity::class.java)
+        i.putExtra("ItemSelected", sClass)
+        startActivity(i)
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
     }
 
     private fun initialization() {
         backImg.visibility = View.VISIBLE
-        logoutImg.visibility = View.VISIBLE
+        moreInfoImg.visibility = View.VISIBLE
         backImg.setImageDrawable(resources.getDrawable(R.drawable.ic_question_answer_black_18dp))
+        moreInfoImg.setImageDrawable(resources.getDrawable(R.drawable.ic_menuicon))
+
         headertext.text = "DASHBOARD"
     }
 
@@ -122,8 +158,6 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         tempMap.add(DashboardRVObj(Constants.ADD_PRODUCT, R.drawable.ic_addproduct))
         tempMap.add(DashboardRVObj(Constants.EVALUATE_CREDITS, R.drawable.ic_evaluatecredits))
 
-
-
         tempMap.add(DashboardRVObj(Constants.VIEW_PRODUCT, R.drawable.ic_view_product))
         tempMap.add(DashboardRVObj(Constants.VIEW_CUSTOMER_LIST, R.drawable.view_customer))
         tempMap.add(DashboardRVObj(Constants.VIEW_PAINTERS_LIST, R.drawable.ic_view_list))
@@ -148,33 +182,28 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         dashboardrv = findViewById(R.id.dashboardrv)
 
         backImg = findViewById(R.id.img_back)
-        logoutImg = findViewById(R.id.img_logout)
+        moreInfoImg = findViewById(R.id.img_logout)
         headertext = findViewById(R.id.header_text)
 
         dashboardprogressbar = findViewById(R.id.dashboardprogressbar)
     }
 
     override fun onBackPressed() {
-        DialogCreator()
+        LogoutDialogCreator()
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.img_logout -> {
-                DialogCreator()
-            }
-
             R.id.img_back -> {
                 val i = Intent(this, DeskBaseActivity::class.java)
                 i.putExtra("ItemSelected", Constants.CUSTOMER_FEEDBACK)
                 startActivity(i)
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-
             }
         }
     }
 
-    private fun DialogCreator() {
+    private fun LogoutDialogCreator() {
         val dialog = MaterialAlertDialogBuilder(this)
         dialog.setTitle("Logout..!!")
         dialog.setMessage("Are you sure you want to Logout?")

@@ -64,6 +64,12 @@ public class DeskBaseActivity : AppCompatActivity() {
             Constants.CUSTOMER_FEEDBACK -> {
                 return CustomerFeedBackFragment()
             }
+            Constants.CHANGE_SECRET_CODE -> {
+                return ChangeSecretCodeFragment()
+            }
+            Constants.CHANGE_PASSWORD -> {
+                return ChangePasswordFragment()
+            }
         }
         return null
     }
@@ -98,6 +104,12 @@ public class DeskBaseActivity : AppCompatActivity() {
         }
         if (currentFragment is CustomerFeedBackFragment) {
             (currentFragment as CustomerFeedBackFragment).onBackPressed()
+        }
+        if (currentFragment is ChangeSecretCodeFragment) {
+            (currentFragment as ChangeSecretCodeFragment).onBackPressed()
+        }
+        if (currentFragment is ChangePasswordFragment) {
+            (currentFragment as ChangePasswordFragment).onBackPressed()
         }
         if (c == 0) {
 

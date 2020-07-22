@@ -324,55 +324,8 @@ class DatabaseHelper {
     /*-------------------------------------------Dashboard's DataHandling------------------------------------------------------------------------*/
 
 
-    fun storeDBValuesInConstants(dashboardprogressbar: ProgressBar) {
-
-        //PainterData
-        StorePainterDataRef = db.child(Constants.NODE_PAINTER)
-        StorePainterDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Constants.PAINTER_DB.clear()
-                val dataObj = snapshot.children
-                for (d in dataObj) {
-                    val obj = d.getValue(Painters::class.java)
-                    if (obj != null) {
-                        Constants.PAINTER_DB.add(obj)
-                    }
-                }
-                fetchProdDetails(dashboardprogressbar)
-            }
-
-        })
-
-    }
 
 
-    private fun fetchProdDetails(dashboardprogressbar: ProgressBar) {
-
-        //Product Data
-        StoreProductDataRef = db.child(Constants.NODE_PRODUCT)
-        StoreProductDataRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Constants.PRODUCT_DB.clear()
-                val dataObj = snapshot.children
-                for (d in dataObj) {
-                    val obj = d.getValue(Product::class.java)
-                    if (obj != null) {
-                        Constants.PRODUCT_DB.add(obj)
-                    }
-                }
-                dashboardprogressbar.visibility = View.GONE
-            }
-
-        })
-    }
 
 
     fun fetchDataforPieChart(loginprogressbar: ProgressBar, piechartcallback: PiechartCallback) {

@@ -13,6 +13,8 @@ import com.example.royal_decor.Utils.Constants
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+
 
 class RegisterAccount : AppCompatActivity(), View.OnClickListener {
 
@@ -77,14 +79,15 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
                         et_password.text.toString()
                     )
                         .addOnCompleteListener(this) { task ->
-                            Toast.makeText(
-                                this@RegisterAccount,
-                                "createUserWithEmail:onComplete:" + task.isSuccessful(),
-                                Toast.LENGTH_SHORT
-                            ).show()
                             pb_registeraccount.visibility = View.GONE
 
                             if (task.isSuccessful) {
+                                val user =
+                                    FirebaseAuth.getInstance().currentUser
+                                val profileUpdates =
+                                    UserProfileChangeRequest.Builder()
+                                        .setDisplayName(etname.text.toString()).build()
+                                user!!.updateProfile(profileUpdates)
                                 DialogCreator()
 
                             } else {
