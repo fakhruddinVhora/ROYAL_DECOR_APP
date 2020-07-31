@@ -1,16 +1,22 @@
 package com.example.royal_decor.Utils
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
+
 
 class Constants {
 
@@ -104,5 +110,35 @@ class Constants {
         snack.show()
     }
 
+    fun isNetworkConnected(context: Context): Boolean {
+        val cm =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (cm != null) {
+            if (Build.VERSION.SDK_INT < 23) {
+                val ni = cm.activeNetworkInfo
+                if (ni != null) {
+                    return ni.isConnected && (ni.type == ConnectivityManager.TYPE_WIFI || ni.type == ConnectivityManager.TYPE_MOBILE)
+                }
+            } else {
+                val n = cm.activeNetwork
+                if (n != null) {
+                    val nc = cm.getNetworkCapabilities(n)
+                    return nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(
+                        NetworkCapabilities.TRANSPORT_WIFI
+                    )
+                }
+            }
+        }
+        return false
+    }
 
+    public fun CloseAppDialog(c: Context) {
+        val dialog = MaterialAlertDialogBuilder(c)
+        dialog.setTitle("Error")
+        dialog.setMessage("No Internet Connection. Please connect to the internet and restart the application")
+        dialog.setPositiveButton("Close App") { dialog, which ->
+            (c as Activity).finishAffinity()
+        }
+        dialog.show()
+    }
 }

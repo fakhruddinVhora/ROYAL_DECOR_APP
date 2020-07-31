@@ -1,6 +1,7 @@
 package com.example.royal_decor.Fragments
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -222,6 +223,12 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
     private fun validation(): Boolean {
         var returnbool = true
         var radioStringCheck = ""
+        if (!cemail.text.toString().equals("")) {
+            if (!Patterns.EMAIL_ADDRESS.toRegex().matches(cemail.text.toString())) {
+                cemail.setError("Please Enter a Valid Email ID")
+                returnbool = false
+            }
+        }
         if (cname.text!!.isEmpty()) {
             cname.error = Constants.ERROR_FILL_DETAILS
             returnbool = false

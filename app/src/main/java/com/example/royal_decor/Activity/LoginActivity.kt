@@ -60,7 +60,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        setupPermissions()
+        val c = Constants()
+        if (c.isNetworkConnected(this)) {
+            setupPermissions()
+        } else {
+            c.CloseAppDialog(this)
+        }
+
 
 
         init()

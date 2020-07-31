@@ -27,7 +27,6 @@ class DatabaseHelper {
 
     private lateinit var db: DatabaseReference
 
-
     fun open() {
         db = FirebaseDatabase.getInstance().reference
     }
@@ -322,10 +321,6 @@ class DatabaseHelper {
 
 
     /*-------------------------------------------Dashboard's DataHandling------------------------------------------------------------------------*/
-
-
-
-
 
 
     fun fetchDataforPieChart(loginprogressbar: ProgressBar, piechartcallback: PiechartCallback) {

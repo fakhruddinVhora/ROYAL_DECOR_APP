@@ -44,10 +44,17 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
         )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+        val c = Constants()
+
         init()
         initialization()
         //storeDBValuesInConstants()
-        setupGraphAdapter()
+        if (c.isNetworkConnected(this)) {
+            setupGraphAdapter()
+        } else {
+            c.CloseAppDialog(this)
+        }
+
         setupRecyclerView()
 
 
@@ -91,7 +98,9 @@ class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun LaunchChangePasswordCode(sClass: String) {
-        val i = Intent(this, DeskBaseActivity::class.java)
+        val i = Intent(
+            this, DeskBaseActivity::class.java
+        )
         i.putExtra("ItemSelected", sClass)
         startActivity(i)
         overridePendingTransition(R.anim.fadein, R.anim.fadeout)

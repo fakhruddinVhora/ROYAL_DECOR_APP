@@ -3,6 +3,7 @@ package com.example.royal_decor.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -120,8 +121,8 @@ class RegisterAccount : AppCompatActivity(), View.OnClickListener {
             et_emailid.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
         } else {
-            if (et_emailid.text.toString().length > 30) {
-                et_emailid.error = Constants.ERROR_EXCEED_LIMIT
+            if (!Patterns.EMAIL_ADDRESS.toRegex().matches(et_emailid.text.toString())) {
+                et_emailid.setError("Please Enter a Valid Email ID")
                 returnbool = false
             }
         }

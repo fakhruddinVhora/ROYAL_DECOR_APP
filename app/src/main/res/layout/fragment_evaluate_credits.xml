@@ -97,7 +97,7 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_weight="2"
                     android:fontFamily="@font/josefinsansregular"
-                    android:hint="Qt"
+                    android:hint="Qty"
                     android:textColor="@color/colorPrimary"
                     app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
                     app:boxCornerRadiusBottomStart="@dimen/_10sdp"
