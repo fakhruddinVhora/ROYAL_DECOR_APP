@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -15,6 +16,7 @@ import com.example.royal_decor.Adapters.CreditStatementAdapter
 import com.example.royal_decor.Adapters.PainterATVAdapter
 import com.example.royal_decor.DatabaseFunctionality.DatabaseHelper
 import com.example.royal_decor.Interface.CredStmtCallback
+import com.example.royal_decor.Interface.DataDeletedSuccessCallback
 import com.example.royal_decor.Interface.PainterCallback
 import com.example.royal_decor.Models.Painters
 import com.example.royal_decor.Models.TallyLog
@@ -28,6 +30,7 @@ import com.google.android.material.textview.MaterialTextView
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CreditStatementFragment : Fragment(), View.OnClickListener,
@@ -46,8 +49,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
 
     private lateinit var FilterLayout: LinearLayout
 
-    private lateinit var btn_startdate: ImageButton
-    private lateinit var btn_enddate: ImageButton
+
     private lateinit var et_startdate: TextInputEditText
     private lateinit var et_enddate: TextInputEditText
 
@@ -78,11 +80,44 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
                 sortArrayBasedOnDate(list)
                 settingAdapter(list)
             }
+
         })
 
         backImg.setOnClickListener(this)
-        btn_startdate.setOnClickListener(this)
-        btn_enddate.setOnClickListener(this)
+
+
+        et_startdate.setOnTouchListener(View.OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= et_startdate.getRight() - et_startdate.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    datePickerDialog(true)
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
+
+        et_enddate.setOnTouchListener(View.OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= et_enddate.getRight() - et_enddate.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    datePickerDialog(false)
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
+
 
 
         FilterImg.setOnClickListener {
@@ -150,14 +185,15 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
             if (DateStart.after(DateEnd)) {
                 checkBool = false
                 Toast.makeText(activity, "Please select proper dates", Toast.LENGTH_SHORT).show()
+                et_enddate.text!!.clear();
             }
         }
         if (checkBool) {
 
             for (element in CreditLogList) {
-                if (element.painterid.equals(PainterObj!!.id)) {
+                if (element.painterid == PainterObj!!.id) {
                     val d = SimpleDateFormat("dd/MM/yyyy").parse(element.date)
-                    if (DateStart.compareTo(d) * d.compareTo(DateEnd) >= 0) {
+                    if (DateStart.compareTo(d) * d!!.compareTo(DateEnd) >= 0) {
                         TempcustomerList.add(element)
                     }
                 }
@@ -182,8 +218,10 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
         backImg.visibility = View.VISIBLE
         headertext.text = Constants.CREDIT_STATEMENT
         FilterImg.visibility = View.VISIBLE
-        et_startdate.isEnabled = false
-        et_enddate.isEnabled = false
+        et_startdate.isLongClickable = false
+        et_enddate.isLongClickable = false
+        et_startdate.showSoftInputOnFocus = false
+        et_enddate.showSoftInputOnFocus = false
         et_enddate.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
         et_startdate.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
         clearFilters.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
@@ -211,8 +249,7 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
         FilterLayout = v.findViewById(R.id.filterlayout)
 
 
-        btn_enddate = v.findViewById(R.id.btn_enddate)
-        btn_startdate = v.findViewById(R.id.btn_startdate)
+
         et_enddate = v.findViewById(R.id.et_enddate)
         et_startdate = v.findViewById(R.id.et_startdate)
 
@@ -239,17 +276,12 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
                 activity!!.finish()
                 activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
-            R.id.btn_startdate -> {
-                datePickerDialog(true)
-            }
-            R.id.btn_enddate -> {
-                datePickerDialog(false)
-            }
+
         }
     }
 
 
-    fun DialogCreator(item: TallyLog) {
+    fun ViewCreditInfoDialog(item: TallyLog) {
         val dialog = MaterialAlertDialogBuilder(context)
         dialog.setTitle("Tally of ${item.paintername}'s Total of ${item.totalPoints}")
         val inflater = this.layoutInflater
@@ -326,7 +358,44 @@ class CreditStatementFragment : Fragment(), View.OnClickListener,
 
 
     override fun OnInfoClick(item: TallyLog) {
-        DialogCreator(item)
+        ViewCreditInfoDialog(item)
+    }
+
+    override fun OnDeleteClick(item: TallyLog, position: Int) {
+        DeleteCreditInfoDialog(item, position)
+    }
+
+    private fun DeleteCreditInfoDialog(
+        item: TallyLog,
+        position: Int
+    ) {
+        val dialog = MaterialAlertDialogBuilder(activity)
+        dialog.setTitle("Warning")
+        dialog.setMessage("Are you sure you want to delete?")
+        val inflater = this.layoutInflater
+        dialog.setPositiveButton("Delete") { dialog, which ->
+            dbHelper.deletecredStmt(item, pb_creditstmt, object : DataDeletedSuccessCallback {
+
+                override fun returnIsDataDeletd(isDeleted: Boolean) {
+                    if (isDeleted) {
+                        creditstmtadapter.deleteData(position)
+                        CreditLogList.remove(item)
+                    } else {
+                        Toast.makeText(
+                            activity!!.applicationContext,
+                            "Cannot Delete. Please try later",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            })
+        }
+        dialog.setNegativeButton("Cancel") { dialog, which ->
+
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     fun sortArrayBasedOnDate(list: java.util.ArrayList<TallyLog>) {

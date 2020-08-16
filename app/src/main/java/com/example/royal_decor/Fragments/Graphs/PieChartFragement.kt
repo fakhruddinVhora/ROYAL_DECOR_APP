@@ -108,10 +108,10 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
 
         val dataSet = PieDataSet(NoOfEmp, "")
         dataSet.setDrawIcons(false)
-        dataSet.sliceSpace = 0f
+        dataSet.sliceSpace = 3f
         dataSet.iconsOffset = MPPointF(0F, 20F)
         dataSet.selectionShift = 2f
-        dataSet.setColors(*ColorTemplate.PASTEL_COLORS)
+        dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
 
         val data = PieData(dataSet)
         data.setValueTextSize(15f)

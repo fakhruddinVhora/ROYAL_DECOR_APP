@@ -144,7 +144,7 @@ class ChangePasswordFragment : Fragment() {
 
     private fun initialization() {
         currentuser = mAuth?.currentUser!!
-
+        headertext.setText(Constants.CHANGE_PASSWORD)
         et_emailid.setText(currentuser.email)
     }
 

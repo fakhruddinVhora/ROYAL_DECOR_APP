@@ -8,14 +8,14 @@
         android:id="@+id/atv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_3sdp"
         android:fontFamily="@font/josefinsansregular"
         android:gravity="left"
         android:paddingStart="@dimen/_10sdp"
         android:text="Sushant"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/_13sdp" />
+        android:textSize="@dimen/_10sdp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/atv_mobile"
@@ -27,7 +27,7 @@
         android:paddingEnd="@dimen/_15sdp"
         android:text="Mobile: XXX"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/_10sdp" />
+        android:textSize="@dimen/_8sdp" />
 
     <View
         android:layout_width="match_parent"

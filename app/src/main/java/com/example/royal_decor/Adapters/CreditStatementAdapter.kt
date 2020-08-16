@@ -41,6 +41,10 @@ class CreditStatementAdapter(
 
     }
 
+    fun deleteData(itemposition: Int) {
+        credStmtList.removeAt(itemposition)
+        notifyItemRemoved(itemposition)
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val custID = itemView.findViewById(R.id.cus_id) as TextView
@@ -55,7 +59,6 @@ class CreditStatementAdapter(
             credStmtObj: TallyLog,
             clickListener: CreditStatementFragment
         ) {
-            delete.visibility = View.INVISIBLE
             custID.text = "Mob: ${credStmtObj.paintermob}"
             custname.text = credStmtObj.paintername
             custaddress.text = "Total Points: ${credStmtObj.totalPoints.toString()}"
@@ -64,10 +67,14 @@ class CreditStatementAdapter(
             info.setOnClickListener {
                 clickListener.OnInfoClick(credStmtObj)
             }
+            delete.setOnClickListener {
+                clickListener.OnDeleteClick(credStmtObj, adapterPosition)
+            }
         }
     }
 
     interface credStmtOnclickListener {
         fun OnInfoClick(item: TallyLog)
+        fun OnDeleteClick(item: TallyLog, position: Int)
     }
 }

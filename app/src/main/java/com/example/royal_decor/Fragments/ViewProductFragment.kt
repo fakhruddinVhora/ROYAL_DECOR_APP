@@ -40,9 +40,6 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         v = inflater.inflate(R.layout.fragment_view_product, container, false)
         init()
         initialization()
-        /* val ProdList: ArrayList<Product> = ArrayList()
-         settingAdapter(ProdList)
-         dbHelper.fetchproductdetails(prodadapter, prodlistrv, false)*/
 
         dbHelper.getproductdetails(pb_product, object : ProductCallback {
             override fun returnProductValues(list: ArrayList<Product>) {
@@ -69,7 +66,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         pb_product = v.findViewById(R.id.pb_productdetails)
     }
 
-    private fun settingAdapter(prodListData: List<Product>) {
+    private fun settingAdapter(prodListData: ArrayList<Product>) {
 
         val RecyclerViewLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         prodlistrv.layoutManager = RecyclerViewLayoutManager
@@ -92,7 +89,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
     }
 
     override fun OnEditClick(prodObj: Product) {
-        DialogCreator(prodObj)
+        EditProdDetailsDialog(prodObj)
     }
 
     override fun OnDeleteClick(prodObj: Product) {
@@ -104,7 +101,7 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         })
     }
 
-    fun DialogCreator(item: Product) {
+    fun EditProdDetailsDialog(item: Product) {
         val dialog = MaterialAlertDialogBuilder(context)
         dialog.setTitle("Edit ${item.productname}'s Details")
         val inflater = this.layoutInflater
@@ -115,6 +112,9 @@ class ViewProductFragment : Fragment(), View.OnClickListener,
         val productcode = dialogView.findViewById<TextInputEditText>(R.id.prodcode)
         val credits = dialogView.findViewById<TextInputEditText>(R.id.credits)
 
+
+        //So that no one can change the product Name
+        name.isEnabled = false
 
 
         name.setText(item.productname)

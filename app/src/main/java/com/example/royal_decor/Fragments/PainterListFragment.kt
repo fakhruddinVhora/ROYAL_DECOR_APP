@@ -3,9 +3,13 @@ package com.example.royal_decor.Fragments
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -181,7 +185,6 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         val aadhar = dialogView.findViewById<TextInputEditText>(R.id.aadhar)
         val mobile = dialogView.findViewById<TextInputEditText>(R.id.etmobile)
         val etdob = dialogView.findViewById<TextInputEditText>(R.id.dob)
-        val btn_dob = dialogView.findViewById<ImageButton>(R.id.btn_selectdate)
 
 
         name.setText(item.name)
@@ -189,9 +192,21 @@ class PainterListFragment : Fragment(), View.OnClickListener,
         aadhar.setText(item.aadhar)
         mobile.setText(item.mobile)
         etdob.setText(item.dateofbirth)
-        btn_dob.setOnClickListener {
-            dobDialog(etdob)
-        }
+        etdob.setOnTouchListener(View.OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= etdob.getRight() - etdob.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    dobDialog(etdob)
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
 
         dialog.setView(dialogView)
         dialog.setPositiveButton("Update") { dialog, which ->
@@ -244,19 +259,6 @@ class PainterListFragment : Fragment(), View.OnClickListener,
                 returnbool = false
             }
         }
-        if (pdob.text!!.isEmpty()) {
-            pdob.error = Constants.ERROR_FILL_DETAILS
-            returnbool = false
-        }
-        if (paddress.text!!.isEmpty()) {
-            paddress.error = Constants.ERROR_FILL_DETAILS
-            returnbool = false
-        } else {
-            if (paddress.text.toString().length > 30) {
-                paddress.error = Constants.ERROR_EXCEED_LIMIT
-                returnbool = false
-            }
-        }
         if (paddress.text!!.isEmpty()) {
             paddress.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
@@ -270,15 +272,13 @@ class PainterListFragment : Fragment(), View.OnClickListener,
             pmobilenumber.error = Constants.ERROR_FILL_DETAILS
             returnbool = false
         } else {
-            if (pmobilenumber.text.toString().length > 10) {
+            if (pmobilenumber.text.toString().length != 10) {
                 pmobilenumber.error = Constants.ERROR_EXCEED_LIMIT
                 returnbool = false
             }
         }
-        if (paadhar.text!!.isEmpty()) {
-            paadhar.setText("")
-        } else {
-            if (paadhar.text.toString().length > 16) {
+        if (!paadhar.text!!.isEmpty()) {
+            if (paadhar.text.toString().length != 12) {
                 paadhar.error = Constants.ERROR_EXCEED_LIMIT
                 returnbool = false
             }

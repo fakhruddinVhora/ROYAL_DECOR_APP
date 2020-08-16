@@ -59,6 +59,23 @@ class DatabaseHelper {
             }
         })
     }
+
+
+    fun deletecredStmt(
+        item: TallyLog,
+        progressbar: ProgressBar,
+        callback: DataDeletedSuccessCallback
+    ) {
+        db.child(Constants.NODE_CREDIT_LOGS).child(item.id).removeValue()
+            .addOnSuccessListener {
+                UpdatePainterData(item, item.painterid, false)
+                callback.returnIsDataDeletd(true)
+            }
+            .addOnFailureListener {
+                callback.returnIsDataDeletd(false)
+            }
+
+    }
 /*-------------------------------------------Custstatement DataHandling Start------------------------------------------------------------------------*/
 
 /*-------------------------------------------Feedback DataHandling Start------------------------------------------------------------------------*/
@@ -111,14 +128,14 @@ class DatabaseHelper {
     ) {
         db.child(Constants.NODE_CREDIT_LOGS).child(logObj.id).setValue(logObj)
             .addOnSuccessListener {
-                UpdatePainterData(logObj, painterObj)
+                UpdatePainterData(logObj, painterObj.id, true)
             }
 
     }
 
-    fun UpdatePainterData(logObj: TallyLog, painterObj: Painters) {
+    fun UpdatePainterData(logObj: TallyLog, painterid: String, isadd: Boolean) {
         var int = 0
-        val ref: DatabaseReference = db.child(Constants.NODE_PAINTER + "/${painterObj.id}")
+        val ref: DatabaseReference = db.child(Constants.NODE_PAINTER + "/${painterid}")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
@@ -128,8 +145,15 @@ class DatabaseHelper {
                 val obj = snapshot.getValue(Painters::class.java)
                 if (obj != null) {
                     int = obj.credits
-                    var total = int + logObj.totalPoints
-                    db.child(Constants.NODE_PAINTER).child(painterObj.id).child("credits")
+                    var total = 0
+                    if (isadd) {
+                        total = int + logObj.totalPoints
+                    } else {
+                        if (int >= logObj.totalPoints) {
+                            total = int - logObj.totalPoints
+                        }
+                    }
+                    db.child(Constants.NODE_PAINTER).child(painterid).child("credits")
                         .setValue(total)
                     return
                 }
@@ -151,11 +175,11 @@ class DatabaseHelper {
         db.child(Constants.NODE_PRODUCT).child(prodObj.productID).setValue(prodObj)
             .addOnSuccessListener {
                 progressbar.visibility = View.GONE
-                param.returnCredStmtrValues(true)
+                param.returnIsAddedSuccessfully(true)
             }
             .addOnFailureListener {
                 progressbar.visibility = View.GONE
-                param.returnCredStmtrValues(false)
+                param.returnIsAddedSuccessfully(false)
             }
 
         return returnbool
@@ -177,9 +201,9 @@ class DatabaseHelper {
             override fun onDataChange(snapshot: DataSnapshot) {
                 progressbar.visibility = View.GONE
                 if (snapshot.exists()) {
-                    param.returnCredStmtrValues(false)
+                    param.returnIsAddedSuccessfully(false)
                 } else {
-                    param.returnCredStmtrValues(true)
+                    param.returnIsAddedSuccessfully(true)
                 }
             }
         })
@@ -283,11 +307,11 @@ class DatabaseHelper {
         db.child(Constants.NODE_PAINTER).child(painterObj.id).setValue(painterObj)
             .addOnSuccessListener {
                 progressbar.visibility = View.GONE
-                param.returnCredStmtrValues(true)
+                param.returnIsAddedSuccessfully(true)
             }
             .addOnFailureListener {
                 progressbar.visibility = View.GONE
-                param.returnCredStmtrValues(false)
+                param.returnIsAddedSuccessfully(false)
             }
 
     }
@@ -310,9 +334,9 @@ class DatabaseHelper {
             override fun onDataChange(snapshot: DataSnapshot) {
                 progressbar.visibility = View.GONE
                 if (snapshot.exists()) {
-                    param.returnCredStmtrValues(false)
+                    param.returnIsAddedSuccessfully(false)
                 } else {
-                    param.returnCredStmtrValues(true)
+                    param.returnIsAddedSuccessfully(true)
                 }
             }
         })

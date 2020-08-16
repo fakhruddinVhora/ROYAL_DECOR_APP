@@ -85,9 +85,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:maxLength="30"
                             android:importantForAutofill="no"
                             android:inputType="textCapSentences|textNoSuggestions"
+                            android:maxLength="30"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -116,8 +116,8 @@
                             android:background="@null"
                             android:importantForAutofill="no"
                             android:inputType="textCapSentences|textNoSuggestions"
-                            android:maxLines="2"
                             android:maxLength="30"
+                            android:maxLines="2"
                             android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -137,8 +137,6 @@
                         app:boxCornerRadiusTopStart="@dimen/_10sdp"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="10"
                         app:hintTextAppearance="@style/CustomLabel">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -183,58 +181,39 @@
                             android:textSize="@dimen/_10sdp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_25sdp"
-                        android:orientation="horizontal">
+                        android:fontFamily="@font/josefinsansregular"
+                        android:hint="Date of Birth(Optional)"
+                        android:textColor="@color/colorPrimary"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:hintTextAppearance="@style/CustomLabel">
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_45sdp"
-                            android:layout_weight="8"
-                            android:fontFamily="@font/josefinsansregular"
-                            android:hint="Date of Birth (Optional)"
-                            android:textColor="@color/colorPrimary"
-                            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-                            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-                            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                            app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                            app:boxStrokeWidth="0dp"
-                            app:boxStrokeWidthFocused="0dp"
-                            app:hintTextAppearance="@style/CustomLabel">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_dateofbirth"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@null"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:textColor="@color/colorPrimary"
-                                android:textColorHint="@color/colorPrimary"
-                                android:textSize="@dimen/_10sdp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/btn_selectdate"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:layout_weight="2"
-                            android:background="@drawable/customroundedlayoutimagebutton"
-                            android:backgroundTint="#0C2733"
-                            android:elevation="@dimen/_5sdp"
-                            android:src="@drawable/ic_date"
-                            android:textColor="#fff"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_dateofbirth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:clickable="true"
+                            android:cursorVisible="false"
+                            android:drawableRight="@drawable/ic_date"
+                            android:drawablePadding="0dp"
+                            android:importantForAutofill="no"
+                            android:inputType="none"
+                            android:maxLength="20"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="@dimen/_10sdp"
-                            app:cornerRadius="@dimen/_10sdp" />
-
-                    </LinearLayout>
-
+                            android:windowSoftInputMode="stateHidden" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -579,10 +558,10 @@
                                 android:gravity="top|left"
                                 android:importantForAutofill="no"
                                 android:inputType="textMultiLine|textCapSentences|textNoSuggestions"
-                                android:paddingTop="@dimen/_16sdp"
-                                android:text=""
                                 android:maxLength="600"
                                 android:maxLines="7"
+                                android:paddingTop="@dimen/_16sdp"
+                                android:text=""
                                 android:textColorHint="@color/colorPrimary"
                                 android:textSize="@dimen/_12sdp" />
                         </com.google.android.material.textfield.TextInputLayout>

@@ -8,12 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.royal_decor.Models.Product
 import com.example.royal_decor.R
-import java.util.*
 
 class ViewProductAdapter(
-    var prodList: List<Product>,
+    var prodList: ArrayList<Product>,
     val clicklistener: OnProductClickedListener
 ) : RecyclerView.Adapter<ViewProductAdapter.ProductViewHolder>() {
+    var prodArrayList = ArrayList<Product>()
+
 
     class ProductViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
         val custID = itemView.findViewById(R.id.cus_id) as TextView
@@ -71,4 +72,5 @@ class ViewProductAdapter(
         notifyDataSetChanged()
 
     }
+
 }

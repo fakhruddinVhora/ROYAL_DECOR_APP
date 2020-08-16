@@ -3,7 +3,9 @@ package com.example.royal_decor.Fragments
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -25,7 +27,6 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
 
     private lateinit var backImg: ImageView
     private lateinit var headertext: TextView
-    private lateinit var btn_dob: ImageButton
     private lateinit var btn_submit: Button
 
     private lateinit var cname: TextInputEditText
@@ -61,7 +62,6 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
         init()
         initialization()
 
-        btn_dob.setOnClickListener(this)
         backImg.setOnClickListener(this)
         btn_submit.setOnClickListener(this)
 
@@ -90,7 +90,23 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
                 colorconsultation = radio.text.toString()
             })
 
+        cdob.setOnTouchListener(OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= cdob.getRight() - cdob.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    datePickerDialog()
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
 
+        // cdob.setOnClickListener { Toast.makeText(activity!!.applicationContext,"HELLO",Toast.LENGTH_SHORT).show() }
 
         return v
     }
@@ -98,8 +114,9 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
     private fun initialization() {
         backImg.visibility = View.VISIBLE
         headertext.text = "Customer FeedBack"
-        cdob.isEnabled = false
         cdob.resources.getColor(R.color.black)
+        cdob.setShowSoftInputOnFocus(false);
+        cdob.setLongClickable(false);
         dbhandler = DatabaseHelper()
         dbhandler.open()
 
@@ -120,7 +137,6 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
         cemail = v.findViewById(R.id.cemail)
         caddress = v.findViewById(R.id.caddress)
         cdob = v.findViewById(R.id.et_dateofbirth)
-        btn_dob = v.findViewById(R.id.btn_selectdate)
 
         ratingbar = v.findViewById(R.id.ratingbar)
 
@@ -137,9 +153,6 @@ class CustomerFeedBackFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.btn_selectdate -> {
-                datePickerDialog()
-            }
             R.id.img_back -> {
                 EXIT()
             }

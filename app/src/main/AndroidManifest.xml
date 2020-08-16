@@ -14,7 +14,7 @@
         android:icon="@mipmap/rdicon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/rdicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.RegisterAccount" />

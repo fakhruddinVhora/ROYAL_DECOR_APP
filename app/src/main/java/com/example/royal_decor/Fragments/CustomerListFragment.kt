@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -43,8 +44,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
     private lateinit var clearFilters: TextView
     private lateinit var FilterLayout: LinearLayout
 
-    private lateinit var btn_startdate: ImageButton
-    private lateinit var btn_enddate: ImageButton
+
     private lateinit var et_startdate: TextInputEditText
     private lateinit var et_enddate: TextInputEditText
 
@@ -99,8 +99,38 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         }
 
         backImg.setOnClickListener(this)
-        btn_startdate.setOnClickListener(this)
-        btn_enddate.setOnClickListener(this)
+        et_startdate.setOnTouchListener(View.OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= et_startdate.getRight() - et_startdate.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    datePickerDialog(true)
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
+
+        et_enddate.setOnTouchListener(View.OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= et_enddate.getRight() - et_enddate.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    datePickerDialog(false)
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
+
         return v
 
 
@@ -112,12 +142,6 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
                 activity!!.finish()
                 activity!!.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             }
-            R.id.btn_startdate -> {
-                datePickerDialog(true)
-            }
-            R.id.btn_enddate -> {
-                datePickerDialog(false)
-            }
         }
     }
 
@@ -127,8 +151,10 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
 
 
         FilterImg.visibility = View.VISIBLE
-        et_startdate.isEnabled = false
-        et_enddate.isEnabled = false
+        et_startdate.isLongClickable = false
+        et_enddate.isLongClickable = false
+        et_startdate.showSoftInputOnFocus = false
+        et_enddate.showSoftInputOnFocus = false
         et_enddate.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
         et_startdate.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, null))
         clearFilters.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
@@ -151,8 +177,7 @@ class CustomerListFragment : Fragment(), View.OnClickListener,
         FilterLayout = v.findViewById(R.id.filterlayout)
         clearFilters = v.findViewById(R.id.clearfilters)
 
-        btn_enddate = v.findViewById(R.id.btn_enddate)
-        btn_startdate = v.findViewById(R.id.btn_startdate)
+
         et_enddate = v.findViewById(R.id.et_enddate)
         et_startdate = v.findViewById(R.id.et_startdate)
         dbhandler = DatabaseHelper()

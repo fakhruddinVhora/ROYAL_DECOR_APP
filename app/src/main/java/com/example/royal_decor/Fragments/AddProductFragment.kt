@@ -82,7 +82,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
                         et_prodcode.text.toString(),
                         pb_addproduct,
                         object : DataAddedSuccessCallback {
-                            override fun returnCredStmtrValues(isSuccess: Boolean) {
+                            override fun returnIsAddedSuccessfully(isSuccess: Boolean) {
                                 if (isSuccess) {
                                     AddProduct(constant)
                                 } else {
@@ -109,7 +109,7 @@ class AddProductFragment : Fragment(), View.OnClickListener {
             et_prodcredits.text.toString()
         )
         dbHelper.addproduct(obj, pb_addproduct, object : DataAddedSuccessCallback {
-            override fun returnCredStmtrValues(isSuccess: Boolean) {
+            override fun returnIsAddedSuccessfully(isSuccess: Boolean) {
                 if (isSuccess) {
                     DialogCreator("Success")
 

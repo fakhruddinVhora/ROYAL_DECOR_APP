@@ -1,5 +1,5 @@
 package com.example.royal_decor.Interface
 
 public interface DataAddedSuccessCallback {
-    public fun returnCredStmtrValues(isSuccess: Boolean)
+    public fun returnIsAddedSuccessfully(isSuccess: Boolean)
 }

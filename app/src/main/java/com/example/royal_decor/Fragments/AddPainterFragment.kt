@@ -2,6 +2,7 @@ package com.example.royal_decor.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -29,7 +30,6 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
     private lateinit var paddress: TextInputEditText
     private lateinit var pdob: TextInputEditText
     private lateinit var pmobilenumber: TextInputEditText
-    private lateinit var btn_selectdate: ImageButton
     private lateinit var paadhar: TextInputEditText
     private lateinit var dbhandler: DatabaseHelper
     private lateinit var pb_addpainter: ProgressBar
@@ -45,7 +45,22 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
 
         btnAdd.setOnClickListener(this)
         backImg.setOnClickListener(this)
-        btn_selectdate.setOnClickListener(this)
+
+        pdob.setOnTouchListener(View.OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= pdob.getRight() - pdob.getCompoundDrawables()
+                        .get(DRAWABLE_RIGHT).getBounds().width()
+                ) {
+                    datePickerDialog()
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
 
         return v
     }
@@ -53,7 +68,8 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
     private fun initialization() {
         backImg.visibility = View.VISIBLE
         headertext.text = Constants.ADD_PAINTER
-        pdob.isEnabled = false
+        pdob.setShowSoftInputOnFocus(false);
+        pdob.isLongClickable = false
         pdob.resources.getColor(R.color.black)
         dbhandler = DatabaseHelper()
         dbhandler.open()
@@ -68,7 +84,6 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
         paadhar = v.findViewById(R.id.paadhar)
         pdob = v.findViewById(R.id.et_dateofbirth)
         pmobilenumber = v.findViewById(R.id.pmobile)
-        btn_selectdate = v.findViewById(R.id.btn_selectdate)
         pb_addpainter = v.findViewById(R.id.pb_addpainter)
     }
 
@@ -81,17 +96,13 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
 
             }
 
-            R.id.btn_selectdate -> {
-                datePickerDialog()
-            }
-
             R.id.btn_add -> {
                 if (validation()) {
                     val constant = Constants()
                     dbhandler.checkPainterDataForDuplicates(pb_addpainter,
                         pmobilenumber.text.toString(),
                         object : DataAddedSuccessCallback {
-                            override fun returnCredStmtrValues(isSuccess: Boolean) {
+                            override fun returnIsAddedSuccessfully(isSuccess: Boolean) {
                                 if (isSuccess) {
                                     AddingPainter(constant)
                                 } else {
@@ -124,7 +135,7 @@ class AddPainterFragment : Fragment(), View.OnClickListener {
             pb_addpainter,
             painterObj,
             object : DataAddedSuccessCallback {
-                override fun returnCredStmtrValues(isSuccess: Boolean) {
+                override fun returnIsAddedSuccessfully(isSuccess: Boolean) {
                     if (isSuccess) {
                         DialogCreator("Success", "Painter Added Successfully")
                         pname.text!!.clear()
