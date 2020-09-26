@@ -123,54 +123,6 @@
                             android:windowSoftInputMode="stateHidden" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_weight="5"
-                        android:fontFamily="@font/josefinsansregular"
-                        android:hint="End Date"
-                        android:textColor="@color/colorPrimary"
-                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-                        app:boxCornerRadiusTopStart="@dimen/_10sdp"
-                        app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp"
-                        app:hintTextAppearance="@style/CustomLabel">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_enddate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:paddingTop="@dimen/_17sdp"
-                            android:textColor="@color/colorPrimary"
-                            android:textColorHint="@color/colorPrimary"
-                            android:textSize="@dimen/_10sdp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/btn_enddate"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_weight="2"
-                        android:background="@drawable/customroundedlayoutimagebutton"
-                        android:elevation="@dimen/_10sdp"
-                        android:src="@drawable/ic_date"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/_10sdp"
-                        app:cornerRadius="@dimen/_10sdp" />
-                </LinearLayout>
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView

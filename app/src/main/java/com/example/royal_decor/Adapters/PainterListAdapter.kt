@@ -63,6 +63,7 @@ class PainterListAdapter(
 
             edit.setImageResource(0)
             edit.setBackgroundResource(R.drawable.ic_edit)
+            delete.visibility=View.INVISIBLE
             custID.text = painterObj.id
             custname.text = painterObj.name
             custaddress.text = painterObj.address

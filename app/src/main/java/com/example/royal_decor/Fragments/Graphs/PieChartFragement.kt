@@ -24,6 +24,9 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class PieChartFragement : Fragment(), OnChartValueSelectedListener,
@@ -97,12 +100,16 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
     fun newsetuppiechart(map: ArrayList<HashMap<String, Int>>) {
         val NoOfEmp = ArrayList<PieEntry>()
 
-        val result: Map<String, Int> = map
+        var result: Map<String, Int> = map
             .fold(mapOf()) { accMap, map ->
                 accMap.merge(map, Int::plus)
             }
 
-        for (element in result) {
+        var descendingList : SortedMap<String, Int> = result.toSortedMap(reverseOrder())
+
+        val trimmedList = DisplayTopProds(descendingList);
+
+        for (element in trimmedList) {
             NoOfEmp.add(PieEntry((element.value).toFloat(), element.key))
         }
 
@@ -140,6 +147,20 @@ class PieChartFragement : Fragment(), OnChartValueSelectedListener,
         pieChart.invalidate()
         pieChart.animateXY(900, 900)
 
+    }
+
+    private fun DisplayTopProds(result: SortedMap<String, Int>): HashMap<String, Int> {
+        var i = 0;
+        var trimMap: HashMap<String, Int> = HashMap()
+        for ((key, value) in result) {
+            if (i == 8) {
+                break;
+            } else {
+                trimMap.put(key, value)
+                i++;
+            }
+        }
+        return trimMap;
     }
 
 }

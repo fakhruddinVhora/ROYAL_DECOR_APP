@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.location.Location
@@ -36,7 +37,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var loginprogressbar: ProgressBar
     private lateinit var forgotpassword: MaterialTextView
     private lateinit var createnewaccount: MaterialTextView
+    private var isFirstTimeLogin: Boolean = false;
+    private var Const: Constants = Constants();
 
+    private lateinit var prefs: SharedPreferences
 
     private var mAuth: FirebaseAuth? = null
     private val RECORD_REQUEST_CODE = 101
@@ -60,19 +64,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val c = Constants()
-        if (c.isNetworkConnected(this)) {
+        init()
+        if (Const.isNetworkConnected(this)) {
             setupPermissions()
         } else {
-            c.CloseAppDialog(this)
+            Const.CloseAppDialog(this)
         }
-
-
-
-        init()
-
-
-        forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
 
 
         BTNlogin.setOnClickListener(this)
@@ -83,7 +80,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
+        permissions: Array<String>,
+        grantResults: IntArray
     ) {
         when (requestCode) {
             RECORD_REQUEST_CODE -> {
@@ -91,8 +89,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     //denies
                     finishAffinity()
-                } else {
-                    //granted
                 }
             }
         }
@@ -115,11 +111,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-/*        val permission1 =
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-        val permission2 =
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)*/
-        if (permission != PackageManager.PERMISSION_GRANTED /*|| permission1 != PackageManager.PERMISSION_GRANTED || permission2 != PackageManager.PERMISSION_GRANTED*/) {
+        if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
     }
@@ -128,17 +120,38 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun init() {
         mAuth = FirebaseAuth.getInstance()
 
+
+        prefs = getSharedPreference()
         BTNlogin = findViewById(R.id.btn_login)
         loginprogressbar = findViewById(R.id.loginprogressbar)
         forgotpassword = findViewById(R.id.forgetpassword)
         createnewaccount = findViewById(R.id.createnewaccount)
-
         et_username = findViewById(R.id.username)
         et_password = findViewById(R.id.password)
+        forgotpassword.setPaintFlags(forgotpassword.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+        setEmailID()
 
+    }
 
-        mAuth = FirebaseAuth.getInstance()
+    private fun setEmailID() {
+        val emailIDFromPrefs = getEmailIDFromPreferences()
+        if (emailIDFromPrefs != "") {
+            et_username.setText(emailIDFromPrefs)
+            et_password.requestFocus()
+        } else {
+            isFirstTimeLogin = true
+        }
+    }
 
+    private fun getEmailIDFromPreferences(): String {
+        prefs.getString(Constants.PREF_EMAIL_ID, "")?.let {
+            return it
+        }
+        return ""
+    }
+
+    private fun getSharedPreference(): SharedPreferences {
+        return this.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
 
 
@@ -152,50 +165,32 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     mAuth!!.signInWithEmailAndPassword(
                         et_username.text.toString(),
                         et_password.text.toString()
-                    )
-                        .addOnCompleteListener { task ->
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            loginprogressbar.visibility = View.GONE
+                    ).addOnCompleteListener { task ->
 
-                            if (task.isSuccessful) {
-                                startActivity(
-                                    Intent(
-                                        applicationContext,
-                                        DashboardActivity::class.java
-                                    )
+                        loginprogressbar.visibility = View.GONE
 
+                        if (task.isSuccessful) {
+                            setEmailIDForSharedPrefs(et_username.text.toString())
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    DashboardActivity::class.java
                                 )
-                                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
-                                finish()
-                            } else {
-                                Toast.makeText(
-                                    this@LoginActivity,
-                                    "Authentication Failed.. Please Check Username/Password",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
+                            )
+                            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Authentication Failed.. Please Check Username/Password",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
+                    }
                 }
 
-                //   loginprogressbar.visibility == View.VISIBLE
 
-                /*   if (loginprogressbar.visibility == View.GONE) {
-                       // Login()
-                   }*/
-                /* val lm =
-                     getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                 val location: Location = getLastKnownLocation()
-                 val longitude: Double = location.getLongitude()
-                 val latitude: Double = location.getLatitude()
-
-                 Toast.makeText(
-                     applicationContext,
-                     "Latitude $latitude and Longitude : $longitude",
-                     Toast.LENGTH_LONG
-                 ).show()*/
             }
 
             R.id.createnewaccount -> {
@@ -203,15 +198,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.forgetpassword -> {
-                /*val user1 = mAuth!!.currentUser;
-                user1!!.updatePassword("dhfsdfh").addOnCompleteListener{
-                    task ->
-                    if (task.isSuccessful){
-
-                    }else{
-
-                    }
-                }*/
                 if (ValidateEmail()) {
                     loginprogressbar.visibility = View.VISIBLE
                     mAuth!!.sendPasswordResetEmail(et_username.text.toString())
@@ -232,6 +218,24 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         }
 
+    }
+
+    private fun setEmailIDForSharedPrefs(emailidVal: String) {
+        var isToBeSavedInPrefs = false;
+        if (isFirstTimeLogin) {
+            isToBeSavedInPrefs = true
+        } else {
+            if (!emailidVal.equals(getEmailIDFromPreferences())) {
+                isToBeSavedInPrefs = true
+            }
+        }
+        if (isToBeSavedInPrefs) {
+            prefs.edit().apply {
+                putString(Constants.PREF_EMAIL_ID, emailidVal)
+                apply()
+            }
+
+        }
     }
 
     private fun ValidateEmail(): Boolean {

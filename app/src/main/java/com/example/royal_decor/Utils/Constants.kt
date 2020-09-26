@@ -73,6 +73,11 @@ class Constants {
         var PIECHART_PROD_DATA: ArrayList<HashMap<String, Int>> = ArrayList()
 
 
+        //Shared PReference
+
+         val SHARED_PREF_NAME = "DecorSharedPreference"
+         val PREF_EMAIL_ID = "EmailId"
+
     }
 
     fun rand(start: Int, end: Int): Int {
@@ -132,7 +137,7 @@ class Constants {
         return false
     }
 
-    public fun CloseAppDialog(c: Context) {
+     fun CloseAppDialog(c: Context) {
         val dialog = MaterialAlertDialogBuilder(c)
         dialog.setTitle("Error")
         dialog.setMessage("No Internet Connection. Please connect to the internet and restart the application")

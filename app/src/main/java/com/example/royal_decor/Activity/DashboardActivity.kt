@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class DashboardActivity : AppCompatActivity(), View.OnClickListener {
 
+
     private lateinit var viewPager: ViewPager
     private lateinit var tablayout: TabLayout
     private lateinit var dashboardrv: RecyclerView
